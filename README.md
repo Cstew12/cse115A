@@ -15,3 +15,4 @@ To run on device:
 3. Install [expo-cli](https://docs.expo.dev/workflow/expo-cli/)
 4. Login to expo-cli with account username and password
 5. You should see your project on your device in the Expo Go app
+6. Run app with npm start in command line and app should open on your device.

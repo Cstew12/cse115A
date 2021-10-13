@@ -5,7 +5,8 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>This is Social Habit Tracker</Text>
+      <Text>This is Social Habit Tracker!</Text>
+      <Text>(Still in very early development)</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -14,7 +15,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#5f5',
     alignItems: 'center',
     justifyContent: 'center',
   },

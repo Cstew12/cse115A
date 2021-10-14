@@ -1,5 +1,7 @@
 # cse115A
 Social Habit Tracker
+Prerequisites:
+1. Make sure you have the latest version of node installed (14.18.0)
 
 To install:
 1. Clone the repo
@@ -16,3 +18,9 @@ To run on device:
 4. Login to expo-cli with account username and password
 5. You should see your project on your device in the Expo Go app
 6. Run app with npm start in command line and app should open on your device.
+
+Working on a new feature:
+1. in your terminal, do git branch and make sure you're on main
+2. then do git checkout -b <feature-name>
+3. do git branch again and you should be on your new feature branch
+4. work on your feature

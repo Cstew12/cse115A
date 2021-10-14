@@ -1,5 +1,7 @@
 # cse115A
 Social Habit Tracker
+Prerequisites:
+1. Make sure you have the latest version of node installed (14.18.0)
 
 To install:
 1. Clone the repo

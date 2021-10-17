@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-
-
 function LoginScreen(props) {
     return (
         <View style={styles.container}>
@@ -25,7 +23,7 @@ function LoginScreen(props) {
                 multiline={false}
             />
 
-            <Pressable style={styles.pressable1}>
+            <Pressable style={styles.pressable1} onPress={()=> props.navigation.navigate('CreateHabit')}>
                 <Text style={styles.buttonText}>Login</Text>
             </Pressable>
 

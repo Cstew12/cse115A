@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 function CreateHabitScreen(props) {
     return (
@@ -18,12 +18,26 @@ function CreateHabitScreen(props) {
                 </View>
                 <View style={styles.options}>
                     <Text style={styles.options_font}>Build or Quit</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                        <TouchableOpacity style={styles.build_quit_button} title="Build">
+                            <Text style={styles.build_quit}>Build</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.build_quit_button} title="Quit">
+                            <Text style={styles.build_quit}>Quit</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.options}>
                     <Text style={styles.options_font}>Habit period</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                        <Button style={styles.build_quit} title="Daily"/>
+                        <Button style={styles.build_quit} title="Weekly"/>
+                        <Button style={styles.build_quit} title="Monthly"/>
+                    </View>
                 </View>
                 <View style={styles.options}>
                     <Text style={styles.options_font}>Set a goal</Text>
+                    <TextInput style={styles.input} placeholder="enter name"/>
                 </View>
                 <View style={styles.save_button}>
                     <Text style={styles.options_font}>Save</Text>
@@ -67,6 +81,21 @@ const styles = StyleSheet.create({
     options_font: {
         fontFamily: 'AvenirNext-Medium',
         fontSize: 18,
+    },
+    build_quit :
+    {
+        flex: 1, 
+        color: 'black'
+    },
+    build_quit_button:
+    {
+        backgroundColor: 'lightgray',
+        paddingTop:10,
+        paddingBottom:10,
+        height: 25,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'black'
     },
     input :{
         borderWidth: .5,

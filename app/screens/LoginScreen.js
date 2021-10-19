@@ -29,7 +29,7 @@ function LoginScreen(props) {
 
             <Text style={styles.smallText}>Don't have an account?</Text>
 
-            <Pressable style={styles.pressable2}>
+            <Pressable style={styles.pressable2} onPress={()=> props.navigation.navigate('Register')}>
                 <Text style={styles.buttonText}>Sign Up</Text>
             </Pressable>
 

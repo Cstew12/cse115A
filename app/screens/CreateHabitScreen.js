@@ -1,7 +1,10 @@
-import React from 'react';
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 
 function CreateHabitScreen(props) {
+    const [build, setBuild] = useState(false);
+    
+    
     return (
         <View style={styles.container}>
             <View style={styles.top}>
@@ -19,10 +22,13 @@ function CreateHabitScreen(props) {
                 <View style={styles.options}>
                     <Text style={styles.options_font}>Build or Quit</Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        <TouchableOpacity style={styles.build_quit_button} title="Build">
+                        <TouchableOpacity 
+                            style={build ? styles.build_button : styles.build_pressed}
+                            onPress={()=>setBuild(true)}
+                        >
                             <Text style={styles.build_quit}>Build</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.build_quit_button} title="Quit">
+                        <TouchableOpacity style={build ? styles.build_pressed : styles.build_button} onPress={()=>setBuild(false)}>
                             <Text style={styles.build_quit}>Quit</Text>
                         </TouchableOpacity>
                     </View>
@@ -87,22 +93,45 @@ const styles = StyleSheet.create({
         flex: 1, 
         color: 'black'
     },
-    build_quit_button:
+    build_button :
     {
         backgroundColor: 'lightgray',
         paddingTop:10,
         paddingBottom:10,
         height: 25,
+        width: 100,
         alignItems: 'center',
+        justifyContent: 'center',
         borderWidth: 1,
         borderColor: 'black'
+    },
+    quit_button:
+    {
+        backgroundColor: 'lightgray',
+        paddingTop:10,
+        paddingBottom:10,
+        height: 25,
+        width: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    build_pressed :
+    {
+        backgroundColor: 'lightgray',
+        paddingTop:10,
+        paddingBottom:10,
+        height: 25,
+        width: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 0,
     },
     input :{
         borderWidth: .5,
         height: 30,
         fontSize: 16,
         paddingLeft: 5,
-    }
+    },
 });
 
 export default CreateHabitScreen;

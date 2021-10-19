@@ -3,6 +3,13 @@ import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-nativ
 import { StatusBar } from 'expo-status-bar';
 
 function LoginScreen(props) {
+  const [text1,onChangeText1]= React.useState(null);
+  const [text2,onChangeText2]= React.useState(null);
+  const [text3,onChangeText3]= React.useState(null);
+  const [text4,onChangeText4]= React.useState(null);
+  const [text5,onChangeText5]= React.useState(null);
+  const [text6,onChangeText6]= React.useState(null);
+
     return (
         <View style={styles.container}>
 
@@ -12,6 +19,7 @@ function LoginScreen(props) {
                 placeholderTextColor="#dee3e0"
                 numberOfLines={1}
                 multiline={false}
+                onChangeText={onChangeText1}
             />
 
             <TextInput
@@ -20,20 +28,16 @@ function LoginScreen(props) {
                 placeholderTextColor="#dee3e0"
                 numberOfLines={1}
                 multiline={false}
-            />
-            <TextInput
-                style={styles.textArea2}
-                placeholder="Last Name"
-                placeholderTextColor="#dee3e0"
-                numberOfLines={1}
-                multiline={false}
-            />
+                onChangeText={onChangeText2}
+                
+        />
             <TextInput
                 style={styles.textArea3}
                 placeholder="User Name"
                 placeholderTextColor="#dee3e0"
                 numberOfLines={1}
                 multiline={false}
+                onChangeText={onChangeText3}
             />
             <TextInput
                 style={styles.textArea4}
@@ -41,6 +45,7 @@ function LoginScreen(props) {
                 placeholderTextColor="#dee3e0"
                 numberOfLines={1}
                 multiline={false}
+                onChangeText={onChangeText4}
             />
             <TextInput
                 style={styles.textArea5}
@@ -48,6 +53,7 @@ function LoginScreen(props) {
                 placeholderTextColor="#dee3e0"
                 numberOfLines={1}
                 multiline={false}
+                onChangeText={onChangeText5}
             />
             <TextInput
                 style={styles.textArea6}
@@ -55,6 +61,7 @@ function LoginScreen(props) {
                 placeholderTextColor="#dee3e0"
                 numberOfLines={1}
                 multiline={false}
+                onChangeText={onChangeText6}
             />
 
             <Pressable style={styles.pressable1}>
@@ -62,11 +69,18 @@ function LoginScreen(props) {
             </Pressable>
 
             <StatusBar style="auto" />
+            <text>{text1}</text>
+            <text>{text2}</text>
+            <text>{text3}</text>
+            <text>{text4}</text>
+            <text>{text5}</text>
+            <text>{text6}</text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+  
     container: {
       flex: 1,
       backgroundColor: '#ffffff',
@@ -113,6 +127,7 @@ const styles = StyleSheet.create({
       width: 200,
       marginBottom: 10,
       marginTop: -300,
+      paddingLeft: 5
     },
   
     textArea2: {
@@ -121,6 +136,7 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       width: 200,
       marginBottom: 10,
+      paddingLeft: 5
     },
     textArea3: {
         height: 40,
@@ -128,6 +144,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 200,
         marginBottom: 10,
+        paddingLeft: 5
     },
     textArea4: {
         height: 40,
@@ -135,6 +152,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 200,
         marginBottom: 10,
+        paddingLeft: 5
     },
     textArea5: {
         height: 40,
@@ -142,6 +160,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 200,
         marginBottom: 10,
+        paddingLeft: 5
     },
     textArea6: {
         height: 40,
@@ -149,6 +168,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 200,
         marginBottom: 10,
+        paddingLeft: 5
     }
   
   });

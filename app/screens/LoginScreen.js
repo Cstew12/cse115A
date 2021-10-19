@@ -5,33 +5,40 @@ import { StatusBar } from 'expo-status-bar';
 function LoginScreen(props) {
     return (
         <View style={styles.container}>
-            <Image source={require('./../../assets/logo3.png')} style={styles.image1}/>
+            <View style={styles.headerFlex}>
+                <Image source={require('./../../assets/logo3.png')} style={styles.image1}/>
+            </View>
+            
 
-            <TextInput
-                style={styles.textArea1}
-                placeholder="username"
-                placeholderTextColor="#dee3e0"
-                numberOfLines={1}
-                multiline={false}
-            />
+            <View style={styles.loginFlex}>
+                <TextInput
+                    style={styles.textArea1}
+                    placeholder="username"
+                    placeholderTextColor="#dee3e0"
+                    numberOfLines={1}
+                    multiline={false}
+                />
 
-            <TextInput
-                style={styles.textArea2}
-                placeholder="password"
-                placeholderTextColor="#dee3e0"
-                numberOfLines={1}
-                multiline={false}
-            />
+                <TextInput
+                    style={styles.textArea2}
+                    placeholder="password"
+                    placeholderTextColor="#dee3e0"
+                    numberOfLines={1}
+                    multiline={false}
+                />
 
-            <Pressable style={styles.pressable1} onPress={()=> props.navigation.navigate('CreateHabit')}>
-                <Text style={styles.buttonText}>Login</Text>
-            </Pressable>
+                <Pressable style={styles.pressable1} onPress={()=> props.navigation.navigate('CreateHabit')}>
+                    <Text style={styles.buttonText}>Login</Text>
+                </Pressable>
+            </View>
 
-            <Text style={styles.smallText}>Don't have an account?</Text>
+            <View style={styles.signupFlex}>
+                <Text style={styles.smallText}>Don't have an account?</Text>
 
-            <Pressable style={styles.pressable2} onPress={()=> props.navigation.navigate('Register')}>
-                <Text style={styles.buttonText}>Sign Up</Text>
-            </Pressable>
+                <Pressable style={styles.pressable2} onPress={()=> props.navigation.navigate('Register')}>
+                    <Text style={styles.buttonText}>Sign Up</Text>
+                </Pressable>
+            </View>
 
             <StatusBar style="auto" />
         </View>
@@ -45,12 +52,23 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-  
-    titleText: {
-      fontSize: 40,
-      color: 'white',
-      fontFamily: 'Al Nile',
-      marginBottom: '50%',
+
+    headerFlex: {
+      flex: 2.3,
+      backgroundColor: '#ffffff',
+      justifyContent: 'flex-end',
+    },
+
+    loginFlex: {
+      flex: 3,
+      backgroundColor: '#ffffff',
+      justifyContent: 'center',
+    },
+
+    signupFlex: {
+      flex: 1,
+      backgroundColor: '#ffffff',
+      justifyContent: 'flex-start',
     },
   
     buttonText: {
@@ -64,6 +82,7 @@ const styles = StyleSheet.create({
       fontSize: 12,
       color: 'black',
       fontFamily: 'Al Nile',
+      marginLeft: 40,
     },
   
     pressable1: {
@@ -73,7 +92,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 75,
       borderRadius: 4,
       backgroundColor: 'black',
-      marginBottom: 130,
+      marginBottom: 25,
     },
   
     pressable2: {
@@ -83,13 +102,11 @@ const styles = StyleSheet.create({
       paddingHorizontal: 65,
       borderRadius: 4,
       backgroundColor: 'black',
-      marginBottom: 50,
     },
   
     image1: {
       width: 400,
       height: 250,
-      marginBottom: 350,
     },
   
     textArea1: {
@@ -97,8 +114,7 @@ const styles = StyleSheet.create({
       borderColor: 'grey',
       borderWidth: 1,
       width: 200,
-      marginBottom: 10,
-      marginTop: -300,
+      marginBottom: 5,
     },
   
     textArea2: {
@@ -106,7 +122,7 @@ const styles = StyleSheet.create({
       borderColor: 'grey',
       borderWidth: 1,
       width: 200,
-      marginBottom: 10,
+      marginBottom: 5,
     },
   
   });

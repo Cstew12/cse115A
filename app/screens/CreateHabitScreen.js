@@ -3,8 +3,11 @@ import { Button, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpaci
 
 function CreateHabitScreen(props) {
     const [build, setBuild] = useState(false);
-    
-    
+    const [period, setPeriod] = useState('');
+
+    const choosePeriod = (time, setTime) => {
+        
+    }
     return (
         <View style={styles.container}>
             <View style={styles.top}>
@@ -36,9 +39,18 @@ function CreateHabitScreen(props) {
                 <View style={styles.options}>
                     <Text style={styles.options_font}>Habit period</Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        <Button style={styles.build_quit} title="Daily"/>
-                        <Button style={styles.build_quit} title="Weekly"/>
-                        <Button style={styles.build_quit} title="Monthly"/>
+                        <TouchableHighlight style={period == 'daily' ? styles.build_button : styles.build_pressed}
+                            onPress={()=>setPeriod('daily')}>
+                            <Text>Daily</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={period == 'weekly'? styles.build_button : styles.build_pressed}
+                            onPress={()=>setPeriod('weekly')}>
+                            <Text>Weekly</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={period == 'monthly' ? styles.build_button : styles.build_pressed}
+                            onPress={()=>setPeriod('monthly')}>
+                            <Text>Monthly</Text>
+                        </TouchableHighlight>
                     </View>
                 </View>
                 <View style={styles.options}>

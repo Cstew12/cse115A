@@ -52,10 +52,15 @@ function CreateHabitScreen(props) {
                 </View>
                 <View style={styles.options}>
                     <Text style={styles.options_font}>Set a goal</Text>
-                    <TextInput style={styles.input} placeholder="enter name"/>
+                    <View style={{flexDirection: 'row'}}>
+                        <TextInput style={styles.goal_input} />
+                        <Text style={styles.options_font}> times {period}</Text>
+                    </View>
                 </View>
                 <View style={styles.save_button}>
-                    <Text style={styles.options_font}>Save</Text>
+                    <TouchableHighlight style={styles.build_pressed}>
+                        <Text>Save</Text>
+                    </TouchableHighlight>
                 </View>
             </View>
         </View>
@@ -105,8 +110,6 @@ const styles = StyleSheet.create({
     build_button :
     {
         backgroundColor: 'lightgray',
-        paddingTop:10,
-        paddingBottom:10,
         height: 25,
         width: 100,
         alignItems: 'center',
@@ -127,8 +130,6 @@ const styles = StyleSheet.create({
     build_pressed :
     {
         backgroundColor: 'lightgray',
-        paddingTop:10,
-        paddingBottom:10,
         height: 25,
         width: 100,
         alignItems: 'center',
@@ -140,6 +141,13 @@ const styles = StyleSheet.create({
         height: 30,
         fontSize: 16,
         paddingLeft: 5,
+    },
+    goal_input :{
+        borderWidth: .5,
+        height: 30,
+        width: 50,
+        fontSize: 16,
+        textAlign: 'center',
     },
 });
 

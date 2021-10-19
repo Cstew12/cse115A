@@ -5,9 +5,6 @@ function CreateHabitScreen(props) {
     const [build, setBuild] = useState(false);
     const [period, setPeriod] = useState('');
 
-    const choosePeriod = (time, setTime) => {
-        
-    }
     return (
         <View style={styles.container}>
             <View style={styles.top}>

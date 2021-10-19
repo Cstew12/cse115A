@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-nativ
 import { StatusBar } from 'expo-status-bar';
 
 function LoginScreen(props) {
-  const [text1,onChangeText1]= React.useState(null);
-  const [text2,onChangeText2]= React.useState(null);
-  const [text3,onChangeText3]= React.useState(null);
-  const [text4,onChangeText4]= React.useState(null);
-  const [text5,onChangeText5]= React.useState(null);
-  const [text6,onChangeText6]= React.useState(null);
+  const [F_name,onChangeText1]= React.useState(null);
+  const [L_name,onChangeText2]= React.useState(null);
+  const [U_name,onChangeText3]= React.useState(null);
+  const [Pass1,onChangeText4]= React.useState(null);
+  const [Pass2,onChangeText5]= React.useState(null);
+  const [EmailAddy,onChangeText6]= React.useState(null);
 
     return (
         <View style={styles.container}>
@@ -69,12 +69,12 @@ function LoginScreen(props) {
             </Pressable>
 
             <StatusBar style="auto" />
-            <text>{text1}</text>
-            <text>{text2}</text>
-            <text>{text3}</text>
-            <text>{text4}</text>
-            <text>{text5}</text>
-            <text>{text6}</text>
+            <Text>{F_name}</Text>
+            <Text>{L_name}</Text>
+            <Text>{U_name}</Text>
+            <Text>{Pass1}</Text>
+            <Text>{Pass2}</Text>
+            <Text>{EmailAddy}</Text>
         </View>
     );
 }

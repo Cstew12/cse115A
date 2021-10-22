@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-
+//testing git bot
 function LoginScreen(props) {
     return (
         <View style={styles.container}>

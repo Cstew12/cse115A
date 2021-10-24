@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { Button } from 'react-native-elements';
+
 
 function CreateHabitScreen(props) {
     const [build, setBuild] = useState(false);
@@ -22,6 +24,10 @@ function CreateHabitScreen(props) {
                 <View style={styles.options}>
                     <Text style={styles.options_font}>Build or Quit</Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                        <Button
+                            title="Test"
+                            buttonStyle={{backgroundColor: 'red', color: 'black'}}
+                        />
                         <TouchableOpacity 
                             style={build ? styles.build_button : styles.build_pressed}
                             onPress={()=>setBuild(true)}

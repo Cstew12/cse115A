@@ -1,43 +1,105 @@
 import React from 'react';
 import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-native';
+import { Button, Input} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
+import { fonts } from 'react-native-elements/dist/config';
 //testing git bot
 function LoginScreen(props) {
     return (
         <View style={styles.container}>
             <View style={styles.headerFlex}>
-                <Image source={require('./../../assets/logo3.png')} style={styles.image1}/>
+
+              <Image source={require('./../../assets/routeam-logo5.png')} style={styles.image1}/>
+
+              <Text style={styles.titleText}>Routeam</Text>
+
+              <Text style={styles.quoteText}>Building Habits With Friends!</Text>
+
+
             </View>
             
 
             <View style={styles.loginFlex}>
-                <TextInput
-                    style={styles.textArea1}
-                    placeholder="username"
-                    placeholderTextColor="#dee3e0"
-                    numberOfLines={1}
-                    multiline={false}
+                <Input
+                  placeholder='Email'
+                  placeholderTextColor='#9c9c9c'
+                  placeholderColo
+                  leftIcon={
+                    <Icon
+                      name='envelope'
+                      size={14}
+                      color='#9c9c9c'
+                    />
+                  }
+
+                  inputStyle= {{
+                    color: '#9c9c9c'
+                  }}
+
+                  inputContainerStyle= {{
+                    width: 175,
+                    marginTop: -30
+                  }}
                 />
 
-                <TextInput
-                    style={styles.textArea2}
-                    placeholder="password"
-                    placeholderTextColor="#dee3e0"
-                    numberOfLines={1}
-                    multiline={false}
+                <Input
+                  placeholder='Password'
+                  placeholderTextColor='#9c9c9c'
+                  leftIcon={
+                    <Icon
+                      name='lock'
+                      size={18}
+                      color='#9c9c9c'
+                    />
+                  }
+
+                  inputStyle= {{
+                    color: '#9c9c9c'
+                  }}
+
+                  inputContainerStyle= {{
+                    marginTop: -15,
+                    marginBottom: -12,
+                    width: 175
+                  }}
                 />
 
-                <Pressable style={styles.pressable1} onPress={()=> props.navigation.navigate('CreateHabit')}>
-                    <Text style={styles.buttonText}>Login</Text>
-                </Pressable>
+                <Button
+                  title="Login"
+                  type= "solid"
+                  raised = "true"
+                  onPress={()=> props.navigation.navigate('CreateHabit')}
+            
+                  buttonStyle= {{
+                    backgroundColor: '#9c9c9c',
+                    //marginTop: -10,
+                  }}
+
+                  titleStyle= {{
+                    color: '#82f591',
+                    fontFamily: 'AvenirNext-Bold'
+                  }}
+                />   
+                
             </View>
 
             <View style={styles.signupFlex}>
                 <Text style={styles.smallText}>Don't have an account?</Text>
 
-                <Pressable style={styles.pressable2} onPress={()=> props.navigation.navigate('Register')}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
-                </Pressable>
+                <Button
+                  title="Sign Up"
+                  type= "solid"
+                  raised = "true"
+                  onPress={()=> props.navigation.navigate('Register')}
+                  buttonStyle= {{
+                    backgroundColor: '#9c9c9c'
+                  }}
+                  titleStyle= {{
+                    color: '#82f591',
+                    fontFamily: 'AvenirNext-Bold'
+                  }}
+                />
             </View>
 
             <StatusBar style="auto" />
@@ -48,83 +110,58 @@ function LoginScreen(props) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#ffffff',
+      backgroundColor: '#2e2d2d',
       alignItems: 'center',
       justifyContent: 'center',
     },
 
     headerFlex: {
-      flex: 2.3,
-      backgroundColor: '#ffffff',
+      flex: 3.4,
+      backgroundColor: '#2e2d2d',
       justifyContent: 'flex-end',
+      alignItems: 'center'
     },
 
     loginFlex: {
       flex: 3,
-      backgroundColor: '#ffffff',
+      backgroundColor: '#2e2d2d',
       justifyContent: 'center',
     },
 
     signupFlex: {
       flex: 1,
-      backgroundColor: '#ffffff',
+      backgroundColor: '#2e2d2d',
       justifyContent: 'flex-start',
-    },
-  
-    buttonText: {
-      fontSize: 20,
-      color: '#56d687',
-      fontFamily: 'Al Nile',
-      marginBottom: -1,
     },
   
     smallText: {
       fontSize: 12,
-      color: 'black',
+      color: '#9c9c9c',
       fontFamily: 'Al Nile',
-      marginLeft: 40,
+      marginLeft: 0,
     },
-  
-    pressable1: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 4,
-      paddingHorizontal: 75,
-      borderRadius: 4,
-      backgroundColor: 'black',
-      marginBottom: 25,
+
+    titleText: {
+      fontSize: 50,
+      color: '#82f591',
+      fontFamily: 'AvenirNext-Bold',
+      marginBottom: -10
     },
-  
-    pressable2: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 0,
-      paddingHorizontal: 65,
-      borderRadius: 4,
-      backgroundColor: 'black',
+
+    quoteText: {
+      fontSize: 12,
+      color: '#9c9c9c',
+      fontFamily: 'AvenirNext-Bold',
+      marginTop: 5
     },
   
     image1: {
-      width: 400,
+      width: 160,
       height: 250,
+      marginBottom: -20,
+      marginLeft: -22
     },
-  
-    textArea1: {
-      height: 40,
-      borderColor: 'grey',
-      borderWidth: 1,
-      width: 200,
-      marginBottom: 5,
-    },
-  
-    textArea2: {
-      height: 40,
-      borderColor: 'grey',
-      borderWidth: 1,
-      width: 200,
-      marginBottom: 5,
-    },
-  
+
   });
   
 

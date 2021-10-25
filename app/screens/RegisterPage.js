@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-native';
+import { Button, Input} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
 
 function LoginScreen(props) {
@@ -11,55 +13,154 @@ function LoginScreen(props) {
             </View>
 
             <View style={styles.registerFlex}>
-                <TextInput
-                    style={styles.textArea1}
-                    placeholder="First Name"
-                    placeholderTextColor="#dee3e0"
-                    numberOfLines={1}
-                    multiline={false}
+              <Input
+                  placeholder='First Name'
+                  placeholderTextColor='#9c9c9c'
+                  placeholderColo
+                  leftIcon={
+                    <Icon
+                      name='envelope'
+                      size={14}
+                      color='#9c9c9c'
+                    />
+                  }
+
+                  inputStyle= {{
+                    color: '#9c9c9c'
+                  }}
+
+                  inputContainerStyle= {{
+                    width: 175,
+                    marginTop: -20
+                  }}
                 />
 
-                <TextInput
-                    style={styles.textArea2}
-                    placeholder="Last Name"
-                    placeholderTextColor="#dee3e0"
-                    numberOfLines={1}
-                    multiline={false}
+              <Input
+                  placeholder='Last Name'
+                  placeholderTextColor='#9c9c9c'
+                  placeholderColo
+                  leftIcon={
+                    <Icon
+                      name='envelope'
+                      size={14}
+                      color='#9c9c9c'
+                    />
+                  }
+
+                  inputStyle= {{
+                    color: '#9c9c9c'
+                  }}
+
+                  inputContainerStyle= {{
+                    width: 175,
+                    marginTop: -20
+                  }}
                 />
 
-                <TextInput
-                    style={styles.textArea6}
-                    placeholder="Email"
-                    placeholderTextColor="#dee3e0"
-                    numberOfLines={1}
-                    multiline={false}
+                <Input
+                  placeholder='Email'
+                  placeholderTextColor='#9c9c9c'
+                  placeholderColo
+                  leftIcon={
+                    <Icon
+                      name='envelope'
+                      size={14}
+                      color='#9c9c9c'
+                    />
+                  }
+
+                  inputStyle= {{
+                    color: '#9c9c9c'
+                  }}
+
+                  inputContainerStyle= {{
+                    width: 175,
+                    marginTop: -20
+                  }}
                 />
 
-                <TextInput
-                    style={styles.textArea3}
-                    placeholder="User Name"
-                    placeholderTextColor="#dee3e0"
-                    numberOfLines={1}
-                    multiline={false}
-                />
-                <TextInput
-                    style={styles.textArea4}
-                    placeholder="Password"
-                    placeholderTextColor="#dee3e0"
-                    numberOfLines={1}
-                    multiline={false}
-                />
-                <TextInput
-                    style={styles.textArea5}
-                    placeholder="Confirm Password"
-                    placeholderTextColor="#dee3e0"
-                    numberOfLines={1}
-                    multiline={false}
+                <Input
+                  placeholder='Username'
+                  placeholderTextColor='#9c9c9c'
+                  placeholderColo
+                  leftIcon={
+                    <Icon
+                      name='envelope'
+                      size={14}
+                      color='#9c9c9c'
+                    />
+                  }
+
+                  inputStyle= {{
+                    color: '#9c9c9c'
+                  }}
+
+                  inputContainerStyle= {{
+                    width: 175,
+                    marginTop: -20
+                  }}
                 />
 
-                <Pressable style={styles.pressable1}>
-                    <Text style={styles.buttonText}>Create Account</Text>
-                </Pressable>
+                <Input
+                  placeholder='Password'
+                  placeholderTextColor='#9c9c9c'
+                  placeholderColo
+                  leftIcon={
+                    <Icon
+                      name='envelope'
+                      size={14}
+                      color='#9c9c9c'
+                    />
+                  }
+
+                  inputStyle= {{
+                    color: '#9c9c9c'
+                  }}
+
+                  inputContainerStyle= {{
+                    width: 175,
+                    marginTop: -20
+                  }}
+                />
+
+                <Input
+                  placeholder='Confirm Password'
+                  placeholderTextColor='#9c9c9c'
+                  placeholderColo
+                  leftIcon={
+                    <Icon
+                      name='envelope'
+                      size={14}
+                      color='#9c9c9c'
+                    />
+                  }
+
+                  inputStyle= {{
+                    color: '#9c9c9c'
+                  }}
+
+                  inputContainerStyle= {{
+                    width: 175,
+                    marginTop: -20
+                  }}
+                />
+            
+            <Button
+                  title="Register"
+                  type= "solid"
+                  raised = "true"
+                  onPress={()=> props.navigation.navigate('Login')}
+            
+                  buttonStyle= {{
+                    backgroundColor: '#9c9c9c',
+                    //marginTop: -10,
+                  }}
+
+                  titleStyle= {{
+                    color: '#82f591',
+                    fontFamily: 'AvenirNext-Bold'
+                  }}
+                />
             </View>
             <StatusBar style="auto" />
         </View>
@@ -71,19 +172,19 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#ffffff',
       //alignItems: 'center',
-      //justifyContent: 'center',
+      justifyContent: 'center',
     },
 
     headerFlex: {
-      flex: 1.3,
-      backgroundColor: '#56d687',
+      flex: 0.5,
+      backgroundColor: '#82f591',
       justifyContent: 'flex-end',
       alignItems: 'stretch',
     },
 
     registerFlex: {
       flex: 4,
-      backgroundColor: '#ffffff',
+      backgroundColor: '#2e2d2d',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -92,7 +193,7 @@ const styles = StyleSheet.create({
       fontFamily: 'AvenirNext-Bold',
       fontSize: 30,
       justifyContent: 'flex-end',
-      marginLeft: 10,
+      alignSelf: 'center'
     },
   
     buttonText: {

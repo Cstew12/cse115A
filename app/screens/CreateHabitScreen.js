@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { Button, Input} from 'react-native-elements';
+import { Slider } from 'react-native-elements';
+import { Animated } from 'react-native';
+
 
 function CreateHabitScreen(props) {
-    const [build, setBuild] = useState(false);
-    const [period, setPeriod] = useState('');
+    const [build, setBuild] = useState('Build');
+    const [period, setPeriod] = useState('day');
+    const [value, setValue] = useState(1);
+    const [name, setName] = useState('');
+    const colors = {
+        purple: "#BD9EEF", // BD9EEF, E3D1FC
+    }
 
     return (
         <View style={styles.container}>
@@ -12,55 +21,196 @@ function CreateHabitScreen(props) {
             </View>
             <View style={styles.bottom}>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Name of habit</Text>
-                    <TextInput style={styles.input} placeholder="enter name"/>
+                    <Input
+                        placeholder='Name your habit'
+                        placeholderTextColor='#9c9c9c'
+
+                        inputStyle= {{
+                            color: '#fff',
+                            fontFamily: 'AvenirNext-Regular'
+                        }}
+                        onChangeText={setName}
+                    />
                 </View>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Motivation</Text>
-                    <TextInput style={styles.input} placeholder="enter motivation"/>
+                    <Input
+                        placeholder='State your motivation'
+                        placeholderTextColor='#9c9c9c'
+
+                        inputStyle= {{
+                            color: '#fff',
+                            fontFamily: 'AvenirNext-Regular'
+                        }}
+                    />
+                </View>
+                <View style={{flex: .5}}>
+                    <Text 
+                        style={{
+                            marginHorizontal: 20, 
+                            alignSelf: 'center',
+                            fontFamily: 'AvenirNext-Medium',
+                            fontSize: 20,
+                            color: colors.purple
+                        }}>
+                        Create a goal
+                    </Text>
                 </View>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Build or Quit</Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        <TouchableOpacity 
-                            style={build ? styles.build_button : styles.build_pressed}
-                            onPress={()=>setBuild(true)}
-                        >
-                            <Text style={styles.build_quit}>Build</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={build ? styles.build_pressed : styles.build_button} onPress={()=>setBuild(false)}>
-                            <Text style={styles.build_quit}>Quit</Text>
-                        </TouchableOpacity>
+                        <Button
+                            title="Build"
+                            type= "outline"
+                            onPress={()=>setBuild('Build')}
+                    
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderColor: build == 'Build' ? colors.purple : '#9c9c9c',
+                                borderWidth: 3,
+                                paddingLeft: 50,
+                                paddingRight: 50
+                            //marginTop: -10,
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
+                        <Button
+                            title="Quit"
+                            type="outline"
+                            onPress={()=>setBuild('Quit')}
+                    
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderWidth: 3,
+                                borderColor: build == 'Quit' ? colors.purple : '#9c9c9c',
+                                paddingLeft: 50,
+                                paddingRight: 50
+                            //marginTop: -10,
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
                     </View>
                 </View>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Habit period</Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        <TouchableHighlight style={period == 'daily' ? styles.build_button : styles.build_pressed}
-                            onPress={()=>setPeriod('daily')}>
-                            <Text>Daily</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={period == 'weekly'? styles.build_button : styles.build_pressed}
-                            onPress={()=>setPeriod('weekly')}>
-                            <Text>Weekly</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={period == 'monthly' ? styles.build_button : styles.build_pressed}
-                            onPress={()=>setPeriod('monthly')}>
-                            <Text>Monthly</Text>
-                        </TouchableHighlight>
+                        <Button
+                            title="Daily"
+                            type="outline"
+                            onPress={()=>setPeriod('day')}
+
+                            containerStyle = {{
+                                flex: 1,
+                                marginHorizontal: 10
+
+                            }}
+                    
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderWidth: 3,
+                                borderColor: period == 'day' ? colors.purple : '#9c9c9c',
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
+                        <Button
+                            title="Weekly"
+                            type="outline"
+                            onPress={()=>setPeriod('week')}
+                    
+                            containerStyle = {{
+                                flex: 1,
+                                marginHorizontal: 10
+                            }}
+
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderWidth: 3,
+                                borderColor: period == 'week' ? colors.purple : '#9c9c9c',
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
+                        <Button
+                            title="Monthly"
+                            type="outline"
+                            onPress={()=>setPeriod('month')}
+                    
+                            containerStyle = {{
+                                flex: 1,
+                                marginHorizontal: 10
+                            }}
+
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderWidth: 3,
+                                borderColor: period == 'month' ? colors.purple : '#9c9c9c',
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
                     </View>
                 </View>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Set a goal</Text>
-                    <View style={{flexDirection: 'row'}}>
-                        <TextInput style={styles.goal_input} />
-                        <Text style={styles.options_font}> times {period}</Text>
+                    <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center'}}>
+                        <Slider
+                            value={value}
+                            onValueChange={setValue}
+                            minimumValue={1}
+                            maximumValue={30}
+                            thumbStyle = {{
+                                backgroundColor: colors.purple
+                            }}
+                            style = {{
+                                marginHorizontal: 10
+                            }}
+                            step={1}
+                            minimumTrackTintColor={colors.purple}
+                        />
+                        <Text 
+                            style={{
+                                marginHorizontal: 10, 
+                                alignSelf: 'center',
+                                fontFamily: 'AvenirNext-Regular',
+                                color: colors.purple
+                            }}>
+                            {name == '' ? 'Do habit' : name} {build == 'Build' ? 'at least' : 'at most'} {value} times per {period}  
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.save_button}>
-                    <TouchableHighlight style={styles.build_pressed}>
-                        <Text>Save</Text>
-                    </TouchableHighlight>
+                    <Button
+                        title="Save"                
+                        containerStyle = {{
+                            flex: 1,
+                            marginHorizontal: 10,
+                            justifyContent: 'flex-end',
+                            marginBottom: 50,
+                        }}
+
+                        buttonStyle= {{
+                            backgroundColor: '#BD9EEF',
+                        }}
+    
+                        titleStyle= {{
+                            color: '#9c9c9c',
+                            fontFamily: 'AvenirNext-Bold'
+                        }}
+                    />
                 </View>
             </View>
         </View>
@@ -70,22 +220,23 @@ function CreateHabitScreen(props) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
     },
     top: {
         flex: 1,
-        backgroundColor: '#d2efc8',
+        backgroundColor: '#BD9EEF',
         justifyContent: 'flex-end'
     },
     bottom: {
         flex: 3,
-        backgroundColor: '#fff',
+        paddingTop: 10,
+        backgroundColor: '#2e2d2d',
     },
     header: {
         fontFamily: 'AvenirNext-Bold',
         fontSize: 30,
         justifyContent: 'flex-end',
         marginLeft: 10,
+        color: "#2e2d2d"
     },
     options: {
         flex: 1,
@@ -94,9 +245,10 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     save_button: {
-        flex: 1,
+        flex: 2,
         marginLeft: 10,
-        alignSelf: 'center',
+        flexDirection: 'column',
+        justifyContent: 'flex-end'
     },
     options_font: {
         fontFamily: 'AvenirNext-Medium',

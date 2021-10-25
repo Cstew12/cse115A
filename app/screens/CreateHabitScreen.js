@@ -40,7 +40,6 @@ function CreateHabitScreen(props) {
                         <Button
                             title="Build"
                             type= "outline"
-                            raised = "true"
                             onPress={()=>setBuild(true)}
                     
                             buttonStyle= {{
@@ -79,20 +78,71 @@ function CreateHabitScreen(props) {
                     </View>
                 </View>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Habit period</Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        <TouchableHighlight style={period == 'daily' ? styles.build_button : styles.build_pressed}
-                            onPress={()=>setPeriod('daily')}>
-                            <Text>Daily</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={period == 'weekly'? styles.build_button : styles.build_pressed}
-                            onPress={()=>setPeriod('weekly')}>
-                            <Text>Weekly</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={period == 'monthly' ? styles.build_button : styles.build_pressed}
-                            onPress={()=>setPeriod('monthly')}>
-                            <Text>Monthly</Text>
-                        </TouchableHighlight>
+                        <Button
+                            title="Daily"
+                            type="outline"
+                            onPress={()=>setPeriod('daily')}
+
+                            containerStyle = {{
+                                flex: 1,
+                                marginHorizontal: 10
+
+                            }}
+                    
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderWidth: 3,
+                                borderColor: period == 'daily' ? "#E3D1FC" : '#2e2d2d',
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
+                        <Button
+                            title="Weekly"
+                            type="outline"
+                            onPress={()=>setPeriod('weekly')}
+                    
+                            containerStyle = {{
+                                flex: 1,
+                                marginHorizontal: 10
+                            }}
+
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderWidth: 3,
+                                borderColor: period == 'weekly' ? "#E3D1FC" : '#2e2d2d',
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
+                        <Button
+                            title="Monthly"
+                            type="outline"
+                            onPress={()=>setPeriod('monthly')}
+                    
+                            containerStyle = {{
+                                flex: 1,
+                                marginHorizontal: 10
+                            }}
+
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderWidth: 3,
+                                borderColor: period == 'monthly' ? "#E3D1FC" : '#2e2d2d',
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
                     </View>
                 </View>
                 <View style={styles.options}>
@@ -123,6 +173,7 @@ const styles = StyleSheet.create({
     },
     bottom: {
         flex: 3,
+        paddingTop: 10,
         backgroundColor: '#2e2d2d',
     },
     header: {

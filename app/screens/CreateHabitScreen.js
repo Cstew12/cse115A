@@ -10,6 +10,9 @@ function CreateHabitScreen(props) {
     const [period, setPeriod] = useState('day');
     const [value, setValue] = useState(1);
     const [name, setName] = useState('');
+    const colors = {
+        purple: "#BD9EEF", // BD9EEF, E3D1FC
+    }
 
     return (
         <View style={styles.container}>
@@ -47,7 +50,7 @@ function CreateHabitScreen(props) {
                             alignSelf: 'center',
                             fontFamily: 'AvenirNext-Medium',
                             fontSize: 20,
-                            color: "#E3D1FC"
+                            color: colors.purple
                         }}>
                         Create a goal
                     </Text>
@@ -61,7 +64,7 @@ function CreateHabitScreen(props) {
                     
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
-                                borderColor: build == 'Build' ? "#E3D1FC" : '#9c9c9c',
+                                borderColor: build == 'Build' ? colors.purple : '#9c9c9c',
                                 borderWidth: 3,
                                 paddingLeft: 50,
                                 paddingRight: 50
@@ -81,7 +84,7 @@ function CreateHabitScreen(props) {
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 borderWidth: 3,
-                                borderColor: build == 'Quit' ? "#E3D1FC" : '#9c9c9c',
+                                borderColor: build == 'Quit' ? colors.purple : '#9c9c9c',
                                 paddingLeft: 50,
                                 paddingRight: 50
                             //marginTop: -10,
@@ -110,7 +113,7 @@ function CreateHabitScreen(props) {
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 borderWidth: 3,
-                                borderColor: period == 'day' ? "#E3D1FC" : '#9c9c9c',
+                                borderColor: period == 'day' ? colors.purple : '#9c9c9c',
                             }}
         
                             titleStyle= {{
@@ -131,7 +134,7 @@ function CreateHabitScreen(props) {
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 borderWidth: 3,
-                                borderColor: period == 'week' ? "#E3D1FC" : '#9c9c9c',
+                                borderColor: period == 'week' ? colors.purple : '#9c9c9c',
                             }}
         
                             titleStyle= {{
@@ -152,7 +155,7 @@ function CreateHabitScreen(props) {
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 borderWidth: 3,
-                                borderColor: period == 'month' ? "#E3D1FC" : '#9c9c9c',
+                                borderColor: period == 'month' ? colors.purple : '#9c9c9c',
                             }}
         
                             titleStyle= {{
@@ -170,20 +173,20 @@ function CreateHabitScreen(props) {
                             minimumValue={1}
                             maximumValue={30}
                             thumbStyle = {{
-                                backgroundColor: "#E3D1FC"
+                                backgroundColor: colors.purple
                             }}
                             style = {{
                                 marginHorizontal: 10
                             }}
                             step={1}
-                            minimumTrackTintColor="#E3D1FC"
+                            minimumTrackTintColor={colors.purple}
                         />
                         <Text 
                             style={{
                                 marginHorizontal: 10, 
                                 alignSelf: 'center',
                                 fontFamily: 'AvenirNext-Regular',
-                                color: "#E3D1FC"
+                                color: colors.purple
                             }}>
                             {name == '' ? 'Do habit' : name} {build == 'Build' ? 'at least' : 'at most'} {value} times per {period}  
                         </Text>
@@ -200,7 +203,7 @@ function CreateHabitScreen(props) {
                         }}
 
                         buttonStyle= {{
-                            backgroundColor: '#E3D1FC',
+                            backgroundColor: '#BD9EEF',
                         }}
     
                         titleStyle= {{
@@ -220,7 +223,7 @@ const styles = StyleSheet.create({
     },
     top: {
         flex: 1,
-        backgroundColor: '#E3D1FC',
+        backgroundColor: '#BD9EEF',
         justifyContent: 'flex-end'
     },
     bottom: {

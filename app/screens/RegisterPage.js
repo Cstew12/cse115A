@@ -3,13 +3,16 @@ import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-nativ
 import { Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
+import { color } from 'react-native-elements/dist/helpers';
 
 function LoginScreen(props) {
     return (
         <View style={styles.container}>
 
             <View style={styles.headerFlex}>
-                <Text style={styles.header}>Register now!</Text>
+                <Image source={require('./../../assets/routeam-logo5.png')} style={styles.image1}/>
+
+                <Text style={styles.header}>Register Today!</Text>
             </View>
 
             <View style={styles.registerFlex}>
@@ -19,9 +22,9 @@ function LoginScreen(props) {
                   placeholderColo
                   leftIcon={
                     <Icon
-                      name='envelope'
-                      size={14}
-                      color='#9c9c9c'
+                      name='user'
+                      size={16}
+                      color='#82f591'
                     />
                   }
 
@@ -30,8 +33,9 @@ function LoginScreen(props) {
                   }}
 
                   inputContainerStyle= {{
-                    width: 175,
-                    marginTop: -20
+                    alignSelf: 'center',
+                    width: 215,
+                    marginTop: 45
                   }}
                 />
 
@@ -41,9 +45,9 @@ function LoginScreen(props) {
                   placeholderColo
                   leftIcon={
                     <Icon
-                      name='envelope'
-                      size={14}
-                      color='#9c9c9c'
+                      name='user'
+                      size={16}
+                      color='#82f591'
                     />
                   }
 
@@ -52,7 +56,8 @@ function LoginScreen(props) {
                   }}
 
                   inputContainerStyle= {{
-                    width: 175,
+                    width: 215,
+                    alignSelf: 'center',
                     marginTop: -20
                   }}
                 />
@@ -65,7 +70,7 @@ function LoginScreen(props) {
                     <Icon
                       name='envelope'
                       size={14}
-                      color='#9c9c9c'
+                      color='#82f591'
                     />
                   }
 
@@ -74,7 +79,8 @@ function LoginScreen(props) {
                   }}
 
                   inputContainerStyle= {{
-                    width: 175,
+                    width: 215,
+                    alignSelf: 'center',
                     marginTop: -20
                   }}
                 />
@@ -85,9 +91,9 @@ function LoginScreen(props) {
                   placeholderColo
                   leftIcon={
                     <Icon
-                      name='envelope'
-                      size={14}
-                      color='#9c9c9c'
+                      name='user'
+                      size={16}
+                      color='#82f591'
                     />
                   }
 
@@ -96,7 +102,8 @@ function LoginScreen(props) {
                   }}
 
                   inputContainerStyle= {{
-                    width: 175,
+                    width: 215,
+                    alignSelf: 'center',
                     marginTop: -20
                   }}
                 />
@@ -107,9 +114,9 @@ function LoginScreen(props) {
                   placeholderColo
                   leftIcon={
                     <Icon
-                      name='envelope'
-                      size={14}
-                      color='#9c9c9c'
+                      name='lock'
+                      size={18}
+                      color='#82f591'
                     />
                   }
 
@@ -118,7 +125,8 @@ function LoginScreen(props) {
                   }}
 
                   inputContainerStyle= {{
-                    width: 175,
+                    width: 215,
+                    alignSelf: 'center',
                     marginTop: -20
                   }}
                 />
@@ -129,9 +137,9 @@ function LoginScreen(props) {
                   placeholderColo
                   leftIcon={
                     <Icon
-                      name='envelope'
-                      size={14}
-                      color='#9c9c9c'
+                      name='lock'
+                      size={18}
+                      color='#82f591'
                     />
                   }
 
@@ -140,7 +148,8 @@ function LoginScreen(props) {
                   }}
 
                   inputContainerStyle= {{
-                    width: 175,
+                    width: 215,
+                    alignSelf: 'center',
                     marginTop: -20
                   }}
                 />
@@ -153,7 +162,8 @@ function LoginScreen(props) {
             
                   buttonStyle= {{
                     backgroundColor: '#9c9c9c',
-                    //marginTop: -10,
+                    width: 190,
+                    marginBottom: -50
                   }}
 
                   titleStyle= {{
@@ -176,8 +186,8 @@ const styles = StyleSheet.create({
     },
 
     headerFlex: {
-      flex: 0.5,
-      backgroundColor: '#82f591',
+      flex: 2,
+      backgroundColor: '#2c2d2d',
       justifyContent: 'flex-end',
       alignItems: 'stretch',
     },
@@ -185,79 +195,25 @@ const styles = StyleSheet.create({
     registerFlex: {
       flex: 4,
       backgroundColor: '#2e2d2d',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignItems: 'center',
     },
 
     header: {
       fontFamily: 'AvenirNext-Bold',
-      fontSize: 30,
+      fontSize: 40,
       justifyContent: 'flex-end',
-      alignSelf: 'center'
-    },
-  
-    buttonText: {
-      fontSize: 20,
-      color: '#56d687',
-      fontFamily: 'Al Nile',
-      marginBottom: -1,
+      alignSelf: 'center',
+      color: '#82f591',
+      marginTop: 30,
     },
 
-    pressable1: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 0,
-      paddingHorizontal: 35,
-      borderRadius: 4,
-      backgroundColor: 'black',
-      marginBottom: 10,
+    image1: {
+      width: 65,
+      height: 100,
+      marginBottom: 0,
+      marginLeft: 40
     },
-
-    textArea1: {
-      height: 40,
-      borderColor: 'grey',
-      borderWidth: 1,
-      width: 200,
-      marginBottom: 10,
-      //marginTop: -300,
-    },
-  
-    textArea2: {
-      height: 40,
-      borderColor: 'grey',
-      borderWidth: 1,
-      width: 200,
-      marginBottom: 10,
-    },
-
-    textArea3: {
-        height: 40,
-        borderColor: 'grey',
-        borderWidth: 1,
-        width: 200,
-        marginBottom: 10,
-    },
-    textArea4: {
-        height: 40,
-        borderColor: 'grey',
-        borderWidth: 1,
-        width: 200,
-        marginBottom: 10,
-    },
-    textArea5: {
-        height: 40,
-        borderColor: 'grey',
-        borderWidth: 1,
-        width: 200,
-        marginBottom: 10,
-    },
-    textArea6: {
-        height: 40,
-        borderColor: 'grey',
-        borderWidth: 1,
-        width: 200,
-        marginBottom: 10,
-    }
   
   });
   

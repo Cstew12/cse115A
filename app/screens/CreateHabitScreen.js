@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { Button, Input} from 'react-native-elements';
+
 
 function CreateHabitScreen(props) {
     const [build, setBuild] = useState(false);
@@ -12,25 +14,68 @@ function CreateHabitScreen(props) {
             </View>
             <View style={styles.bottom}>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Name of habit</Text>
-                    <TextInput style={styles.input} placeholder="enter name"/>
+                    <Input
+                        placeholder='Name your habit'
+                        placeholderTextColor='#9c9c9c'
+
+                        inputStyle= {{
+                            color: '#fff',
+                            fontFamily: 'AvenirNext-Regular'
+                        }}
+                    />
                 </View>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Motivation</Text>
-                    <TextInput style={styles.input} placeholder="enter motivation"/>
+                    <Input
+                        placeholder='State your motivation'
+                        placeholderTextColor='#9c9c9c'
+
+                        inputStyle= {{
+                            color: '#fff',
+                            fontFamily: 'AvenirNext-Regular'
+                        }}
+                    />
                 </View>
                 <View style={styles.options}>
-                    <Text style={styles.options_font}>Build or Quit</Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        <TouchableOpacity 
-                            style={build ? styles.build_button : styles.build_pressed}
+                        <Button
+                            title="Build"
+                            type= "outline"
+                            raised = "true"
                             onPress={()=>setBuild(true)}
-                        >
-                            <Text style={styles.build_quit}>Build</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={build ? styles.build_pressed : styles.build_button} onPress={()=>setBuild(false)}>
-                            <Text style={styles.build_quit}>Quit</Text>
-                        </TouchableOpacity>
+                    
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderColor: build == true ? "#E3D1FC" : '#2e2d2d',
+                                borderWidth: 3,
+                                paddingLeft: 50,
+                                paddingRight: 50
+                            //marginTop: -10,
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
+                        <Button
+                            title="Quit"
+                            type="outline"
+                            onPress={()=>setBuild(false)}
+                    
+                            buttonStyle= {{
+                                backgroundColor: '#9c9c9c',
+                                borderWidth: 3,
+                                borderColor: build == false ? "#E3D1FC" : '#2e2d2d',
+                                paddingLeft: 50,
+                                paddingRight: 50
+                            //marginTop: -10,
+                            }}
+        
+                            titleStyle= {{
+                                color: '#E3D1FC',
+                                fontFamily: 'AvenirNext-Regular'
+                            }}
+                        />
                     </View>
                 </View>
                 <View style={styles.options}>
@@ -70,16 +115,15 @@ function CreateHabitScreen(props) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
     },
     top: {
         flex: 1,
-        backgroundColor: '#d2efc8',
+        backgroundColor: '#E3D1FC',
         justifyContent: 'flex-end'
     },
     bottom: {
         flex: 3,
-        backgroundColor: '#fff',
+        backgroundColor: '#2e2d2d',
     },
     header: {
         fontFamily: 'AvenirNext-Bold',

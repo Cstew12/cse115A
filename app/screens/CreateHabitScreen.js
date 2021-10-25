@@ -61,7 +61,7 @@ function CreateHabitScreen(props) {
                     
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
-                                borderColor: build == 'Build' ? "#E3D1FC" : '#2e2d2d',
+                                borderColor: build == 'Build' ? "#E3D1FC" : '#9c9c9c',
                                 borderWidth: 3,
                                 paddingLeft: 50,
                                 paddingRight: 50
@@ -81,7 +81,7 @@ function CreateHabitScreen(props) {
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 borderWidth: 3,
-                                borderColor: build == 'Quit' ? "#E3D1FC" : '#2e2d2d',
+                                borderColor: build == 'Quit' ? "#E3D1FC" : '#9c9c9c',
                                 paddingLeft: 50,
                                 paddingRight: 50
                             //marginTop: -10,
@@ -110,7 +110,7 @@ function CreateHabitScreen(props) {
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 borderWidth: 3,
-                                borderColor: period == 'day' ? "#E3D1FC" : '#2e2d2d',
+                                borderColor: period == 'day' ? "#E3D1FC" : '#9c9c9c',
                             }}
         
                             titleStyle= {{
@@ -131,7 +131,7 @@ function CreateHabitScreen(props) {
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 borderWidth: 3,
-                                borderColor: period == 'week' ? "#E3D1FC" : '#2e2d2d',
+                                borderColor: period == 'week' ? "#E3D1FC" : '#9c9c9c',
                             }}
         
                             titleStyle= {{
@@ -152,7 +152,7 @@ function CreateHabitScreen(props) {
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 borderWidth: 3,
-                                borderColor: period == 'month' ? "#E3D1FC" : '#2e2d2d',
+                                borderColor: period == 'month' ? "#E3D1FC" : '#9c9c9c',
                             }}
         
                             titleStyle= {{

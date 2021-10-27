@@ -1,11 +1,58 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-native';
 import { Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
 import { fonts } from 'react-native-elements/dist/config';
+import {auth} from "/Users/sparkz/Desktop/cse115A/firebase"
+import { useNavigation } from '@react-navigation/core';
+
+
+
+
 //testing git bot
-function LoginScreen(props) {
+const LoginScreen = () => {
+
+  // Firebase user properties
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const navigation = useNavigation()  // Broken navigation at the moment
+
+  // Take us to the Create Habit page if someone is logged in
+  // this is basically a listener on the Firebase server to check if a user had signed in 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        navigation.navigate("CreateHabit")
+      }
+   
+    })
+    return unsubscribe
+  }, [])
+
+  const handleSignUp = () => {
+    auth  
+        .createUserWithEmailAndPassword(email, password)
+        .then(userCredentials => {
+          const user = userCredentials.user;
+          console.log('Registered with: ', user.email);
+        })
+        .catch(error => alert(error.message)) // error handling upon failure
+  }
+
+  const handleLogin = () => {
+    auth
+      .signInWithEmailAndPassword(email,password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log('Logged in with: ', user.email);
+      })
+      .catch(error => alert(error.message)) // error handling upon failure
+      console.log('Button pressed') // debug
+  }
+
+
     return (
         <View style={styles.container}>
             <View style={styles.headerFlex}>
@@ -33,6 +80,9 @@ function LoginScreen(props) {
                     />
                   }
 
+                  // on change of text -> set the email property of user
+                  onChangeText={text => setEmail(text)}
+
                   inputStyle= {{
                     color: '#9c9c9c'
                   }}
@@ -54,6 +104,10 @@ function LoginScreen(props) {
                     />
                   }
 
+                  // on change of text -> set the password property of user
+                  onChangeText={text => setPassword(text)}
+
+
                   inputStyle= {{
                     color: '#9c9c9c'
                   }}
@@ -69,7 +123,12 @@ function LoginScreen(props) {
                   title="Login"
                   type= "solid"
                   raised = "true"
-                  onPress={()=> props.navigation.navigate('CreateHabit')}
+                  
+                  // Testing out registering of users using the login button
+                  onPress={handleLogin}  
+
+                  // Commenting out Sean's screen changing code for now
+                  // onPress={()=> props.navigation.navigate('CreateHabit')}
             
                   buttonStyle= {{
                     backgroundColor: '#9c9c9c',

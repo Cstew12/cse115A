@@ -4,10 +4,8 @@ import { Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
 import { fonts } from 'react-native-elements/dist/config';
-import {auth} from "/Users/sparkz/Desktop/cse115A/firebase"
+import { auth } from "../../firebase"
 import { useNavigation } from '@react-navigation/core';
-
-
 
 
 //testing git bot

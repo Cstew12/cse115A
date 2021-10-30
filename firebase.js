@@ -4,10 +4,6 @@
 
 import * as firebase from "firebase";
 
-// import * as firebase from Firebase;
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 const firebaseConfig = {
   apiKey: "AIzaSyBawtSOjHF2loaPq4nXXu8FLU43qzCtJ2s",
   authDomain: "routeam-c901f.firebaseapp.com",

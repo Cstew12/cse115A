@@ -2,21 +2,20 @@
 // import {initializeApp} from 'firebase/app';
 // import firebase from 'react-native-firebase';
 
-import * as firebase from "./node_modules/firebase/firebase";
-
+import * as firebase from "firebase";
 
 // import * as firebase from Firebase;
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDBvA93lHD-A_k9CGbrxUv9fVhD58K0afM",
-  authDomain: "fir-auth-9675d.firebaseapp.com",
-  projectId: "fir-auth-9675d",
-  storageBucket: "fir-auth-9675d.appspot.com",
-  messagingSenderId: "236490221309",
-  appId: "1:236490221309:web:bf000d94a587b2bbf74094"
+  apiKey: "AIzaSyBawtSOjHF2loaPq4nXXu8FLU43qzCtJ2s",
+  authDomain: "routeam-c901f.firebaseapp.com",
+  projectId: "routeam-c901f",
+  storageBucket: "routeam-c901f.appspot.com",
+  messagingSenderId: "698713936035",
+  appId: "1:698713936035:web:eab1414fbefd0c8628ef16",
+  measurementId: "G-0Z0K3NXW4Z"
 };
 
 // Initialize Firebase
@@ -24,7 +23,7 @@ const firebaseConfig = {
 let app;
 if (firebase.apps.length === 0) {
     app = firebase.initializeApp(firebaseConfig);
-} else {i
+} else {
     app = firebase.app()
 }
 const auth = firebase.auth()

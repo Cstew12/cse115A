@@ -1,11 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-native';
 import { Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
 import { color } from 'react-native-elements/dist/helpers';
+import { auth } from "../../firebase"
+import { useNavigation } from '@react-navigation/core';
 
-function LoginScreen(props) {
+const LoginScreen = () => {
+
+   // Firebase user properties
+   const [email, setEmail] = useState('')
+   const [password, setPassword] = useState('')
+   const navigation = useNavigation()  // Broken navigation at the moment
+ 
+   const handleSignUp = () => {
+     auth  
+         .createUserWithEmailAndPassword(email, password)
+         .then(userCredentials => {
+           const user = userCredentials.user;
+           console.log('Registered with: ', user.email); // Debug
+           navigation.navigate('Login')
+         })
+         .catch(error => alert(error.message)) // error handling upon failure
+   }
+   
     return (
         <View style={styles.container}>
 
@@ -74,6 +93,9 @@ function LoginScreen(props) {
                     />
                   }
 
+                 // on change of text -> set the email property of user
+                 onChangeText={text => setEmail(text)}
+
                   inputStyle= {{
                     color: '#9c9c9c'
                   }}
@@ -120,6 +142,9 @@ function LoginScreen(props) {
                     />
                   }
 
+                  // on change of text -> set the password property of user
+                  onChangeText={text => setPassword(text)}
+
                   inputStyle= {{
                     color: '#9c9c9c'
                   }}
@@ -158,7 +183,7 @@ function LoginScreen(props) {
                   title="Register"
                   type= "solid"
                   raised = "true"
-                  onPress={()=> props.navigation.navigate('Login')}
+                  onPress={handleSignUp}
             
                   buttonStyle= {{
                     backgroundColor: '#9c9c9c',

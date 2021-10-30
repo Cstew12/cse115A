@@ -7,15 +7,13 @@ import { fonts } from 'react-native-elements/dist/config';
 import { auth } from "../../firebase"
 import { useNavigation } from '@react-navigation/core';
 
-
 //testing git bot
 const LoginScreen = () => {
 
   // Firebase user properties
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const navigation = useNavigation()  // Broken navigation at the moment
+  const navigation = useNavigation()  
 
   // Take us to the Create Habit page if someone is logged in
   // this is basically a listener on the Firebase server to check if a user had signed in 
@@ -29,22 +27,13 @@ const LoginScreen = () => {
     return unsubscribe
   }, [])
 
-  const handleSignUp = () => {
-    auth  
-        .createUserWithEmailAndPassword(email, password)
-        .then(userCredentials => {
-          const user = userCredentials.user;
-          console.log('Registered with: ', user.email);
-        })
-        .catch(error => alert(error.message)) // error handling upon failure
-  }
-
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email,password)
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Logged in with: ', user.email);
+        navigation.navigate('CreateHabit')
       })
       .catch(error => alert(error.message)) // error handling upon failure
       console.log('Button pressed') // debug
@@ -61,10 +50,8 @@ const LoginScreen = () => {
 
               <Text style={styles.quoteText}>Building Habits With Friends!</Text>
 
-
             </View>
-            
-
+  
             <View style={styles.loginFlex}>
                 <Input
                   placeholder='Email'
@@ -105,7 +92,6 @@ const LoginScreen = () => {
                   // on change of text -> set the password property of user
                   onChangeText={text => setPassword(text)}
 
-
                   inputStyle= {{
                     color: '#9c9c9c'
                   }}
@@ -124,9 +110,6 @@ const LoginScreen = () => {
                   
                   // Testing out registering of users using the login button
                   onPress={handleLogin}  
-
-                  // Commenting out Sean's screen changing code for now
-                  // onPress={()=> props.navigation.navigate('CreateHabit')}
             
                   buttonStyle= {{
                     backgroundColor: '#9c9c9c',
@@ -148,7 +131,7 @@ const LoginScreen = () => {
                   title="Sign Up"
                   type= "solid"
                   raised = "true"
-                  onPress={()=> props.navigation.navigate('Register')}
+                  onPress={()=> navigation.navigate('Register')} // navigate to the Registration page
                   buttonStyle= {{
                     backgroundColor: '#9c9c9c'
                   }}

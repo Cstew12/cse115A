@@ -4,8 +4,10 @@ import { Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
 import { color } from 'react-native-elements/dist/helpers';
-import { auth } from "../../firebase"
+import { auth, db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
+import "/Users/sparkz/Desktop/cse115A/node_modules/firebase/firestore";
+
 
 const LoginScreen = () => {
 

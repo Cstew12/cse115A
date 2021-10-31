@@ -6,8 +6,6 @@ import { StatusBar } from 'expo-status-bar';
 import { color } from 'react-native-elements/dist/helpers';
 import { auth, db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
-import "/Users/sparkz/Desktop/cse115A/node_modules/firebase/firestore";
-
 
 const LoginScreen = () => {
 
@@ -30,7 +28,7 @@ const LoginScreen = () => {
     return (
         <View style={styles.container}>
 
-            <View style={styles.headerFlex}>
+            <View style={styles.headerFlex}>cs
                 <Image source={require('./../../assets/routeam-logo5.png')} style={styles.image1}/>
 
                 <Text style={styles.header}>Register Today!</Text>

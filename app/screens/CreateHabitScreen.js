@@ -125,17 +125,7 @@ function CreateHabitScreen(props) {
                 </View>
                 {period == "week" &&
                 <View style={styles.options}>
-                    <Text 
-                            style={{
-                                marginHorizontal: 10, 
-                                alignSelf: 'center',
-                                fontFamily: 'AvenirNext-Regular',
-                                color: colors.purple
-                            }}>
-                            {name == '' ? 'Do habit' : name} {length} times per week
-                        </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        
                         <Icon 
                             name="minus"
                             size={20}
@@ -172,15 +162,6 @@ function CreateHabitScreen(props) {
                 </View>}
                 <View style={styles.options}>
                     <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center'}}>
-                        <Text 
-                            style={{
-                                marginHorizontal: 10, 
-                                alignSelf: 'center',
-                                fontFamily: 'AvenirNext-Regular',
-                                color: colors.purple
-                            }}>
-                            {name == '' ? 'Do habit' : name} {value} {period}s in a row
-                        </Text>
                         { period == "day" && 
                         <Slider
                             value={value}
@@ -211,6 +192,15 @@ function CreateHabitScreen(props) {
                             step={1}
                             minimumTrackTintColor={colors.purple}
                         />}
+                        <Text 
+                            style={{
+                                marginHorizontal: 10, 
+                                alignSelf: 'center',
+                                fontFamily: 'AvenirNext-Regular',
+                                color: colors.purple
+                            }}>
+                            {name == '' ? 'Do habit' : name} {period == 'week' ? length : ''}{period == 'week' ? 'times per week' : ''} {value} {period}s in a row
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.save_button}>

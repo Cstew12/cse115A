@@ -3,13 +3,15 @@ import {StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View 
 import { Button, Input} from 'react-native-elements';
 import { Slider } from 'react-native-elements';
 import { Animated } from 'react-native';
+import { Icon } from 'react-native-elements'
+
 
 
 function CreateHabitScreen(props) {
-    const [build, setBuild] = useState('Build');
     const [period, setPeriod] = useState('day');
     const [value, setValue] = useState(1);
     const [name, setName] = useState('');
+    const [length, setLength] = useState(1);
     const colors = {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
     }
@@ -57,49 +59,7 @@ function CreateHabitScreen(props) {
                 </View>
                 <View style={styles.options}>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        <Button
-                            title="Build"
-                            type= "outline"
-                            onPress={()=>setBuild('Build')}
-                    
-                            buttonStyle= {{
-                                backgroundColor: '#9c9c9c',
-                                borderColor: build == 'Build' ? colors.purple : '#9c9c9c',
-                                borderWidth: 3,
-                                paddingLeft: 50,
-                                paddingRight: 50
-                            //marginTop: -10,
-                            }}
-        
-                            titleStyle= {{
-                                color: '#E3D1FC',
-                                fontFamily: 'AvenirNext-Regular'
-                            }}
-                        />
-                        <Button
-                            title="Quit"
-                            type="outline"
-                            onPress={()=>setBuild('Quit')}
-                    
-                            buttonStyle= {{
-                                backgroundColor: '#9c9c9c',
-                                borderWidth: 3,
-                                borderColor: build == 'Quit' ? colors.purple : '#9c9c9c',
-                                paddingLeft: 50,
-                                paddingRight: 50
-                            //marginTop: -10,
-                            }}
-        
-                            titleStyle= {{
-                                color: '#E3D1FC',
-                                fontFamily: 'AvenirNext-Regular'
-                            }}
-                        />
-                    </View>
-                </View>
-                <View style={styles.options}>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                        <Button
+                    <Button
                             title="Daily"
                             type="outline"
                             onPress={()=>setPeriod('day')}
@@ -142,26 +102,40 @@ function CreateHabitScreen(props) {
                                 fontFamily: 'AvenirNext-Regular'
                             }}
                         />
-                        <Button
-                            title="Monthly"
-                            type="outline"
-                            onPress={()=>setPeriod('month')}
-                    
-                            containerStyle = {{
-                                flex: 1,
-                                marginHorizontal: 10
+                    </View>
+                </View>
+                <View style={styles.options}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                        <Icon 
+                            name="minus"
+                            size={20}
+                            color={colors.purple}
+                            type="entypo" 
+                            reverse
+                            reverseColor="white"
+                            onPress={() => setLength(length-1)}
+                        />
+                        <Input
+                            onChangeText={setLength}
+                            placeholder={length}
+                            containerStyle={{
+                                width: 100
                             }}
-
-                            buttonStyle= {{
-                                backgroundColor: '#9c9c9c',
-                                borderWidth: 3,
-                                borderColor: period == 'month' ? colors.purple : '#9c9c9c',
+                            inputStyle={{
+                                width: 75,
+                                color: "white",
+                                textAlign: "center",
+                                fontFamily: "AvenirNext-Regular"
                             }}
-        
-                            titleStyle= {{
-                                color: '#E3D1FC',
-                                fontFamily: 'AvenirNext-Regular'
-                            }}
+                        />
+                        <Icon 
+                            name="plus"
+                            size={20}
+                            color={colors.purple}
+                            type="entypo" 
+                            reverse
+                            reverseColor="white"
+                            onPress={() => setLength(length+1)}
                         />
                     </View>
                 </View>
@@ -171,7 +145,7 @@ function CreateHabitScreen(props) {
                             value={value}
                             onValueChange={setValue}
                             minimumValue={1}
-                            maximumValue={30}
+                            maximumValue={6}
                             thumbStyle = {{
                                 backgroundColor: colors.purple
                             }}
@@ -188,7 +162,7 @@ function CreateHabitScreen(props) {
                                 fontFamily: 'AvenirNext-Regular',
                                 color: colors.purple
                             }}>
-                            {name == '' ? 'Do habit' : name} {build == 'Build' ? 'at least' : 'at most'} {value} times per {period}  
+                            {name == '' ? 'Do habit' : name} {value} times per {period}  
                         </Text>
                     </View>
                 </View>

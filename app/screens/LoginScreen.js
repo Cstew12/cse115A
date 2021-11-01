@@ -94,7 +94,7 @@ const LoginScreen = () => {
                       color='#9c9c9c'
                     />
                   }
-
+                  secureTextEntry={true}
                   // on change of text -> set the password property of user
                   onChangeText={text => setPassword(text)}
 

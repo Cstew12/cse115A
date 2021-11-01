@@ -7,6 +7,8 @@ import { fonts } from 'react-native-elements/dist/config';
 import { auth} from "../../firebase";
 import {db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
+// test branch
+
 
 //testing git bot
 const LoginScreen = () => {

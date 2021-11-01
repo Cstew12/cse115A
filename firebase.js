@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 // import {initializeApp} from 'firebase/app';
 // import firebase from 'react-native-firebase';
-// creating test branch
 
 // import * as firebase from "firebase";
 import * as firebase from "./node_modules/firebase/firebase";

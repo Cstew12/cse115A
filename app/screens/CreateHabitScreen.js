@@ -16,6 +16,20 @@ function CreateHabitScreen(props) {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
     }
 
+    const decreaseLength = () => {
+        if(length === 0) {
+            setLength(0);
+        } else {
+            setLength(length - 1);
+        }
+    }
+    const increaseLength = () => {
+        if(length >= 6) {
+            setLength(6);
+        } else {
+            setLength(length + 1);
+        }
+    }
     return (
         <View style={styles.container}>
             <View style={styles.top}>
@@ -62,8 +76,10 @@ function CreateHabitScreen(props) {
                     <Button
                             title="Daily"
                             type="outline"
-                            onPress={()=>setPeriod('day')}
-
+                            onPress={()=>{
+                                setPeriod('day')
+                                setValue(1)
+                            }}
                             containerStyle = {{
                                 flex: 1,
                                 marginHorizontal: 10
@@ -84,7 +100,10 @@ function CreateHabitScreen(props) {
                         <Button
                             title="Weekly"
                             type="outline"
-                            onPress={()=>setPeriod('week')}
+                            onPress={()=>{
+                                setPeriod('week')
+                                setValue(1)
+                            }}
                     
                             containerStyle = {{
                                 flex: 1,
@@ -104,8 +123,19 @@ function CreateHabitScreen(props) {
                         />
                     </View>
                 </View>
+                {period == "week" &&
                 <View style={styles.options}>
+                    <Text 
+                            style={{
+                                marginHorizontal: 10, 
+                                alignSelf: 'center',
+                                fontFamily: 'AvenirNext-Regular',
+                                color: colors.purple
+                            }}>
+                            {name == '' ? 'Do habit' : name} {length} times per week
+                        </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                        
                         <Icon 
                             name="minus"
                             size={20}
@@ -113,11 +143,11 @@ function CreateHabitScreen(props) {
                             type="entypo" 
                             reverse
                             reverseColor="white"
-                            onPress={() => setLength(length-1)}
+                            onPress={decreaseLength}
                         />
                         <Input
                             onChangeText={setLength}
-                            placeholder={length}
+                            value={length}
                             containerStyle={{
                                 width: 100
                             }}
@@ -127,6 +157,7 @@ function CreateHabitScreen(props) {
                                 textAlign: "center",
                                 fontFamily: "AvenirNext-Regular"
                             }}
+                            keyboardType="numeric"
                         />
                         <Icon 
                             name="plus"
@@ -135,17 +166,27 @@ function CreateHabitScreen(props) {
                             type="entypo" 
                             reverse
                             reverseColor="white"
-                            onPress={() => setLength(length+1)}
+                            onPress={increaseLength}
                         />
                     </View>
-                </View>
+                </View>}
                 <View style={styles.options}>
                     <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center'}}>
+                        <Text 
+                            style={{
+                                marginHorizontal: 10, 
+                                alignSelf: 'center',
+                                fontFamily: 'AvenirNext-Regular',
+                                color: colors.purple
+                            }}>
+                            {name == '' ? 'Do habit' : name} {value} {period}s in a row
+                        </Text>
+                        { period == "day" && 
                         <Slider
                             value={value}
                             onValueChange={setValue}
                             minimumValue={1}
-                            maximumValue={6}
+                            maximumValue={90}
                             thumbStyle = {{
                                 backgroundColor: colors.purple
                             }}
@@ -154,16 +195,22 @@ function CreateHabitScreen(props) {
                             }}
                             step={1}
                             minimumTrackTintColor={colors.purple}
-                        />
-                        <Text 
-                            style={{
-                                marginHorizontal: 10, 
-                                alignSelf: 'center',
-                                fontFamily: 'AvenirNext-Regular',
-                                color: colors.purple
-                            }}>
-                            {name == '' ? 'Do habit' : name} {value} times per {period}  
-                        </Text>
+                        />}
+                        { period == "week" && 
+                        <Slider
+                            value={value}
+                            onValueChange={setValue}
+                            minimumValue={1}
+                            maximumValue={12}
+                            thumbStyle = {{
+                                backgroundColor: colors.purple
+                            }}
+                            style = {{
+                                marginHorizontal: 10
+                            }}
+                            step={1}
+                            minimumTrackTintColor={colors.purple}
+                        />}
                     </View>
                 </View>
                 <View style={styles.save_button}>
@@ -181,7 +228,7 @@ function CreateHabitScreen(props) {
                         }}
     
                         titleStyle= {{
-                            color: '#9c9c9c',
+                            color: 'white',
                             fontFamily: 'AvenirNext-Bold'
                         }}
                     />

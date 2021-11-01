@@ -3,6 +3,7 @@ import {StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View 
 import { Button, Input} from 'react-native-elements';
 import { Slider } from 'react-native-elements';
 import { Animated } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
 
 function CreateHabitScreen(props) {
@@ -10,6 +11,7 @@ function CreateHabitScreen(props) {
     const [period, setPeriod] = useState('day');
     const [value, setValue] = useState(1);
     const [name, setName] = useState('');
+    const navigation = useNavigation(); 
     const colors = {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
     }
@@ -194,7 +196,8 @@ function CreateHabitScreen(props) {
                 </View>
                 <View style={styles.save_button}>
                     <Button
-                        title="Save"                
+                        title="Save"
+                        onPress={()=> navigation.navigate('Habits')}                
                         containerStyle = {{
                             flex: 1,
                             marginHorizontal: 10,

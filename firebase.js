@@ -3,7 +3,7 @@
 // import firebase from 'react-native-firebase';
 
 // import * as firebase from "firebase";
-// import * as firebase from "./node_modules/firebase/firebase";
+import * as firebase from "./node_modules/firebase/firebase";
 import "firebase/firestore";
 
 const firebaseConfig = {

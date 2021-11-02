@@ -15,12 +15,27 @@ const LoginScreen = () => {
    const [lastName, setLasttName] = useState('') 
    const [username, setUserName] = useState('')
    const [password, setPassword] = useState('')
-   const [confirmpassword, setConfirmPassword] = useState('')
+  //  const [confirmpassword, setConfirmPassword] = useState('')
    const navigation = useNavigation()  // Broken navigation at the moment
- 
+
+   const saveData = () => {
+    const userProfile = {
+        FirstName: firstName,
+        lastName: lastName,
+        username: username, // 'day' or 'week'
+        password: password, // between 1-90 days or 1-12 weeks
+    }
+    console.log(saveData);
+    db
+        .collection('users')
+        .add(userProfile)
+        .then(() => {
+            console.log('collection added!');
+        });
+    }
    const handleSignUp = () => {
      auth  
-         .createUserWithEmailAndPassword(firstName, lastName, username, password, confirmpassword)
+         .createUserWithEmailAndPassword(email, password)
          .then(userCredentials => {
            const user = userCredentials.user;
            console.log('Registered with: ', user.email); // Debug
@@ -167,7 +182,7 @@ const LoginScreen = () => {
                   }}
                 />
 
-                <Input
+                {/* <Input
                   placeholder='Confirm Password'
                   value={confirmpassword}
                   onChangeText={text => setConfirmPassword(text)} 
@@ -190,12 +205,13 @@ const LoginScreen = () => {
                     alignSelf: 'center',
                     marginTop: -20
                   }}
-                />
+                /> */}
             
             <Button
                   title="Register"
                   type= "solid"
                   raised = "true"
+                  onPress={saveData}
                   onPress={handleSignUp}
             
                   buttonStyle= {{

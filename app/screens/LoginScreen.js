@@ -8,6 +8,7 @@ import { auth} from "../../firebase";
 import {db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
 
+
 //testing git bot
 const LoginScreen = () => {
 
@@ -94,7 +95,7 @@ const LoginScreen = () => {
                       color='#9c9c9c'
                     />
                   }
-
+                  secureTextEntry={true}
                   // on change of text -> set the password property of user
                   onChangeText={text => setPassword(text)}
 

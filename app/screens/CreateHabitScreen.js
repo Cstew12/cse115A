@@ -9,27 +9,40 @@ import { Icon } from 'react-native-elements'
 
 function CreateHabitScreen(props) {
     const [period, setPeriod] = useState('day');
-    const [value, setValue] = useState(1);
+    const [duration, setDuration] = useState(1);
     const [name, setName] = useState('');
-    const [length, setLength] = useState(1);
+    const [frequency, setFrequency] = useState(1);
+    const [motivation, setMotivation] = useState('');
     const colors = {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
     }
 
     const decreaseLength = () => {
-        if(length === 1) {
-            setLength(1);
+        if(frequency === 1) {
+            setFrequency(1);
         } else {
-            setLength(length - 1);
+            setFrequency(frequency - 1);
         }
     }
     const increaseLength = () => {
-        if(length >= 6) {
-            setLength(6);
+        if(frequency >= 6) {
+            setFrequency(6);
         } else {
-            setLength(length + 1);
+            setFrequency(frequency + 1);
         }
     }
+
+    const onClickSave = () => {
+        const habitData = {
+            habitName: name,
+            motivation: motivation,
+            period: period, // 'day' or 'week'
+            duration: duration, // between 1-90 days or 1-12 weeks
+            frequency: frequency, // frequency for day is 1, frequency for week is 1-6 days in week
+        }
+        console.log(habitData);
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.top}>
@@ -57,6 +70,7 @@ function CreateHabitScreen(props) {
                             color: '#fff',
                             fontFamily: 'AvenirNext-Regular'
                         }}
+                        onChangeText={setMotivation}
                     />
                 </View>
                 <View style={{flex: .5}}>
@@ -78,7 +92,8 @@ function CreateHabitScreen(props) {
                             type="outline"
                             onPress={()=>{
                                 setPeriod('day')
-                                setValue(1)
+                                setDuration(1)
+                                setFrequency(1)
                             }}
                             containerStyle = {{
                                 flex: 1,
@@ -102,7 +117,7 @@ function CreateHabitScreen(props) {
                             type="outline"
                             onPress={()=>{
                                 setPeriod('week')
-                                setValue(1)
+                                setDuration(1)
                             }}
                     
                             containerStyle = {{
@@ -142,7 +157,7 @@ function CreateHabitScreen(props) {
                                 fontFamily: "AvenirNext-Regular",
                                 alignSelf: "center"
                             }}
-                        >{length}</Text>
+                        >{frequency}</Text>
                         <Icon 
                             name="plus"
                             size={20}
@@ -158,8 +173,8 @@ function CreateHabitScreen(props) {
                     <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center'}}>
                         { period == "day" && 
                         <Slider
-                            value={value}
-                            onValueChange={setValue}
+                            value={duration}
+                            onValueChange={setDuration}
                             minimumValue={1}
                             maximumValue={90}
                             thumbStyle = {{
@@ -173,8 +188,8 @@ function CreateHabitScreen(props) {
                         />}
                         { period == "week" && 
                         <Slider
-                            value={value}
-                            onValueChange={setValue}
+                            value={duration}
+                            onValueChange={setDuration}
                             minimumValue={1}
                             maximumValue={12}
                             thumbStyle = {{
@@ -193,7 +208,7 @@ function CreateHabitScreen(props) {
                                 fontFamily: 'AvenirNext-Regular',
                                 color: colors.purple
                             }}>
-                            {name == '' ? 'Do habit' : name} {period == 'week' ? length : ''}{period == 'week' ? ' times per week for' : ''} {value} {period}s in a row
+                            {name == '' ? 'Do habit' : name} {period == 'week' ? frequency : ''}{period == 'week' ? ' times per week for' : ''} {duration} {period}s in a row
                         </Text>
                     </View>
                 </View>
@@ -215,6 +230,8 @@ function CreateHabitScreen(props) {
                             color: 'white',
                             fontFamily: 'AvenirNext-Bold'
                         }}
+
+                        onPress={onClickSave}
                     />
                 </View>
             </View>

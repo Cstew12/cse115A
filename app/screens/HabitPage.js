@@ -91,8 +91,12 @@ function HabitPage(props) {
                         <Button
                             title="Record with Picture"
                             type= "solid"
-                            onPress={()=>setBuild('Build')}
-                    
+                            onPress={()=>{
+                                setBuild('Build');
+                                navigation.navigate('CameraScreen');
+                            }}
+                            
+                            
                             buttonStyle= {{
                                 backgroundColor: '#9c9c9c',
                                 height: 70,

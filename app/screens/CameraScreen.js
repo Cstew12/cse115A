@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button,Image } from 'react-native';
 import { Camera } from 'expo-camera';
 
 function CameraScreen(props) {
-    const [hasPermission, setHasPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState(null);
+  const [camera, setCamera] = useState(null);
+  const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
@@ -13,11 +15,19 @@ function CameraScreen(props) {
     })();
   }, []);
 
+
   if (hasPermission === null) {
     return <View />;
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
+  }
+  const takePicture = async () => {
+    if (camera) {
+      const data = await camera.takePictureAsync(null);
+      setImage(data.uri);
+      console.log(data.uri)
+    }
   }
   return (
     <View style={styles.container}>
@@ -36,6 +46,9 @@ function CameraScreen(props) {
           </TouchableOpacity>
         </View>
       </Camera>
+      <Button title="Take Picture" onPress={() => takePicture()} />
+     
+      {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
     </View>
   );
 }

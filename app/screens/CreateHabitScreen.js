@@ -17,8 +17,8 @@ function CreateHabitScreen(props) {
     }
 
     const decreaseLength = () => {
-        if(length === 0) {
-            setLength(0);
+        if(length === 1) {
+            setLength(1);
         } else {
             setLength(length - 1);
         }
@@ -135,20 +135,14 @@ function CreateHabitScreen(props) {
                             reverseColor="white"
                             onPress={decreaseLength}
                         />
-                        <Input
-                            onChangeText={setLength}
-                            value={length}
-                            containerStyle={{
-                                width: 100
-                            }}
-                            inputStyle={{
-                                width: 75,
+                        <Text
+                            style={{
                                 color: "white",
                                 textAlign: "center",
-                                fontFamily: "AvenirNext-Regular"
+                                fontFamily: "AvenirNext-Regular",
+                                alignSelf: "center"
                             }}
-                            keyboardType="numeric"
-                        />
+                        >{length}</Text>
                         <Icon 
                             name="plus"
                             size={20}
@@ -199,7 +193,7 @@ function CreateHabitScreen(props) {
                                 fontFamily: 'AvenirNext-Regular',
                                 color: colors.purple
                             }}>
-                            {name == '' ? 'Do habit' : name} {period == 'week' ? length : ''}{period == 'week' ? 'times per week' : ''} {value} {period}s in a row
+                            {name == '' ? 'Do habit' : name} {period == 'week' ? length : ''}{period == 'week' ? ' times per week for' : ''} {value} {period}s in a row
                         </Text>
                     </View>
                 </View>

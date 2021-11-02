@@ -8,6 +8,7 @@ import { auth} from "../../firebase";
 import {db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
 
+
 //testing git bot
 const LoginScreen = () => {
 

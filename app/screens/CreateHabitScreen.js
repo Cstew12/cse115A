@@ -6,7 +6,6 @@ import { Animated } from 'react-native';
 import { Icon } from 'react-native-elements'
 import {db} from "../../firebase";
 
-
 function CreateHabitScreen(props) {
     const [period, setPeriod] = useState('day');
     const [duration, setDuration] = useState(1);
@@ -220,7 +219,8 @@ function CreateHabitScreen(props) {
                 </View>
                 <View style={styles.save_button}>
                     <Button
-                        title="Save"                
+                        title="Save"
+                        onPress={()=> navigation.navigate('Habits')}                
                         containerStyle = {{
                             flex: 1,
                             marginHorizontal: 10,

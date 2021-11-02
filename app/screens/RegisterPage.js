@@ -11,7 +11,11 @@ const LoginScreen = () => {
 
    // Firebase user properties
    const [email, setEmail] = useState('')
+   const [firstName, setFirstName] = useState('')
+   const [lastName, setLasttName] = useState('') 
+   const [username, setUserName] = useState('')
    const [password, setPassword] = useState('')
+   const [confirmpassword, setConfirmPassword] = useState('')
    const navigation = useNavigation()  // Broken navigation at the moment
  
    const handleSignUp = () => {
@@ -20,6 +24,7 @@ const LoginScreen = () => {
          .then(userCredentials => {
            const user = userCredentials.user;
            console.log('Registered with: ', user.email); // Debug
+           console.log('Registered with: ', user.firstName); // Debug
            navigation.navigate('Login')
          })
          .catch(error => alert(error.message)) // error handling upon failure
@@ -37,6 +42,8 @@ const LoginScreen = () => {
             <View style={styles.registerFlex}>
               <Input
                   placeholder='First Name'
+                  value={firstName}
+                  onChangeText={text => setFirstName(text)} 
                   placeholderTextColor='#9c9c9c'
                   placeholderColo
                   leftIcon={
@@ -60,6 +67,8 @@ const LoginScreen = () => {
 
               <Input
                   placeholder='Last Name'
+                  value = {lastName}
+                  onChangeText={text => setLasttName(text)}
                   placeholderTextColor='#9c9c9c'
                   placeholderColo
                   leftIcon={
@@ -83,6 +92,8 @@ const LoginScreen = () => {
 
                 <Input
                   placeholder='Email'
+                  value={email}
+                  onChangeText={text => setEmail(text)} 
                   placeholderTextColor='#9c9c9c'
                   placeholderColo
                   leftIcon={
@@ -92,9 +103,6 @@ const LoginScreen = () => {
                       color='#82f591'
                     />
                   }
-
-                 // on change of text -> set the email property of user
-                 onChangeText={text => setEmail(text)}
 
                   inputStyle= {{
                     color: '#9c9c9c'
@@ -109,6 +117,8 @@ const LoginScreen = () => {
 
                 <Input
                   placeholder='Username'
+                  value={username}
+                  onChangeText={text => setUserName(text)} 
                   placeholderTextColor='#9c9c9c'
                   placeholderColo
                   leftIcon={
@@ -132,6 +142,9 @@ const LoginScreen = () => {
 
                 <Input
                   placeholder='Password'
+                  value={password}
+                  onChangeText={text => setPassword(text)} 
+                  secureTextEntry
                   placeholderTextColor='#9c9c9c'
                   placeholderColo
                   leftIcon={
@@ -142,8 +155,6 @@ const LoginScreen = () => {
                     />
                   }
 
-                  // on change of text -> set the password property of user
-                  onChangeText={text => setPassword(text)}
 
                   inputStyle= {{
                     color: '#9c9c9c'
@@ -156,8 +167,10 @@ const LoginScreen = () => {
                   }}
                 />
 
-                <Input
+                {/* <Input
                   placeholder='Confirm Password'
+                  value={confirmpassword}
+                  onChangeText={text => setConfirmPassword(text)} 
                   placeholderTextColor='#9c9c9c'
                   placeholderColo
                   leftIcon={
@@ -177,7 +190,7 @@ const LoginScreen = () => {
                     alignSelf: 'center',
                     marginTop: -20
                   }}
-                />
+                /> */}
             
             <Button
                   title="Register"

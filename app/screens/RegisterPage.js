@@ -15,9 +15,24 @@ const LoginScreen = () => {
    const [lastName, setLasttName] = useState('') 
    const [username, setUserName] = useState('')
    const [password, setPassword] = useState('')
-   const [confirmpassword, setConfirmPassword] = useState('')
+  //  const [confirmpassword, setConfirmPassword] = useState('')
    const navigation = useNavigation()  // Broken navigation at the moment
- 
+
+   const saveData = () => {
+    const userProfile = {
+        FirstName: firstName,
+        lastName: lastName,
+        username: username, // 'day' or 'week'
+        password: password, // between 1-90 days or 1-12 weeks
+    }
+    console.log(habitData);
+    db
+        .collection('users')
+        .add(userProfile)
+        .then(() => {
+            console.log('collection added!');
+        });
+    }
    const handleSignUp = () => {
      auth  
          .createUserWithEmailAndPassword(email, password)
@@ -196,6 +211,7 @@ const LoginScreen = () => {
                   title="Register"
                   type= "solid"
                   raised = "true"
+                  onPress={saveData}
                   onPress={handleSignUp}
             
                   buttonStyle= {{

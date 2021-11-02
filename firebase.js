@@ -1,10 +1,10 @@
 // Import the functions you need from the SDKs you need
 
-// import firebase from 'firebase/app'; // works for ios and web
-import * as firebase from "./node_modules/firebase/firebase";
+import firebase from 'firebase/app'; // works for ios and web
+// import * as firebase from "./node_modules/firebase/firebase";
 // import  "./node_modules/firebase/firestore";
 import "firebase/firestore"; // works for ios and web
-// import "firebase/auth"; // works for ios and web
+import "firebase/auth"; // works for ios and web
 
 // import * as firebase from "firebase";
 

@@ -48,7 +48,7 @@ const LoginScreen = () => {
     return (
         <View style={styles.container}>
 
-            <View style={styles.headerFlex}>cs
+            <View style={styles.headerFlex}>
                 <Image source={require('./../../assets/routeam-logo5.png')} style={styles.image1}/>
 
                 <Text style={styles.header}>Register Today!</Text>

@@ -4,7 +4,7 @@ import { Button, Input} from 'react-native-elements';
 import { Slider } from 'react-native-elements';
 import { Animated } from 'react-native';
 import { Icon } from 'react-native-elements'
-
+import {db} from "../../firebase";
 
 
 function CreateHabitScreen(props) {
@@ -41,6 +41,12 @@ function CreateHabitScreen(props) {
             frequency: frequency, // frequency for day is 1, frequency for week is 1-6 days in week
         }
         console.log(habitData);
+        db
+            .collection('users')
+            .add(habitData)
+            .then(() => {
+                console.log('collection added!');
+            });
     }
 
     return (

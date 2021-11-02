@@ -13,9 +13,9 @@ import { useNavigation } from '@react-navigation/core';
 const LoginScreen = () => {
 
   // Testing the retrival of test data from the database
-  const userDocument =  db.collection('users').doc('OMz9VMjqzrg8p46zIDkH').get()
-  console.log(userDocument)
-  console.log("stuff")
+  //const userDocument =  db.collection('users').doc('OMz9VMjqzrg8p46zIDkH').get()
+  //console.log(userDocument)
+  //console.log("stuff")
 
   // Firebase user properties
   const [email, setEmail] = useState('')

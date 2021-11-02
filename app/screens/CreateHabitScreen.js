@@ -5,6 +5,8 @@ import { Slider } from 'react-native-elements';
 import { Animated } from 'react-native';
 import { Icon } from 'react-native-elements'
 import {db} from "../../firebase";
+import { useNavigation } from '@react-navigation/core';
+
 
 function CreateHabitScreen(props) {
     const [period, setPeriod] = useState('day');
@@ -12,6 +14,8 @@ function CreateHabitScreen(props) {
     const [name, setName] = useState('');
     const [frequency, setFrequency] = useState(1);
     const [motivation, setMotivation] = useState('');
+    const navigation = useNavigation();
+
     const colors = {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
     }
@@ -45,6 +49,7 @@ function CreateHabitScreen(props) {
             .add(habitData)
             .then(() => {
                 console.log('collection added!');
+                navigation.navigate('Habits');
             });
     }
 
@@ -220,7 +225,6 @@ function CreateHabitScreen(props) {
                 <View style={styles.save_button}>
                     <Button
                         title="Save"
-                        onPress={()=> navigation.navigate('Habits')}                
                         containerStyle = {{
                             flex: 1,
                             marginHorizontal: 10,

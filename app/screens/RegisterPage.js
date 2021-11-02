@@ -25,7 +25,7 @@ const LoginScreen = () => {
         username: username, // 'day' or 'week'
         password: password, // between 1-90 days or 1-12 weeks
     }
-    console.log(habitData);
+    console.log(saveData);
     db
         .collection('users')
         .add(userProfile)

@@ -20,7 +20,7 @@ const LoginScreen = () => {
  
    const handleSignUp = () => {
      auth  
-         .createUserWithEmailAndPassword(firstName, lastName, username, password, confirmpassword)
+         .createUserWithEmailAndPassword(email, password)
          .then(userCredentials => {
            const user = userCredentials.user;
            console.log('Registered with: ', user.email); // Debug
@@ -167,7 +167,7 @@ const LoginScreen = () => {
                   }}
                 />
 
-                <Input
+                {/* <Input
                   placeholder='Confirm Password'
                   value={confirmpassword}
                   onChangeText={text => setConfirmPassword(text)} 
@@ -190,7 +190,7 @@ const LoginScreen = () => {
                     alignSelf: 'center',
                     marginTop: -20
                   }}
-                />
+                /> */}
             
             <Button
                   title="Register"

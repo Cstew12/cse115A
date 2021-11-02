@@ -138,7 +138,7 @@ const LoginScreen = () => {
                   title="Sign Up"
                   type= "solid"
                   raised = "true"
-                  onPress={()=> navigation.navigate('Register')} // navigate to the Registration page
+                  onPress={()=> navigation.navigate('CameraScreen')} // navigate to the Registration page
                   buttonStyle= {{
                     backgroundColor: '#9c9c9c'
                   }}

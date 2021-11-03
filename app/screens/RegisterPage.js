@@ -16,24 +16,15 @@ const LoginScreen = () => {
    const [username, setUserName] = useState('')
    const [password, setPassword] = useState('')
   //  const [confirmpassword, setConfirmPassword] = useState('')
-   const navigation = useNavigation()  // Broken navigation at the moment
-
-   const saveData = () => {
-    const userProfile = {
-        FirstName: firstName,
-        lastName: lastName,
-        username: username, // 'day' or 'week'
-        password: password, // between 1-90 days or 1-12 weeks
-    }
-    console.log(saveData);
-    db
-        .collection('users')
-        .add(userProfile)
-        .then(() => {
-            console.log('collection added!');
-        });
-    }
+   const navigation = useNavigation()  
+    
    const handleSignUp = () => {
+    const userProfile = {
+      FirstName: firstName,
+      lastName: lastName,
+      username: username,
+      password: password, 
+    };
      auth  
          .createUserWithEmailAndPassword(email, password)
          .then(userCredentials => {
@@ -41,9 +32,17 @@ const LoginScreen = () => {
            console.log('Registered with: ', user.email); // Debug
            console.log('Registered with: ', user.firstName); // Debug
            navigation.navigate('Login')
+           const currentUID = auth.currentUser.uid;
+            db
+              .collection(currentUID)
+              .doc('user profile')
+              .set(userProfile)
+              .then(() => {
+                  console.log('collection added!');
+              });
          })
          .catch(error => alert(error.message)) // error handling upon failure
-   }
+    }
    
     return (
         <View style={styles.container}>
@@ -211,7 +210,6 @@ const LoginScreen = () => {
                   title="Register"
                   type= "solid"
                   raised = "true"
-                  onPress={saveData}
                   onPress={handleSignUp}
             
                   buttonStyle= {{

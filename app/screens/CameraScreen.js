@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button,Image } from 'react-native';
 import { Camera } from 'expo-camera';
+import { useNavigation } from '@react-navigation/core';
 
 function CameraScreen(props) {
+  const navigation = useNavigation(); 
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
@@ -10,7 +12,7 @@ function CameraScreen(props) {
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
   }, []);
@@ -26,34 +28,34 @@ function CameraScreen(props) {
     if (camera) {
       const data = await camera.takePictureAsync(null);
       setImage(data.uri);
-      console.log(data.uri)
+      console.log(data.uri);
     }
   }
   return (
-    <View style={styles.container}>
-      <Camera style={styles.camera} type={type}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
-      <Button title="Take Picture" onPress={() => takePicture()} />
+   
+      <View style={{ flex: 1 }}>
+      <View style={styles.cameraContainer}>
+        <Camera
+          ref={ref => setCamera(ref)}
+          style={styles.fixedRatio}
+          type={type}
+          ratio={'1:1'} />
+      </View>
      
+      <Button title="Take Picture" onPress={() => takePicture()} />
+      <Button title="Save" onPress={() => navigation.navigate('Save', { image })} />
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
+     
+      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  cameraContainer: {
+    flex: 1,
+      flexDirection: 'row'
+    },
     container: {
       flex: 1,
     },

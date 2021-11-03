@@ -43,7 +43,7 @@ function CameraScreen(props) {
       </View>
      
       <Button title="Take Picture" onPress={() => takePicture()} />
-      <Button title="Save" onPress={() => navigation.navigate('Save', { image })} />
+      <Button title="Save" onPress={() => navigation.navigate('Save', { uri:image })} />
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
      
       

@@ -4,7 +4,7 @@ import { Button, Input} from 'react-native-elements';
 import { Slider } from 'react-native-elements';
 import { Animated } from 'react-native';
 import { Icon } from 'react-native-elements'
-import {db} from "../../firebase";
+import {auth, db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
 
 
@@ -36,6 +36,7 @@ function CreateHabitScreen(props) {
     }
 
     const onClickSave = () => {
+        const currentUID = auth.currentUser.uid;
         const habitData = {
             habitName: name,
             motivation: motivation,
@@ -45,8 +46,9 @@ function CreateHabitScreen(props) {
         }
         console.log(habitData);
         db
-            .collection('users')
-            .add(habitData)
+            .collection(currentUID)
+            .doc(name)
+            .set(habitData)
             .then(() => {
                 console.log('collection added!');
                 navigation.navigate('Habits');

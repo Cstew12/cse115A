@@ -6,6 +6,12 @@ import "firebase/auth"; // works for ios and web
 
 // import * as firebase from "firebase";
 
+//import * as firebase from "./node_modules/firebase/firebase";
+
+import "firebase/storage";
+
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBawtSOjHF2loaPq4nXXu8FLU43qzCtJ2s",
   authDomain: "routeam-c901f.firebaseapp.com",
@@ -26,4 +32,5 @@ if (firebase.apps.length === 0) {
 }
 const auth = firebase.auth();
 const db = firebase.firestore(app);
-export {auth, db};
+const store= firebase.storage();
+export {auth, db, store};

@@ -51,6 +51,7 @@ const HabitPage = () => {
                             placeholder= {habits[0].freq + ' (click to edit)'}
                             placeholderTextColor='#ffffff'
 
+
                             inputStyle= {{
                                 color: '#fff',
                                 fontFamily: 'AvenirNext-Regular'
@@ -137,7 +138,11 @@ const HabitPage = () => {
                             <Button
                                 title="Record with Picture"
                                 type= "solid"
-                                onPress={()=>setBuild('Build')}
+                                onPress={()=>{
+                                setBuild('Build');
+                                
+                                }}
+                                
                         
                                 buttonStyle= {{
                                     backgroundColor: '#9c9c9c',

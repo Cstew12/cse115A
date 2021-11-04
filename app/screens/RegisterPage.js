@@ -15,25 +15,39 @@ const LoginScreen = () => {
    const [lastName, setLasttName] = useState('') 
    const [username, setUserName] = useState('')
    const [password, setPassword] = useState('')
-   const [confirmpassword, setConfirmPassword] = useState('')
-   const navigation = useNavigation()  // Broken navigation at the moment
- 
+  //  const [confirmpassword, setConfirmPassword] = useState('')
+   const navigation = useNavigation()  
+    
    const handleSignUp = () => {
+    const userProfile = {
+      FirstName: firstName,
+      lastName: lastName,
+      username: username,
+      password: password, 
+    };
      auth  
-         .createUserWithEmailAndPassword(firstName, lastName, username, password, confirmpassword)
+         .createUserWithEmailAndPassword(email, password)
          .then(userCredentials => {
            const user = userCredentials.user;
            console.log('Registered with: ', user.email); // Debug
            console.log('Registered with: ', user.firstName); // Debug
            navigation.navigate('Login')
+           const currentUID = auth.currentUser.uid;
+            db
+              .collection(currentUID)
+              .doc('user profile')
+              .set(userProfile)
+              .then(() => {
+                  console.log('collection added!');
+              });
          })
          .catch(error => alert(error.message)) // error handling upon failure
-   }
+    }
    
     return (
         <View style={styles.container}>
 
-            <View style={styles.headerFlex}>cs
+            <View style={styles.headerFlex}>
                 <Image source={require('./../../assets/routeam-logo5.png')} style={styles.image1}/>
 
                 <Text style={styles.header}>Register Today!</Text>
@@ -167,7 +181,7 @@ const LoginScreen = () => {
                   }}
                 />
 
-                <Input
+                {/* <Input
                   placeholder='Confirm Password'
                   value={confirmpassword}
                   onChangeText={text => setConfirmPassword(text)} 
@@ -190,7 +204,7 @@ const LoginScreen = () => {
                     alignSelf: 'center',
                     marginTop: -20
                   }}
-                />
+                /> */}
             
             <Button
                   title="Register"

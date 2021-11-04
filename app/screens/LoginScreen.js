@@ -8,28 +8,21 @@ import { auth} from "../../firebase";
 import {db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
 
-
-//testing git bot
 const LoginScreen = () => {
 
-  // Testing the retrival of test data from the database
-  //const userDocument =  db.collection('users').doc('OMz9VMjqzrg8p46zIDkH').get()
-  //console.log(userDocument)
-  //console.log("stuff")
-
-  // Firebase user properties
+  /* user properties */
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigation = useNavigation()  
 
-  // Take us to the Create Habit page if someone is logged in
-  // this is basically a listener on the Firebase server to check if a user had signed in 
+  /* Take us to the Create Habit page if someone is logged in
+   * this is basically a listener on the Firebase server to check if a user had signed in 
+   */
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         navigation.navigate("CreateHabit")
       }
-   
     })
     return unsubscribe
   }, [])
@@ -42,8 +35,7 @@ const LoginScreen = () => {
         console.log('Logged in with: ', user.email);
         navigation.navigate('CreateHabit')
       })
-      .catch(error => alert(error.message)) // error handling upon failure
-      console.log('Button pressed') // debug
+      .catch(error => alert(error.message)) // print alert for failure
   }
 
 
@@ -71,8 +63,6 @@ const LoginScreen = () => {
                       color='#9c9c9c'
                     />
                   }
-
-                  // on change of text -> set the email property of user
                   onChangeText={text => setEmail(text)}
 
                   inputStyle= {{
@@ -96,9 +86,7 @@ const LoginScreen = () => {
                     />
                   }
                   secureTextEntry={true}
-                  // on change of text -> set the password property of user
                   onChangeText={text => setPassword(text)}
-
                   inputStyle= {{
                     color: '#9c9c9c'
                   }}
@@ -114,13 +102,9 @@ const LoginScreen = () => {
                   title="Login"
                   type= "solid"
                   raised = "true"
-                  
-                  // Testing out registering of users using the login button
                   onPress={handleLogin}  
-            
                   buttonStyle= {{
                     backgroundColor: '#9c9c9c',
-                    //marginTop: -10,
                   }}
 
                   titleStyle= {{
@@ -138,7 +122,7 @@ const LoginScreen = () => {
                   title="Sign Up"
                   type= "solid"
                   raised = "true"
-                  onPress={()=> navigation.navigate('Register')} // navigate to the Registration page
+                  onPress={()=> navigation.navigate('Register')} 
                   buttonStyle= {{
                     backgroundColor: '#9c9c9c'
                   }}

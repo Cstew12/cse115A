@@ -1,5 +1,3 @@
-// Import the functions you need from the SDKs you need
-
 import firebase from 'firebase/app'; // works for ios and web
 // import * as firebase from "./node_modules/firebase/firebase";
 // import  "./node_modules/firebase/firestore";
@@ -18,8 +16,8 @@ const firebaseConfig = {
   measurementId: "G-0Z0K3NXW4Z"
 };
 
-// Initialize Firebase
-// initializeApp(firebase);
+/* Initialize Firebase applications */
+
 let app;
 if (firebase.apps.length === 0) {
     app = firebase.initializeApp(firebaseConfig);

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Button,Image } from 'react-na
 import { Camera } from 'expo-camera';
 import { useNavigation } from '@react-navigation/core';
 
+
 function CameraScreen(props) {
   const navigation = useNavigation(); 
   const [hasPermission, setHasPermission] = useState(null);
@@ -28,7 +29,7 @@ function CameraScreen(props) {
     if (camera) {
       const data = await camera.takePictureAsync(null);
       setImage(data.uri);
-      console.log(data.uri);
+      //console.log(data.uri);
     }
   }
   return (

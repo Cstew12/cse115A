@@ -140,7 +140,7 @@ const HabitPage = () => {
                                 type= "solid"
                                 onPress={()=>{
                                 setBuild('Build');
-                                
+                                navigation.navigate('CameraScreen');
                                 }}
                                 
                         

@@ -2,8 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-native';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 import { Button } from 'react-native-elements/dist/buttons/Button';
+import { useNavigation } from '@react-navigation/core';
 
 function ProfileScreen(props) {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <View style={styles.top}>
@@ -20,6 +22,10 @@ function ProfileScreen(props) {
                 <View style={styles.habitContainer}>
                     <Button
                         title="Habit 1"
+                        //so i can test the habit page
+                        onPress={()=>{
+                            navigation.navigate('Habits');
+                        }}
                         containerStyle={{
                             flex: 1,
                             marginHorizontal: 20,

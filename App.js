@@ -22,7 +22,7 @@ export default function App() {
           <Stack.Screen name="Profile"  component={ProfileScreen} />
           <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen} />
           <Stack.Screen name="CreateHabit" component={CreateHabitScreen} />
-          <Stack.Screen name="Habits" component={HabitPage} />
+          <Stack.Screen name="Habits" options={{headerShown: false}} component={HabitPage} />
           <Stack.Screen name="Register" options={{headerShown: false}} component={RegisterPage} />
           <Stack.Screen name="CameraScreen" options={{headerShown: false}} component={CameraScreen} />
           <Stack.Screen name="Save"options={{headerShown: false}}  component={SaveScreen} />

@@ -4,6 +4,7 @@ import {db} from "../../firebase";
 import {StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Button, Input, LinearProgress} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HabitPage = () => {
 
@@ -20,10 +21,6 @@ const HabitPage = () => {
       }, [])
 
     const navigation = useNavigation();
-    const [build, setBuild] = useState('Build');
-    const [period, setPeriod] = useState('day');
-    const [value, setValue] = useState(1);
-    const [name, setName] = useState('');
     const [habits,setHabits]=useState([]);
 
     const colors = {
@@ -41,12 +38,36 @@ const HabitPage = () => {
         return (
             <View style={styles.container}>
                 <View style={styles.top}>
+                    <Button
+                        type="solid"
+                        icon={
+                            <Icon
+                                name="long-arrow-left"
+                                size={35}
+                                color="white"
+                            />
+                        }
+                        iconRight
+
+                        buttonStyle= {{
+                            backgroundColor: '#2e2d2d',
+                            height: 50,
+                            width: 70,
+                            marginBottom: 90,
+                            marginHorizontal: 10,
+                                }}
+
+                        onPress={()=>{
+                                navigation.navigate('Profile');
+                        }}
+                    />
+
                     <Text style={styles.header}>{habits[0].hname}</Text>
-                </View>
+            </View>
+
                 <View style={styles.bottom}>
                     <View style={styles.options}>
                         <Input
-                            //placeholder='Current Frequency (click to edit)'
                             label= 'Frequency'
                             placeholder= {habits[0].freq + ' (click to edit)'}
                             placeholderTextColor='#ffffff'
@@ -56,20 +77,31 @@ const HabitPage = () => {
                                 color: '#fff',
                                 fontFamily: 'AvenirNext-Regular'
                             }}
-                            onChangeText={text =>
-                                db
-                                .collection('test_collection')
-                                .doc('h1')
-                                .update({
-                                    freq: text,
-                                    })
-                            }
 
-                        />
-                    </View>
+                            onChangeText={text =>
+                                {   if(text.length == 0){
+                                            db
+                                            .collection('test_collection')
+                                            .doc('h1')
+                                            .update({
+                                                freq: habits[0].freq,
+                                                })
+                                    }else{
+                                            db
+                                            .collection('test_collection')
+                                            .doc('h1')
+                                            .update({
+                                                freq: text,
+                                            })
+                                    }
+                                    
+                                }
+                            }   
+                            />
+                </View>
                     <View style={styles.options}>
                         <Input
-                            //placeholder='Current Motivation (click to edit)'
+                            
                             label= 'Motivation'
                             placeholder= {habits[0].motiv + ' (click to edit)'}
                             placeholderTextColor='#ffffff'
@@ -80,13 +112,24 @@ const HabitPage = () => {
                             }}
 
                             onChangeText={text =>
-                                db
-                                .collection('test_collection')
-                                .doc('h1')
-                                .update({
-                                    motiv: text,
-                                    })
-                            }
+                                {   if(text.length == 0){
+                                            db
+                                            .collection('test_collection')
+                                            .doc('h1')
+                                            .update({
+                                                motiv: habits[0].motiv,
+                                                })
+                                    }else{
+                                            db
+                                            .collection('test_collection')
+                                            .doc('h1')
+                                            .update({
+                                                motiv: text,
+                                            })
+                                    }
+                                    
+                                }
+                            }   
                         />
                     </View>
                     <View style={styles.options}>
@@ -139,11 +182,15 @@ const HabitPage = () => {
                                 title="Record with Picture"
                                 type= "solid"
                                 onPress={()=>{
-                                setBuild('Build');
-                                navigation.navigate('CameraScreen');
+                                    db
+                                        .collection('test_collection')
+                                        .doc('h1')
+                                        .update({
+                                            streak: habits[0].streak + 1,
+                                            })
+                                    navigation.navigate('CameraScreen');
                                 }}
                                 
-                        
                                 buttonStyle= {{
                                     backgroundColor: '#9c9c9c',
                                     height: 70,
@@ -163,8 +210,7 @@ const HabitPage = () => {
                             <Button
                                 title="Record"
                                 type="solid"
-                                onPress={()=>setBuild('Quit')}
-                        
+                                
                                 buttonStyle= {{
                                     backgroundColor: '#9c9c9c',
                                     height: 70,
@@ -191,7 +237,7 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     top: {
-        flex: 1,
+        flex: 1.3,
         backgroundColor: '#F7BE45',
         justifyContent: 'flex-end'
     },

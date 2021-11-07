@@ -21,7 +21,8 @@ const LoginScreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
-        navigation.navigate("CreateHabit")
+        // navigation.navigate("CreateHabit")
+        navigation.navigate("Profile")
       }
     })
     return unsubscribe
@@ -33,7 +34,8 @@ const LoginScreen = () => {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Logged in with: ', user.email);
-        navigation.navigate('CreateHabit')
+        // navigation.navigate('CreateHabit')
+        navigation.navigate("Profile") 
       })
       .catch(error => alert(error.message)) // print alert for failure
   }

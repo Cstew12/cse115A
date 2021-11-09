@@ -194,7 +194,6 @@ const styles = StyleSheet.create({
       marginBottom: -20,
       marginLeft: -22
     },
-
   });
   
 

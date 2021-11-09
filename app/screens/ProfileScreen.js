@@ -21,22 +21,8 @@ function ProfileScreen(props) {
             .catch(error => alert(error.message));
     }
 
-    /*
-    const fetchHabits=async()=>{
-        const uid = auth.currentUser.uid;
-        const response=db.collection(uid);
-        const data = await response.get();
-        console.log(data.size)
-        data.docs.forEach( doc => {
-            if(doc.id !== "user profile") {
-                console.log(doc.id);
-                setHabits([...habits,doc.data()])
-            }
-        });
-      }
-    */
-
     const [habits, setHabits] = useState([]);
+    const [name, setName] = useState('');
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
         const temp = db
@@ -46,6 +32,8 @@ function ProfileScreen(props) {
                 if(doc.id !== "user profile") {
                     setHabits(habits => habits.concat(doc.data()));
                     console.log(habits);
+                } else{
+                    setName(doc.data().FirstName + " " + doc.data().lastName);
                 }
             });
         });
@@ -94,7 +82,7 @@ function ProfileScreen(props) {
                 </View>
             </View>
             <View style={styles.body}>
-                <Text style={styles.userInfo}> UserFirstName and UserLastName</Text> 
+                <Text style={styles.userInfo}>{name}</Text> 
                 <Text style={styles.userInfo}> {auth.currentUser?.email}</Text>
                 <View style={{flexDirection: 'row'}}>
                     <View>
@@ -182,7 +170,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     bottom : {
-        flex: 2
+        flex: 3
     },
     habitContainer: {
         flex: 1,

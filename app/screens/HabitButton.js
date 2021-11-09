@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import SliderMinMax from './createHabitComponents/SliderMinMax';
+import { useNavigation } from '@react-navigation/core';
 
 function HabitButton({ title }) {
     const [value, setValue] = useState(10);
+    const navigation = useNavigation();
+
     return (
         <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
-            <SliderMinMax
-                currVal={value}
-                setCurrVal={setValue}
-                min={0}
-                max={100}
-                color='#2e2d2d'
-            />
+            <TouchableOpacity onPress={()=> navigation.navigate('Habits')}>
+                <Text style={styles.title}>{title}</Text>
+                <SliderMinMax
+                    currVal={value}
+                    setCurrVal={setValue}
+                    min={0}
+                    max={100}
+                    color='#2e2d2d'
+                />
+            </TouchableOpacity>
         </View>
     );
 }

@@ -25,8 +25,8 @@ export default function App() {
           <Stack.Screen name="Habits" options={{headerShown: false}} component={HabitPage} />
           <Stack.Screen name="Register" options={{headerShown: false}} component={RegisterPage} />
           <Stack.Screen name="CameraScreen" options={{headerShown: false}} component={CameraScreen} />
-          <Stack.Screen name="Save"options={{headerShown: false}}  component={SaveScreen} />
-          <Stack.Screen name="Profile"  component={ProfileScreen} />
+          <Stack.Screen name="Save" options={{headerShown: false}}  component={SaveScreen} />
+          <Stack.Screen name="Profile"  options={{headerShown: false}} component={ProfileScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

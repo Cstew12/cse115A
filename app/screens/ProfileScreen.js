@@ -1,12 +1,13 @@
 import React , {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Pressable, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
-import { AutoFocus } from 'expo-camera/build/Camera.types';
-import { auth} from "../../firebase";
+import { AutoFocus, WhiteBalance } from 'expo-camera/build/Camera.types';
+import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import { FAB } from 'react-native-elements';
+import HabitButton from './HabitButton';
 
 function ProfileScreen(props) {
     const navigation = useNavigation();
@@ -20,51 +21,69 @@ function ProfileScreen(props) {
             .catch(error => alert(error.message));
     }
 
-    
-    // const fetchUserInfo=async()=>{
-    //     const response=db.collection('test_collection');
-    //     const data=await response.get();
-    //     data.docs.forEach(item=>{
-    //      setHabits([...habits,item.data()])
-    //     })
-    //   }
-    
-    // useEffect(() => {
-    //     fetchUserInfo();
-    //   }, [])
 
-    // const [userinfo,setUserInfo]=useState([]);
+    const [habits, setHabits] = useState([]);
+    const [name, setName] = useState('');
+
+    const realTimeData = () => {
+        const uid = auth.currentUser.uid;
+        const temp = db
+        .collection(uid)
+        .onSnapshot(querySnap => {
+            setHabits([]);
+            querySnap.docs.forEach( doc => {
+                if(doc.id !== "user profile") {
+                    setHabits(habits => habits.concat(doc.data()));
+                } else {
+                    setName(doc.data().FirstName + " " + doc.data().lastName);
+                }
+            });
+        });
+    }
+
+    useEffect(() => {
+        realTimeData();
+    }, []);
+    
+    const renderItem = ({ item }) => (
+        <HabitButton title={item.habitName} />
+    );
 
     return (
         <View style={styles.container}>
-            <Button
-                  title="Sign Out"
-                  type= "solid"
-                  raised = "true"
-                  onPress={handleSignOut}  
-                  buttonStyle= {{
-                    backgroundColor: 'blue',
-                    width:'40%',
-                    left:'580%',
-                  }}
-
-                  titleStyle= {{
-                    color: 'white',
-                    fontFamily: 'AvenirNext-Bold'
-                  }}
-                /> 
             <View style={styles.top}>
-                <Avatar 
-                    rounded 
-                    size="xlarge" 
-                    title="UN"
-                    containerStyle={{
-                        backgroundColor: "lightgray",
-                    }}
-                />
+                <View>
+                    <Button
+                        title="Sign Out"
+                        type= "solid"
+                        raised = "true"
+                        onPress={handleSignOut}  
+                        containerStyle = {{
+                            marginVertical: 5, 
+                        }}
+                        buttonStyle= {{
+                            backgroundColor: 'blue',
+                        }}
+
+                        titleStyle= {{
+                            color: 'white',
+                            fontFamily: 'AvenirNext-Bold'
+                        }}
+                    /> 
+                </View>
+                <View>
+                    <Avatar 
+                        rounded 
+                        size="xlarge" 
+                        title="UN"
+                        containerStyle={{
+                            backgroundColor: "lightgray",
+                        }}
+                    />
+                </View>
             </View>
             <View style={styles.body}>
-                <Text style={styles.userInfo}> UserFirstName and UserLastName</Text> 
+                <Text style={styles.userInfo}>{name}</Text> 
                 <Text style={styles.userInfo}> {auth.currentUser?.email}</Text>
                 <View style={{flexDirection: 'row'}}>
                     <View>
@@ -108,63 +127,13 @@ function ProfileScreen(props) {
                     </View> 
                 </View>
                 <Text style={styles.body}>Habits I'm currently working on</Text> 
-            </View> 
-            
-            <View style={styles.bottom}>
-                <View style={styles.habitContainer}>
-                    <Button
-                        title="Habit 1"
-                        //so i can test the habit page
-                        onPress={()=>{
-                            navigation.navigate('Habits');
-                        }}
-                        containerStyle={{
-                            flex: 1,
-                            marginHorizontal: 20,
-                        }}
-                        buttonStyle={{
-                            backgroundColor: "#BD9EEF",
-                            height: 55,
-                        }}
-                        titleStyle = {{
-                            
-                        }}
-                    />
-                </View>
-                <View style={styles.habitContainer}>
-                    <Button
-                        title="Habit 2"
-                        containerStyle={{
-                            flex: 1,
-                            marginHorizontal: 20,
-                        }}
-                        buttonStyle={{
-                            backgroundColor: "lightgreen",
-                            height: 55,
-                        }}
-                        titleStyle = {{
-                            
-                        }}
-                    />
-                </View>
-                <View style={styles.habitContainer}>
-                    <Button
-                        title="Habit 3"
-                        containerStyle={{
-                            flex: 1,
-                            marginHorizontal: 20,
-                        }}
-                        buttonStyle={{
-                            backgroundColor: "lightblue",
-                            height: 55,
-                        }}
-                        titleStyle = {{
-                            
-                        }}
-                    />
-                </View>
             </View>
-            <View>
+            <View style={styles.bottom}>
+                <FlatList
+                    data={habits}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
             <FAB 
                 title="Add New Habit"
                 size="xlarge" 
@@ -188,7 +157,7 @@ const styles = StyleSheet.create({
     },
     top: {
         alignItems: 'center',
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'center'
     },
     body: {
@@ -199,10 +168,10 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     userInfo: {
-        fontSize: 20
+        fontSize: 20,
     },
     bottom : {
-        flex: 2
+        flex: 3
     },
     habitContainer: {
         flex: 1,

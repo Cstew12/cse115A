@@ -38,7 +38,7 @@ function CreateHabitScreen(props) {
             .set(habitData)
             .then(() => {
                 console.log('collection added!');
-                navigation.navigate('Habits');
+                navigation.navigate('Profile');
             });
     }
 

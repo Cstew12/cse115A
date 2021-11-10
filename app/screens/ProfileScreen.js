@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
-import { AutoFocus } from 'expo-camera/build/Camera.types';
+import { AutoFocus, WhiteBalance } from 'expo-camera/build/Camera.types';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import { FAB } from 'react-native-elements';
@@ -21,32 +21,33 @@ function ProfileScreen(props) {
             .catch(error => alert(error.message));
     }
 
+
     const [habits, setHabits] = useState([]);
     const [name, setName] = useState('');
+
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
         const temp = db
         .collection(uid)
         .onSnapshot(querySnap => {
+            setHabits([]);
             querySnap.docs.forEach( doc => {
                 if(doc.id !== "user profile") {
                     setHabits(habits => habits.concat(doc.data()));
-                    console.log(habits);
-                } else{
+                } else {
                     setName(doc.data().FirstName + " " + doc.data().lastName);
                 }
             });
         });
-
     }
 
     useEffect(() => {
         realTimeData();
-    }, [])
+    }, []);
     
     const renderItem = ({ item }) => (
         <HabitButton title={item.habitName} />
-      );
+    );
 
     return (
         <View style={styles.container}>
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     userInfo: {
-        fontSize: 20
+        fontSize: 20,
     },
     bottom : {
         flex: 3

@@ -6,7 +6,8 @@ import { Button, Input, LinearProgress} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const HabitPage = () => {
+const HabitPage = ({route}) => {
+    const {habitData} = route.params;
 
     const fetchHabits=async()=>{
         const response=db.collection('test_collection');
@@ -30,6 +31,7 @@ const HabitPage = () => {
     console.log('before');
     console.log(habits[0]);
     console.log('after');
+
 
     if(habits[0] == undefined){
         return null
@@ -58,11 +60,11 @@ const HabitPage = () => {
                                 }}
 
                         onPress={()=>{
-                                navigation.navigate('Profile');
+                            navigation.navigate('Profile');
                         }}
                     />
 
-                    <Text style={styles.header}>{habits[0].hname}</Text>
+                    <Text style={styles.header}>{JSON.stringify(habitData.habitName)}</Text>
             </View>
 
                 <View style={styles.bottom}>

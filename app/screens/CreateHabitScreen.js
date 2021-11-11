@@ -38,7 +38,7 @@ function CreateHabitScreen(props) {
             .set(habitData)
             .then(() => {
                 console.log('collection added!');
-                navigation.navigate('Habits');
+                navigation.navigate('Profile');
             });
     }
 
@@ -95,6 +95,8 @@ function CreateHabitScreen(props) {
                         setCurrVal={setDuration}
                         min={1}
                         max={90}
+                        thumb={true}
+                        color={colors.purple}
                     />}
                     { period == "week" && 
                     <SliderMinMax
@@ -102,6 +104,8 @@ function CreateHabitScreen(props) {
                         setCurrVal={setDuration}
                         min={1}
                         max={12}
+                        thumb={true}
+                        color={colors.purple}
                     />}
                     <Text 
                         style={{

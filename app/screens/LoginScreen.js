@@ -147,7 +147,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-
+    item: {
+      backgroundColor: '#f9c2ff',
+      padding: 20,
+      marginVertical: 8,
+      marginHorizontal: 16,
+    },
+    title: {
+      fontSize: 32,
+    },
     headerFlex: {
       flex: 3.4,
       backgroundColor: '#2e2d2d',
@@ -194,7 +202,6 @@ const styles = StyleSheet.create({
       marginBottom: -20,
       marginLeft: -22
     },
-
   });
   
 

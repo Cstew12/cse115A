@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/core';
 
 // passing props to habit page through navigation
 function HabitButton({title, data}) {
-    const [value, setValue] = useState(10);
+    const [value, setValue] = useState((data.duration/2));
     const navigation = useNavigation();
 
     return (
@@ -16,7 +16,7 @@ function HabitButton({title, data}) {
                     currVal={value}
                     setCurrVal={setValue}
                     min={0}
-                    max={100}
+                    max={data.duration}
                     color='#2e2d2d'
                 />
             </TouchableOpacity>

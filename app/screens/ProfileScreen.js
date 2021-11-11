@@ -134,7 +134,7 @@ function ProfileScreen(props) {
                 <FlatList
                     data={habits}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.habitName}
                 />
             <FAB 
                 title="Add New Habit"

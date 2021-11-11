@@ -131,11 +131,13 @@ function ProfileScreen(props) {
                 <Text style={styles.body}>Habits I'm currently working on</Text> 
             </View>
             <View style={styles.bottom}>
-                <FlatList
-                    data={habits}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.habitName}
-                />
+                {habits.size > 0 && 
+                    <FlatList
+                        data={habits}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.habitName}
+                    />
+                }
             <FAB 
                 title="Add New Habit"
                 size="xlarge" 

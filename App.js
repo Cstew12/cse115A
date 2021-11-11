@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RegisterPage from './app/screens/RegisterPage';
 import ProfileScreen from './app/screens/ProfileScreen';
 import HabitPage from './app/screens/HabitPage';
+import FriendsPage from './app/screens/FriendsPage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import CameraScreen from './app/screens/CameraScreen';
 import SaveScreen from './app/screens/Save'
@@ -23,6 +24,7 @@ export default function App() {
           <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen} />
           <Stack.Screen name="CreateHabit" component={CreateHabitScreen} />
           <Stack.Screen name="Habits" options={{headerShown: false}} component={HabitPage} />
+          <Stack.Screen name="Friends" options={{headerShown: false}} component={FriendsPage} />
           <Stack.Screen name="Register" options={{headerShown: false}} component={RegisterPage} />
           <Stack.Screen name="CameraScreen" options={{headerShown: false}} component={CameraScreen} />
           <Stack.Screen name="Save"options={{headerShown: false}}  component={SaveScreen} />

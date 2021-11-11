@@ -42,6 +42,10 @@ function ProfileScreen(props) {
                 <View style={styles.habitContainer}>
                     <Button
                         title="Habit 2"
+                        //so i can test the friends page
+                        onPress={()=>{
+                            navigation.navigate('Friends');
+                        }}
                         containerStyle={{
                             flex: 1,
                             marginHorizontal: 20,

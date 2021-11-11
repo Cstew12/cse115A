@@ -46,7 +46,7 @@ function ProfileScreen(props) {
     }, []);
     
     const renderItem = ({ item }) => (
-        <HabitButton title={item.habitName} />
+        <HabitButton title={item.habitName} data={item}/>
     );
 
     return (

@@ -3,13 +3,14 @@ import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import SliderMinMax from './createHabitComponents/SliderMinMax';
 import { useNavigation } from '@react-navigation/core';
 
-function HabitButton({ title }) {
+// passing props to habit page through navigation
+function HabitButton({title, data}) {
     const [value, setValue] = useState(10);
     const navigation = useNavigation();
 
     return (
         <View style={styles.item}>
-            <TouchableOpacity onPress={()=> navigation.navigate('Habits')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Habits', {habitData: data})}>
                 <Text style={styles.title}>{title}</Text>
                 <SliderMinMax
                     currVal={value}

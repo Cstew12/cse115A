@@ -71,11 +71,13 @@ function ProfileScreen(props) {
                         }}
                     /> 
                 </View>
+
                 <View>
                     <Avatar 
                         rounded 
                         size="xlarge" 
                         title="UN"
+
                         containerStyle={{
                             backgroundColor: "lightgray",
                         }}

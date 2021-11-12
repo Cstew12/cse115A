@@ -60,10 +60,11 @@ function ProfileScreen(props) {
                         raised = "true"
                         onPress={handleSignOut}  
                         containerStyle = {{
-                            marginVertical: 5, 
+                            marginVertical: 20, 
                         }}
                         buttonStyle= {{
                             backgroundColor: 'blue',
+                
                         }}
 
                         titleStyle= {{
@@ -135,7 +136,7 @@ function ProfileScreen(props) {
                 <FlatList
                     data={habits}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}
+                    keyExtractor={() => Math.random().toString(36)}
                 />
             <FAB 
                 title="Add New Habit"

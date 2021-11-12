@@ -1,10 +1,37 @@
 import React from 'react';
+import {Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
 function ScreenLayout(props) {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <View style={styles.top}>
+            <Button
+                        type="solid"
+                        icon={
+                            <Icon
+                                name="long-arrow-left"
+                                size={35}
+                                color="white"
+                            />
+                        }
+                        iconRight
+
+                        buttonStyle= {{
+                            backgroundColor: '#2e2d2d',
+                            height: 50,
+                            width: 70,
+                            marginBottom: 60,
+                            marginHorizontal: 10,
+                                }}
+
+                        onPress={()=>{
+                                navigation.navigate('Profile');
+                        }}
+                    />
                 <Text style={styles.header}>{props.title}</Text>
             </View>
             <View style={styles.bottom}>

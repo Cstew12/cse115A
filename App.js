@@ -22,7 +22,7 @@ export default function App() {
         <Stack.Navigator>
           {/* Order of the stack screens please don't change the order */}
           <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen} />
-          <Stack.Screen name="CreateHabit" component={CreateHabitScreen} />
+          <Stack.Screen name="CreateHabit" options={{headerShown: false}} component={CreateHabitScreen} />
           <Stack.Screen name="Habits" options={{headerShown: false}} component={HabitPage} />
           <Stack.Screen name="Friends" options={{headerShown: false}} component={FriendsPage} />
           <Stack.Screen name="Register" options={{headerShown: false}} component={RegisterPage} />

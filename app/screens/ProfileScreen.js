@@ -9,6 +9,7 @@ import {db} from "../../firebase";
 import { FAB } from 'react-native-elements';
 import HabitButton from './HabitButton';
 
+
 function ProfileScreen(props) {
     const navigation = useNavigation();
 
@@ -92,7 +93,7 @@ function ProfileScreen(props) {
                         <Button
                         title="Add Friends"
                         type= "solid"
-                        onPress={()=> navigation.navigate('Habits')} 
+                        onPress={()=> navigation.navigate('Friends')} 
                         buttonStyle= {{
                             backgroundColor: 'white',
                             height: 50,
@@ -131,13 +132,11 @@ function ProfileScreen(props) {
                 <Text style={styles.body}>Habits I'm currently working on</Text> 
             </View>
             <View style={styles.bottom}>
-                {habits.size > 0 && 
-                    <FlatList
-                        data={habits}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.habitName}
-                    />
-                }
+                <FlatList
+                    data={habits}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
             <FAB 
                 title="Add New Habit"
                 size="xlarge" 

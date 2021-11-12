@@ -65,7 +65,7 @@ const HabitPage = ({route}) => {
                     />
 
                     <Text style={styles.header}>{JSON.stringify(habitData.habitName)}</Text>
-            </View>
+                </View>
 
                 <View style={styles.bottom}>
                     <View style={styles.options}>

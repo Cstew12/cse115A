@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {StyleSheet, Text, View } from 'react-native';
-import { Button} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import {auth, db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
 import HabitInput from './createHabitComponents/HabitInput';
@@ -8,6 +8,7 @@ import PeriodButton from './createHabitComponents/PeriodButton';
 import Counter from './createHabitComponents/Counter';
 import SliderMinMax from './createHabitComponents/SliderMinMax';
 import ScreenLayout from './createHabitComponents/ScreenLayout';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 function CreateHabitScreen(props) {
@@ -44,6 +45,7 @@ function CreateHabitScreen(props) {
 
     return (
         <ScreenLayout title="Create habit">
+            
             <HabitInput
                 placeholder='Name your habit'
                 setInput={setName}

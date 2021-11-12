@@ -48,6 +48,29 @@ const LoginScreen = () => {
         <View style={styles.container}>
 
             <View style={styles.headerFlex}>
+            <Button
+                        type="solid"
+                        icon={
+                            <Icon
+                                name="long-arrow-left"
+                                size={35}
+                                color="#2e2d2d"
+                            />
+                        }
+                        iconRight
+
+                        buttonStyle= {{
+                            backgroundColor: '#82f591',
+                            height: 50,
+                            width: 70,
+                            marginVertical: 15,
+                            marginHorizontal: 15,
+                                }}
+
+                        onPress={()=>{
+                            navigation.navigate('Login');
+                        }}
+                    />
                 <Image source={require('./../../assets/routeam-logo5.png')} style={styles.image1}/>
 
                 <Text style={styles.header}>Register Today!</Text>
@@ -238,7 +261,7 @@ const styles = StyleSheet.create({
     },
 
     headerFlex: {
-      flex: 2,
+      flex: 2.4,
       backgroundColor: '#2c2d2d',
       justifyContent: 'flex-end',
       alignItems: 'stretch',
@@ -264,7 +287,8 @@ const styles = StyleSheet.create({
       width: 65,
       height: 100,
       marginBottom: 0,
-      marginLeft: 40
+      marginLeft: -10,
+      alignSelf: 'center'
     },
   
   });

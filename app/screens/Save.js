@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { View, TextInput, Image, Button } from 'react-native'
-
-import firebase from 'firebase'
-import { NavigationContainer } from '@react-navigation/native'
 import {db, store, auth} from "../../firebase";
-
-
+import { useNavigation } from '@react-navigation/core';
 
 export default function Save(props) {
-    //const [uri, setUri] = useState('');
-    
-    const uri = props.uri;
-    /*useEffect(() => {
-        const propsUri = props.uri; 
-        setUri(uri);
-      });*/
+
+    const navigation = useNavigation()   
+   
     const uploadImage = async () => {
         console.log(props);
         console.log("/n");
@@ -23,15 +15,15 @@ export default function Save(props) {
         const response = await fetch(props.route.params.uri);
         const blob = await response.blob();
 
+        /* Save the image into Storage and navigate to the profile page on success */
         store
             .ref()
             .child(childPath)
             .put(blob)
-           // .then( {
-              //  console.log("");
-            //})
-
-       
+            .then( () => {
+                navigation.navigate("Profile");
+                
+            }).catch((e) => console.log("uploading image error =>", e));
     }
 
     return (

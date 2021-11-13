@@ -9,21 +9,14 @@ import {db} from "../../firebase";
 import HabitButton from './HabitButton';
 import {Icon} from 'react-native-elements';
 import FriendsButton from './profileComponents/FriendsButton';
+import HomeButton from './profileComponents/HomeButton';
+import SignOutButton from './profileComponents/SignOutButton';
+import PlusButton from './profileComponents/PlusButton';
 
 
 
 function ProfileScreen(props) {
     const navigation = useNavigation();
-
-    const handleSignOut = () => {
-        auth
-            .signOut()
-            .then(() => {
-                navigation.replace("Login")
-            })
-            .catch(error => alert(error.message));
-    }
-
 
     const [habits, setHabits] = useState([]);
     const [name, setName] = useState('');
@@ -60,24 +53,7 @@ function ProfileScreen(props) {
         <View style={styles.container}>
             <View style={styles.top}>
                 <View style={styles.signOutButton}>
-                    <Button
-                        title="Sign out"
-                        type= "solid"
-                        icon={
-                            <Icon
-                            name='sign-out'
-                            size={15}
-                            type='font-awesome'
-                            color="white"
-                            />
-                        }
-                        onPress={handleSignOut}  
-                
-                        titleStyle= {{
-                            color: 'white',
-                            fontFamily: 'AvenirNext-Bold'
-                        }}
-                    /> 
+                    <SignOutButton/>
                 </View>
                 <View style={styles.avatar}>
                     <Avatar 
@@ -100,20 +76,7 @@ function ProfileScreen(props) {
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row', alignContent: 'space-between'}}>
                     <FriendsButton/>
-                    <Button
-                        type= "solid"
-                        type= "solid"
-                        title=' Home'
-                        icon={
-                            <Icon
-                                name='home'
-                                size={20}
-                                type='font-awesome'
-                                color="white"
-                            />
-                        }
-                    />
-                    
+                    <HomeButton/>
                 </View>
             </View>
             <View style={styles.bottom}>
@@ -125,24 +88,10 @@ function ProfileScreen(props) {
                     />
                 </View>
                 <View style={{flex: 1, justifyContent: 'center'}}>
-                    <Button
-                        type="solid"
-                        icon={
-                            <Icon
-                                name="plus"
-                                size={25}
-                                color="white"
-                                type='font-awesome'
-                            />
-                        }
-                        onPress={()=> navigation.navigate('CreateHabit')}   
-                        iconRight
-                        buttonStyle= {{
-                            backgroundColor: 'gray',
-                            height: 50,
-                            width: 70,
-                            alignSelf: 'center',
-                        }}
+                    <PlusButton
+                        plusColor='white'
+                        backgroundColor='gray'
+                        onPress={()=> navigation.navigate('CreateHabit')}
                     />
                 </View>
             </View> 

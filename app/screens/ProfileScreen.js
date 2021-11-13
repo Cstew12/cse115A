@@ -72,7 +72,7 @@ function ProfileScreen(props) {
                             />
                         }
                         onPress={handleSignOut}  
-                        
+                
                         titleStyle= {{
                             color: 'white',
                             fontFamily: 'AvenirNext-Bold'
@@ -110,6 +110,7 @@ function ProfileScreen(props) {
                                 color="white"
                             />
                         }
+                        onPress={() => navigation.navigate('Friends')}
                     />
                     <Button
                         type= "solid"
@@ -128,23 +129,34 @@ function ProfileScreen(props) {
                 </View>
             </View>
             <View style={styles.bottom}>
-                <FlatList
-                    data={habits}
-                    renderItem={renderItem}
-                    keyExtractor={() => Math.random().toString(36)}
-                />
-            <FAB 
-                title="Add New Habit"
-                size="xlarge" 
-                onPress={()=> navigation.navigate('CreateHabit')}   
-                buttonStyle={{
-                    backgroundColor: "white",
-                    height: 40,
-                }}
-                titleStyle = {{
-                   color: "black",         
-                }} 
-            />
+                <View style={{flex: 5}}>
+                    <FlatList
+                        data={habits}
+                        renderItem={renderItem}
+                        keyExtractor={() => Math.random().toString(36)}
+                    />
+                </View>
+                <View style={{flex: 1, justifyContent: 'center'}}>
+                    <Button
+                        type="solid"
+                        icon={
+                            <Icon
+                                name="plus"
+                                size={25}
+                                color="white"
+                                type='font-awesome'
+                            />
+                        }
+                        onPress={()=> navigation.navigate('CreateHabit')}   
+                        iconRight
+                        buttonStyle= {{
+                            backgroundColor: 'gray',
+                            height: 50,
+                            width: 70,
+                            alignSelf: 'center',
+                        }}
+                    />
+                </View>
             </View> 
         </View>
     );   

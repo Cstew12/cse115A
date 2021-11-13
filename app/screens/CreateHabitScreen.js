@@ -99,6 +99,7 @@ function CreateHabitScreen(props) {
                         max={90}
                         thumb={true}
                         color={colors.purple}
+                        margin={10}
                     />}
                     { period == "week" && 
                     <SliderMinMax
@@ -108,6 +109,7 @@ function CreateHabitScreen(props) {
                         max={12}
                         thumb={true}
                         color={colors.purple}
+                        margin={10}
                     />}
                     <Text 
                         style={{

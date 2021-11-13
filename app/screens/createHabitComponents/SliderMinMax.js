@@ -1,7 +1,7 @@
 import React from 'react';
 import { Slider } from 'react-native-elements';
 
-function SliderMinMax({currVal, setCurrVal, min, max, color, thumb}) {
+function SliderMinMax({currVal, setCurrVal, min, max, color, thumb, margin}) {
 
     return (
         <Slider
@@ -15,7 +15,7 @@ function SliderMinMax({currVal, setCurrVal, min, max, color, thumb}) {
                 height: thumb ? 20 : 0
             }}
             style = {{
-                marginHorizontal: 10
+                marginHorizontal: margin
             }}
             step={1}
             minimumTrackTintColor={color}

@@ -6,9 +6,9 @@ import { useNavigation } from '@react-navigation/core';
 import { AutoFocus, WhiteBalance } from 'expo-camera/build/Camera.types';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
-import { FAB } from 'react-native-elements';
 import HabitButton from './HabitButton';
 import {Icon} from 'react-native-elements';
+import FriendsButton from './profileComponents/FriendsButton';
 
 
 
@@ -99,19 +99,7 @@ function ProfileScreen(props) {
                     </Text>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row', alignContent: 'space-between'}}>
-                    <Button
-                        type= "solid"
-                        title=' Friends'
-                        icon={
-                            <Icon
-                                name='address-book'
-                                size={15}
-                                type='font-awesome'
-                                color="white"
-                            />
-                        }
-                        onPress={() => navigation.navigate('Friends')}
-                    />
+                    <FriendsButton/>
                     <Button
                         type= "solid"
                         type= "solid"

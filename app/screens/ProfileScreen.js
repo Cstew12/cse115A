@@ -8,6 +8,8 @@ import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import { FAB } from 'react-native-elements';
 import HabitButton from './HabitButton';
+import {Icon} from 'react-native-elements';
+
 
 
 function ProfileScreen(props) {
@@ -25,6 +27,8 @@ function ProfileScreen(props) {
 
     const [habits, setHabits] = useState([]);
     const [name, setName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [initials, setInitials] = useState('');
 
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
@@ -37,6 +41,8 @@ function ProfileScreen(props) {
                     setHabits(habits => habits.concat(doc.data()));
                 } else {
                     setName(doc.data().FirstName + " " + doc.data().lastName);
+                    setUserName(doc.data().username);
+                    setInitials(doc.data().FirstName.charAt(0)+doc.data().lastName.charAt(0));
                 }
             });
         });
@@ -53,84 +59,73 @@ function ProfileScreen(props) {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
-                <View>
+                <View style={styles.signOutButton}>
                     <Button
-                        title="Sign Out"
+                        title="Sign out"
                         type= "solid"
-                        raised = "true"
+                        icon={
+                            <Icon
+                            name='sign-out'
+                            size={15}
+                            type='font-awesome'
+                            color="white"
+                            />
+                        }
                         onPress={handleSignOut}  
-                        containerStyle = {{
-                            marginVertical: 20, 
-                        }}
-                        buttonStyle= {{
-                            backgroundColor: 'blue',
-                
-                        }}
-
+                        
                         titleStyle= {{
                             color: 'white',
                             fontFamily: 'AvenirNext-Bold'
                         }}
                     /> 
                 </View>
-
-                <View>
+                <View style={styles.avatar}>
                     <Avatar 
                         rounded 
                         size="xlarge" 
-                        title="UN"
+                        title={initials}
 
                         containerStyle={{
                             backgroundColor: "lightgray",
                         }}
                     />
                 </View>
-            </View>
-            <View style={styles.body}>
-                <Text style={styles.userInfo}>{name}</Text> 
-                <Text style={styles.userInfo}> {auth.currentUser?.email}</Text>
-                <View style={{flexDirection: 'row'}}>
-                    <View>
-                        <Button
-                        title="Add Friends"
-                        type= "solid"
-                        onPress={()=> navigation.navigate('Friends')} 
-                        buttonStyle= {{
-                            backgroundColor: 'white',
-                            height: 50,
-                            width: 150,
-                            paddingLeft: 5,
-                            paddingRight: 2,
-                            marginEnd: 14,
-                        }}
-
-                        titleStyle= {{
-                            color: 'black',
-                            fontFamily: 'AvenirNext-Bold'
-                        }}
-                        /> 
-                    </View>
-                    <View>
-                        <Button
-                        title="Home Page"
-                        type= "solid"
-                        buttonStyle= {{
-                            backgroundColor: 'white',
-                            height: 50,
-                            width: 150,
-                            paddingLeft: 5,
-                            paddingRight: 5,
-                            marginEnd: 14,
-                        }}
-
-                        titleStyle= {{
-                            color: 'black',
-                            fontFamily: 'AvenirNext-Bold'
-                        }}
-                        />
-                    </View> 
+                <View style={{flex: 1, alignItems: 'center', flexDirection: 'column',}}>
+                    <Text style={styles.name}>
+                        {name}
+                    </Text>
+                    <Text style={styles.username}>
+                        {userName}
+                    </Text>
                 </View>
-                <Text style={styles.body}>Habits I'm currently working on</Text> 
+                <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row', alignContent: 'space-between'}}>
+                    <Button
+                        type= "solid"
+                        title=' Friends'
+                        icon={
+                            <Icon
+                                name='address-book'
+                                size={15}
+                                type='font-awesome'
+                                color="white"
+                            />
+                        }
+                    />
+                    <Button
+                        type= "solid"
+                        type= "solid"
+                        title=' Home'
+                        icon={
+                            <Icon
+                                name='home'
+                                size={20}
+                                type='font-awesome'
+                                color="white"
+                            />
+                        }
+                    />
+                    
+                </View>
             </View>
             <View style={styles.bottom}>
                 <FlatList
@@ -160,19 +155,26 @@ const styles = StyleSheet.create({
         flex: 1
     },
     top: {
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'center'
+        flex: 2
     },
-    body: {
-        flex : 1, 
+    signOutButton: {
+        flex: 1, 
+        flexDirection: 'row-reverse', 
+        marginLeft: 10, 
+        marginTop: 50
+    },
+    avatar: {
+        flex: 3, 
+        alignItems: 'center', 
+        flexDirection: 'column'
+    },
+    name: {
         color: 'grey',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 25
+        fontSize: 20
     },
-    userInfo: {
-        fontSize: 20,
+    username: {
+        color: 'grey',
+        fontSize: 14,
     },
     bottom : {
         flex: 3
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center'
-    }, 
+    },
 });
 
 export default ProfileScreen;

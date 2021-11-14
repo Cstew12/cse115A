@@ -5,6 +5,8 @@ import {StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View 
 import { Button, Input, LinearProgress} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import "firebase/firestore";
+import firebase from 'firebase/app';
 
 const HabitPage = ({route}) => {
     const {habitData} = route.params;
@@ -16,6 +18,11 @@ const HabitPage = ({route}) => {
          setHabits([...habits,item.data()])
         })
       }
+
+    function deQuote(str1){
+        const str2 = str1.substring(1, str1.length - 1);
+        return str2;
+    }
     
     useEffect(() => {
         fetchHabits();
@@ -23,6 +30,13 @@ const HabitPage = ({route}) => {
 
     const navigation = useNavigation();
     const [habits,setHabits]=useState([]);
+    const hName = deQuote(JSON.stringify(habitData.habitName));
+    const hMotiv = deQuote(JSON.stringify(habitData.motivation));
+    const hFreq = deQuote(JSON.stringify(habitData.frequency));
+    const hStreak = deQuote(JSON.stringify(habitData.streak));
+    const hPeriod = deQuote(JSON.stringify(habitData.period));
+    const uid = auth.currentUser.uid;
+    const increment = firebase.firestore.FieldValue.increment(1);
 
     const colors = {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
@@ -32,6 +46,9 @@ const HabitPage = ({route}) => {
     console.log(habits[0]);
     console.log('after');
 
+    console.log(hName);
+    console.log(uid);
+
 
     if(habits[0] == undefined){
         return null
@@ -40,6 +57,7 @@ const HabitPage = ({route}) => {
         return (
             <View style={styles.container}>
                 <View style={styles.top}>
+                <View style={{flexDirection: 'row'}}>
                     <Button
                         type="solid"
                         icon={
@@ -64,49 +82,61 @@ const HabitPage = ({route}) => {
                         }}
                     />
 
-                    <Text style={styles.header}>{JSON.stringify(habitData.habitName)}</Text>
+                    <Button
+                        type="solid"
+                        icon={
+                            <Icon
+                                name="trash"
+                                size={28}
+                                color="white"
+                            />
+                        }
+                        iconRight
+
+                        buttonStyle= {{
+                            backgroundColor: '#2e2d2d',
+                            height: 50,
+                            width: 70,
+                            marginBottom: 90,
+                            marginHorizontal: 204,
+                            alignSelf: 'flex-end',
+                                }}
+
+                        onPress={()=>{
+                            db
+                                .collection(uid)
+                                .doc(hName)
+                                .delete()
+                            navigation.navigate('Profile');
+                        }}
+                    />
+
+
+
+                </View>
+
+                    <Text style={styles.header}>{hName}</Text>
                 </View>
 
                 <View style={styles.bottom}>
                     <View style={styles.options}>
                         <Input
                             label= 'Frequency'
-                            placeholder= {habits[0].freq + ' (click to edit)'}
+                            placeholder= {hFreq + ' times a ' + hPeriod}
                             placeholderTextColor='#ffffff'
-
+                            disabled= 'true'
 
                             inputStyle= {{
-                                color: '#fff',
                                 fontFamily: 'AvenirNext-Regular'
                             }}
-
-                            onChangeText={text =>
-                                {   if(text.length == 0){
-                                            db
-                                            .collection('test_collection')
-                                            .doc('h1')
-                                            .update({
-                                                freq: habits[0].freq,
-                                                })
-                                    }else{
-                                            db
-                                            .collection('test_collection')
-                                            .doc('h1')
-                                            .update({
-                                                freq: text,
-                                            })
-                                    }
-                                    
-                                }
-                            }   
                             />
                 </View>
                     <View style={styles.options}>
                         <Input
                             
                             label= 'Motivation'
-                            placeholder= {habits[0].motiv + ' (click to edit)'}
-                            placeholderTextColor='#ffffff'
+                            placeholder= {hMotiv + ' (click to edit)'}
+                            placeholderTextColor='#999999'
 
                             inputStyle= {{
                                 color: '#fff',
@@ -116,17 +146,17 @@ const HabitPage = ({route}) => {
                             onChangeText={text =>
                                 {   if(text.length == 0){
                                             db
-                                            .collection('test_collection')
-                                            .doc('h1')
+                                            .collection(uid)
+                                            .doc(hName)
                                             .update({
-                                                motiv: habits[0].motiv,
+                                                motivation: hMotiv,
                                                 })
                                     }else{
                                             db
-                                            .collection('test_collection')
-                                            .doc('h1')
+                                            .collection(uid)
+                                            .doc(hName)
                                             .update({
-                                                motiv: text,
+                                                motivation: text,
                                             })
                                     }
                                     
@@ -145,12 +175,12 @@ const HabitPage = ({route}) => {
                                     fontSize: 20,
                                     color: '#F7BE45',
                                 }}>
-                                Current Streak: {habits[0].streak}
+                                Current Streak: {hStreak}
                             </Text>
                         <LinearProgress 
                             color="primary"
                             variant="determinate"
-                            value={habits[0].streak / 10}
+                            value={hStreak / 10}
                             //value='0.3'
                             color="#F7BE45"
 
@@ -185,10 +215,10 @@ const HabitPage = ({route}) => {
                                 type= "solid"
                                 onPress={()=>{
                                     db
-                                        .collection('test_collection')
-                                        .doc('h1')
+                                        .collection(uid)
+                                        .doc(hName)
                                         .update({
-                                            streak: habits[0].streak + 1,
+                                            streak: increment,
                                             })
                                     navigation.navigate('CameraScreen');
                                 }}
@@ -225,6 +255,16 @@ const HabitPage = ({route}) => {
                                 titleStyle= {{
                                     color: '#F7BE45',
                                     fontFamily: 'AvenirNext-Regular'
+                                }}
+
+                                onPress={()=>{
+                                    db
+                                        .collection(uid)
+                                        .doc(hName)
+                                        .update({
+                                            streak: increment,
+                                            })
+                                    navigation.navigate('Profile');
                                 }}
                             />
                         </View>

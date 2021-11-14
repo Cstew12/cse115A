@@ -45,7 +45,6 @@ function CreateHabitScreen(props) {
 
     return (
         <ScreenLayout title="Create habit">
-            
             <HabitInput
                 placeholder='Name your habit'
                 setInput={setName}

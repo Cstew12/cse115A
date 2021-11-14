@@ -11,6 +11,7 @@ import FriendsPage from './app/screens/FriendsPage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import CameraScreen from './app/screens/CameraScreen';
 import SaveScreen from './app/screens/Save'
+import HomeScreen from './app/screens/HomeScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ export default function App() {
           <Stack.Screen name="CameraScreen" options={{headerShown: false}} component={CameraScreen} />
           <Stack.Screen name="Save" options={{headerShown: false}}  component={SaveScreen} />
           <Stack.Screen name="Profile"  options={{headerShown: false}} component={ProfileScreen} />
+          <Stack.Screen name="Home"  options={{headerShown: false}} component={HomeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

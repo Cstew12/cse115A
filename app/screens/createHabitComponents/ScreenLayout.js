@@ -9,29 +9,29 @@ function ScreenLayout(props) {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
-            <Button
-                        type="solid"
-                        icon={
-                            <Icon
-                                name="long-arrow-left"
-                                size={35}
-                                color="white"
-                            />
-                        }
-                        iconRight
+                <Button
+                    type="solid"
+                    icon={
+                        <Icon
+                            name="long-arrow-left"
+                            size={35}
+                            color="white"
+                        />
+                    }
+                    iconRight
 
-                        buttonStyle= {{
-                            backgroundColor: '#2e2d2d',
-                            height: 50,
-                            width: 70,
-                            marginBottom: 60,
-                            marginHorizontal: 10,
-                                }}
+                    buttonStyle= {{
+                        backgroundColor: '#2e2d2d',
+                        height: 50,
+                        width: 70,
+                        marginBottom: 60,
+                        marginHorizontal: 10,
+                            }}
 
-                        onPress={()=>{
-                                navigation.navigate('Profile');
-                        }}
-                    />
+                    onPress={()=>{
+                            navigation.navigate('Profile');
+                    }}
+                />
                 <Text style={styles.header}>{props.title}</Text>
             </View>
             <View style={styles.bottom}>

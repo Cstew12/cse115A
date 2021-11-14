@@ -18,6 +18,7 @@ function HomeButton(props) {
                     color="white"
                 />
             }
+            onPress={() => navigation.navigate('Home')}
         />
     );
 }

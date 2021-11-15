@@ -220,7 +220,7 @@ const HabitPage = ({route}) => {
                                         .update({
                                             streak: increment,
                                             })
-                                    navigation.navigate('CameraScreen');
+                                    navigation.navigate('CameraScreen', {habitName: hName});
                                 }}
                                 
                                 buttonStyle= {{

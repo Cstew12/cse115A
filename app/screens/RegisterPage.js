@@ -26,22 +26,26 @@ const LoginScreen = () => {
       password: password, 
     };
      auth  
-         .createUserWithEmailAndPassword(email, password)
-         .then(userCredentials => {
-           const user = userCredentials.user;
-           console.log('Registered with: ', user.email); // Debug
-           console.log('Registered with: ', user.firstName); // Debug
-           navigation.navigate('Login')
-           const currentUID = auth.currentUser.uid;
+        .createUserWithEmailAndPassword(email, password)
+        .then(userCredentials => {
+          const user = userCredentials.user;
+          console.log('Registered with: ', user.email); // Debug
+          console.log('Registered with: ', user.firstName); // Debug
+          navigation.navigate('Login')
+          const currentUID = auth.currentUser.uid;
+          db
+            .collection(currentUID)
+            .doc('user profile')
+            .set(userProfile)
+            .then(() => {
+                console.log('collection added!');
             db
-              .collection(currentUID)
-              .doc('user profile')
-              .set(userProfile)
-              .then(() => {
-                  console.log('collection added!');
-              });
-         })
-         .catch(error => alert(error.message)) // error handling upon failure
+              .collection('users')
+              .doc(username)
+              .set({uid: currentUID});
+          });
+        })
+        .catch(error => alert(error.message)) // error handling upon failure
     }
    
     return (

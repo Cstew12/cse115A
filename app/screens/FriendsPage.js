@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { auth} from "../../firebase";
+import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import {StyleSheet, Text, View, Modal, Pressable} from 'react-native';
 import { Button, Input, LinearProgress} from 'react-native-elements';
@@ -86,6 +86,20 @@ const FriendsPage = () => {
                                     style={[styles.button, styles.buttonClose]}
                                     onPress={() => {
                                         setVisible(!modalVisible);
+                                        const temp = db.collection('users').doc(friendUN).get()         
+                                        .then((docsnap) => {
+                                            if(docsnap.exists){
+                                                const friendUID = docsnap.data().uid + '';
+                                                db
+                                                .collection(auth.currentUser.uid)
+                                                .doc('friends list')
+                                                .set({friendUID : friendUN});
+                                            }
+                                            
+                                        })
+                                        .catch(error => 
+                                            alert(error.message)) ;
+                                           
                                     }}
                                 >
                                     <Text style={styles.textStyle}>Hide Modal</Text>

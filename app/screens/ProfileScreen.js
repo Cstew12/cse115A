@@ -30,7 +30,7 @@ function ProfileScreen(props) {
         .onSnapshot(querySnap => {
             setHabits([]);
             querySnap.docs.forEach( doc => {
-                if(doc.id !== "user profile") {
+                if(doc.id !== "user profile" && doc.id !== "friends list") {
                     setHabits(habits => habits.concat(doc.data()));
                 } else {
                     setName(doc.data().FirstName + " " + doc.data().lastName);

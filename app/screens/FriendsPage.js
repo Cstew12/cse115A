@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import { auth} from "../../firebase";
 import {db} from "../../firebase";
-import {StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, View, Modal, Pressable} from 'react-native';
 import { Button, Input, LinearProgress} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ListItem, Avatar } from 'react-native-elements';
 
 
+
 const FriendsPage = () => {
 
     const [friends,setFriends]= useState([]);
+    const [modalVisible, setVisible] = useState(false)
     const navigation = useNavigation();
+    const [friendUN, setFriendUN] = useState('');
 
     const fetchFriends = () => {
         db
@@ -63,8 +66,33 @@ const FriendsPage = () => {
 
                     <Text style={styles.header}>Friends List</Text>
                 </View>
-
                 <View style={styles.bottom}>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                            setVisible(!modalVisible);
+                        }}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <Text style={styles.modalText}>Enter a username</Text>
+                                <Input
+                                    placeholder='Username'
+                                    onChangeText={value => setFriendUN(value)}
+                                />
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={() => {
+                                        setVisible(!modalVisible);
+                                    }}
+                                >
+                                    <Text style={styles.textStyle}>Hide Modal</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </Modal>
                 {
                     friends.map((item, i) => (
                         <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}>
@@ -77,7 +105,6 @@ const FriendsPage = () => {
                         </ListItem>
                     ))
                 }
-
                     <Button
                         type="solid"
                         icon={
@@ -95,22 +122,10 @@ const FriendsPage = () => {
                             width: 70,
                             alignSelf: 'center',
                             marginTop: 20,
-                                }}
+                        }}
 
-                        onPress={()=>{
-                            db
-                            .collection('friend_test')
-                            .add({
-                            name: 'added friend',
-                            icon: 'user',
-                            subtitle: 'a new friend'
-                        })
-                        .then(() => {
-                            console.log('Friend added!');
-                        });
-                            }}
-                    />
-                    
+                        onPress={() => setVisible(!modalVisible)}
+                    />     
                 </View>
             </View>
         );
@@ -150,6 +165,49 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         flexDirection: 'column',
         justifyContent: 'flex-start',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+    modalView: {
+        margin: 5,
+        height: 200, 
+        width: 300, 
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 25,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+    },
+    shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
+    textStyle: {
+        color: "black",
+        fontWeight: "bold",
+        textAlign: "center"
     },
 });
 

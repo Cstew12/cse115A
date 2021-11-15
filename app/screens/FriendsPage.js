@@ -6,8 +6,7 @@ import { Button, Input, LinearProgress} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ListItem, Avatar } from 'react-native-elements';
-
-
+import CustomModal from './friendComponents/CustomModal';
 
 const FriendsPage = () => {
     
@@ -15,19 +14,29 @@ const FriendsPage = () => {
     const [modalVisible, setVisible] = useState(false)
     const navigation = useNavigation();
     const [friendUN, setFriendUN] = useState('');
+    const [notFoundModal, setNotFound] = useState(false);
 
     const fetchFriends = () => {
         db
-        .collection('friend_test')
+        .collection(auth.currentUser.uid)
+        .doc('friends list')
+        .collection('friends collection')
         .onSnapshot(querySnap => {
             setFriends([]);
-            querySnap.docs.forEach( doc => {
-                    setFriends(friends => friends.concat(doc.data()));
-                    //console.log(habits);
+            querySnap.docs.forEach(doc => {
+                setFriends(friends => friends.concat(doc.data()));
             });
         });
     }
 
+
+    /**
+     * @param {string} userUID  - ID of whos friend list the friend will be added to
+     * @param {string} friendUID 
+     * @param {string} friendName 
+     * @param {string} friendUsername 
+     * Adds friends information to a users friend list. 
+     */
     const addFriendToUser = (userUID, friendUID, friendName, friendUsername) => {
         db.collection(userUID).doc('friends list')
         .collection('friends collection')
@@ -39,15 +48,21 @@ const FriendsPage = () => {
         })
     };
 
+    /** 
+     * @param {string} uid 
+     * @returns profile - an object containing profile information from uid
+     * Given a uid, return the object stored in the 'user profile' document
+     */
     const getUserProfileFromUID = async(uid) => {
         console.log(uid);
         const profile = (await db.collection(uid).doc('user profile').get()).data();
-        console.log(profile);
         return profile;
     };
 
     /**
-     * Adds friends information to current user
+     * 1. Find a user's UID (friend's UID) given their username
+     * 2. Get the friends profile given their UID
+     * 3. Add information from friends profile to current users friend list
      */
     const searchAndAddFriend = () => {
         const temp = db.collection('users').doc(friendUN).get()         
@@ -57,10 +72,12 @@ const FriendsPage = () => {
                 getUserProfileFromUID(friendUID).then((profile) => {
                     const friendName = profile.FirstName + ' ' + profile.lastName;
                     addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
-                    console.log('here: ' + profile.FirstName);
                 })
+            }else{
+                // User with that username does not exist
+                console.log('User with that username does not exist');
+                setNotFound(true);
             }
-            
         })
         .catch(error => 
             alert(error.message)) ;
@@ -101,36 +118,32 @@ const FriendsPage = () => {
                         }}
                     />
 
-                    <Text style={styles.header}>Friends List</Text>
+                    <Text style={styles.header}>My Friends</Text>
                 </View>
                 <View style={styles.bottom}>
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => {
-                            setVisible(!modalVisible);
+                    <CustomModal
+                        modalVisible={notFoundModal}
+                        setVisible={setNotFound}
+                        onHideModal={() => {
+                            setNotFound(!notFoundModal);
                         }}
-                    >
-                        <View style={styles.centeredView}>
-                            <View style={styles.modalView}>
-                                <Text style={styles.modalText}>Enter a username</Text>
-                                <Input
-                                    placeholder='Username'
-                                    onChangeText={value => setFriendUN(value)}
-                                />
-                                <Pressable
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => {
-                                        setVisible(!modalVisible);
-                                        searchAndAddFriend();
-                                    }}
-                                >
-                                    <Text style={styles.textStyle}>Hide Modal</Text>
-                                </Pressable>
-                            </View>
-                        </View>
-                    </Modal>
+                        title={'User with username ' + friendUN+ ' not found'}
+                        hideModalText='Close'
+                        inputField={false}
+                    />
+                    <CustomModal
+                        modalVisible={modalVisible}
+                        setVisible={setVisible}
+                        onHideModal={() => {
+                            setVisible(!modalVisible);
+                            searchAndAddFriend();
+                        }}
+                        title='Enter a username'
+                        placeholder='Username'
+                        hideModalText='Add friend'
+                        inputField={true}
+                        setInput={setFriendUN}
+                    />
                 {
                     friends.map((item, i) => (
                         <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}>

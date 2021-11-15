@@ -31,7 +31,6 @@ const LoginScreen = () => {
           const user = userCredentials.user;
           console.log('Registered with: ', user.email); // Debug
           console.log('Registered with: ', user.firstName); // Debug
-          navigation.navigate('Login')
           const currentUID = auth.currentUser.uid;
           db
             .collection(currentUID)
@@ -39,6 +38,7 @@ const LoginScreen = () => {
             .set(userProfile)
             .then(() => {
                 console.log('collection added!');
+                navigation.navigate('Login');
             db
               .collection('users')
               .doc(username)

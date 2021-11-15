@@ -11,7 +11,8 @@ export default function Save(props) {
         console.log(props);
         console.log("/n");
         console.log(props.route.params.uri)
-        const childPath = `${auth.currentUser.uid}/${Math.random().toString(36)}`;
+        console.log("save: " + props.route.params.habitName)
+        const childPath = `${auth.currentUser.uid}/${props.route.params.habitName}/${Math.random().toString(36)}`;
         const response = await fetch(props.route.params.uri);
         const blob = await response.blob();
 

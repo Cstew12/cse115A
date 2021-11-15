@@ -4,7 +4,8 @@ import { Camera } from 'expo-camera';
 import { useNavigation } from '@react-navigation/core';
 
 
-function CameraScreen(props) {
+function CameraScreen({route}) {
+  const {habitName} = route.params;
   const navigation = useNavigation(); 
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
@@ -58,7 +59,7 @@ function CameraScreen(props) {
       </Camera>
      
       <Button title="Take Picture" onPress={() => takePicture()} />
-      <Button title="Save" onPress={() => navigation.navigate('Save', { uri:image })} />
+      <Button title="Save" onPress={() => navigation.navigate('Save', { uri:image, habitName: habitName})} />
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
      
       

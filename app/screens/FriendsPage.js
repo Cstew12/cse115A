@@ -10,7 +10,7 @@ import { ListItem, Avatar } from 'react-native-elements';
 
 
 const FriendsPage = () => {
-
+    
     const [friends,setFriends]= useState([]);
     const [modalVisible, setVisible] = useState(false)
     const navigation = useNavigation();
@@ -26,7 +26,44 @@ const FriendsPage = () => {
                     //console.log(habits);
             });
         });
+    }
 
+    const addFriendToUser = (userUID, friendUID, friendName, friendUsername) => {
+        db.collection(userUID).doc('friends list')
+        .collection('friends collection')
+        .doc(friendUID)
+        .set({
+            subtitle: friendUsername, 
+            icon: 'user', 
+            name: friendName
+        })
+    };
+
+    const getUserProfileFromUID = async(uid) => {
+        console.log(uid);
+        const profile = (await db.collection(uid).doc('user profile').get()).data();
+        console.log(profile);
+        return profile;
+    };
+
+    /**
+     * Adds friends information to current user
+     */
+    const searchAndAddFriend = () => {
+        const temp = db.collection('users').doc(friendUN).get()         
+        .then((docsnap) => {
+            if(docsnap.exists){
+                const friendUID = docsnap.data().uid;
+                getUserProfileFromUID(friendUID).then((profile) => {
+                    const friendName = profile.FirstName + ' ' + profile.lastName;
+                    addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
+                    console.log('here: ' + profile.FirstName);
+                })
+            }
+            
+        })
+        .catch(error => 
+            alert(error.message)) ;
     }
 
     useEffect(() => {
@@ -86,20 +123,7 @@ const FriendsPage = () => {
                                     style={[styles.button, styles.buttonClose]}
                                     onPress={() => {
                                         setVisible(!modalVisible);
-                                        const temp = db.collection('users').doc(friendUN).get()         
-                                        .then((docsnap) => {
-                                            if(docsnap.exists){
-                                                const friendUID = docsnap.data().uid + '';
-                                                db
-                                                .collection(auth.currentUser.uid)
-                                                .doc('friends list')
-                                                .set({friendUID : friendUN});
-                                            }
-                                            
-                                        })
-                                        .catch(error => 
-                                            alert(error.message)) ;
-                                           
+                                        searchAndAddFriend();
                                     }}
                                 >
                                     <Text style={styles.textStyle}>Hide Modal</Text>

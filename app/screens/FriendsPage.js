@@ -17,19 +17,24 @@ const FriendsPage = () => {
     const [notFoundModal, setNotFound] = useState(false);
 
     const fetchFriends = () => {
-        console.log('fetch friends');
+        console.log('fetch friends')
         db
         .collection(auth.currentUser.uid)
         .doc('friends list')
         .collection('friends collection')
         .onSnapshot(querySnap => {
-            if(querySnap.exists){
-                setFriends([]);
+            setFriends([]);
+            if(querySnap.size < 1) {
+                setFriends(friends => friends.concat({
+                    icon: 'user', 
+                    subtitle: 'Click the plus to get started', 
+                    name: "Follow your friends to see their habits"}
+                ));
+            } else {
                 querySnap.docs.forEach(doc => {
                     setFriends(friends => friends.concat(doc.data()));
                 });
             }
-            
         });
     }
 
@@ -149,7 +154,7 @@ const FriendsPage = () => {
                         inputField= {true}
                         setInput={setFriendUN}
                     />
-                    {  /*
+                    {  
                         friends.map((item, i) => (
                             <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}>
                                 <Icon name={item.icon} />
@@ -160,7 +165,6 @@ const FriendsPage = () => {
                                 <ListItem.Chevron />
                             </ListItem>
                         ))
-                        */
                     }
                     <Button
                         type="solid"

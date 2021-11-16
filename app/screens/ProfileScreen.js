@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     top: {
-        flex: 2
+        flex: 2.4
     },
     signOutButton: {
         flex: 1, 

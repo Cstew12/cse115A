@@ -11,23 +11,11 @@ import firebase from 'firebase/app';
 const HabitPage = ({route}) => {
     const {habitData} = route.params;
 
-    const fetchHabits=async()=>{
-        const response=db.collection('test_collection');
-        const data=await response.get();
-        data.docs.forEach(item=>{
-         setHabits([...habits,item.data()])
-        })
-      }
-
     function deQuote(str1){
         const str2 = str1.substring(1, str1.length - 1);
         return str2;
     }
     
-    useEffect(() => {
-        fetchHabits();
-      }, [])
-
     const navigation = useNavigation();
     const [habits,setHabits]=useState([]);
     const hName = deQuote(JSON.stringify(habitData.habitName));
@@ -42,17 +30,8 @@ const HabitPage = ({route}) => {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
     }
 
-    console.log('before');
-    console.log(habits[0]);
-    console.log('after');
-
     console.log(hName);
     console.log(uid);
-
-
-    if(habits[0] == undefined){
-        return null
-    }
 
         return (
             <View style={styles.container}>

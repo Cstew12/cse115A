@@ -267,6 +267,28 @@ const HabitPage = ({route}) => {
                                     navigation.navigate('Profile');
                                 }}
                             />
+                            <Button
+                                title="Gallery"
+                                type="solid"
+                                
+                                buttonStyle= {{
+                                    backgroundColor: '#9c9c9c',
+                                    height: 70,
+                                    width: 170,
+                                    paddingLeft: 50,
+                                    paddingRight: 50,
+                                    marginTop: 60,
+                                }}
+            
+                                titleStyle= {{
+                                    color: '#F7BE45',
+                                    fontFamily: 'AvenirNext-Regular'
+                                }}
+
+                                onPress={()=>{
+                                    navigation.navigate('Gallery');
+                                }}
+                            />
                         </View>
                     </View>
                 </View>

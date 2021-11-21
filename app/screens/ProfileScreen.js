@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
-import { AutoFocus, WhiteBalance } from 'expo-camera/build/Camera.types';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import HabitButton from './HabitButton';
@@ -22,6 +21,15 @@ function ProfileScreen(props) {
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
+
+    const handleSignOut = () => {
+        auth
+            .signOut()
+            .then(() => {
+                navigation.navigate("Login")
+            })
+            .catch(error => alert(error.message));
+    }
 
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
@@ -53,7 +61,24 @@ function ProfileScreen(props) {
         <View style={styles.container}>
             <View style={styles.top}>
                 <View style={styles.signOutButton}>
-                    <SignOutButton/>
+                <Button
+                    title="Sign out"
+                    type= "solid"
+                    icon={
+                        <Icon
+                        name='sign-out'
+                        size={15}
+                        type='font-awesome'
+                        color="white"
+                        />
+                    }
+                    onPress={handleSignOut}  
+            
+                    titleStyle= {{
+                        color: 'white',
+                        fontFamily: 'AvenirNext-Bold'
+                    }}
+                /> 
                 </View>
                 <View style={styles.avatar}>
                     <Avatar 

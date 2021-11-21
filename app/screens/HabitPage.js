@@ -20,8 +20,12 @@ const HabitPage = ({route}) => {
       }
 
     function deQuote(str1){
-        const str2 = str1.substring(1, str1.length - 1);
-        return str2;
+        if(str1 !== undefined){
+            const str2 = str1.substring(1, str1.length - 1); // this was causing a bug if str is undefined
+            return str2;
+        } else {
+            setExists(false);
+        }
     }
     
     useEffect(() => {
@@ -30,11 +34,13 @@ const HabitPage = ({route}) => {
 
     const navigation = useNavigation();
     const [habits,setHabits]=useState([]);
+    const [exists, setExists] = useState(true);
     const hName = deQuote(JSON.stringify(habitData.habitName));
     const hMotiv = deQuote(JSON.stringify(habitData.motivation));
     const hFreq = deQuote(JSON.stringify(habitData.frequency));
-    const hStreak = deQuote(JSON.stringify(habitData.streak));
+    const hStreak = habitData.streak;
     const hPeriod = deQuote(JSON.stringify(habitData.period));
+    const hDuration = habitData.duration;
     const uid = auth.currentUser.uid;
     const increment = firebase.firestore.FieldValue.increment(1);
 
@@ -42,17 +48,10 @@ const HabitPage = ({route}) => {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
     }
 
-    console.log('before');
-    console.log(habits[0]);
-    console.log('after');
-
-    console.log(hName);
-    console.log(uid);
-
-
+    /*
     if(habits[0] == undefined){
         return null
-    }
+    }*/
 
         return (
             <View style={styles.container}>
@@ -110,11 +109,7 @@ const HabitPage = ({route}) => {
                             navigation.navigate('Profile');
                         }}
                     />
-
-
-
                 </View>
-
                     <Text style={styles.header}>{hName}</Text>
                 </View>
 
@@ -180,7 +175,7 @@ const HabitPage = ({route}) => {
                         <LinearProgress 
                             color="primary"
                             variant="determinate"
-                            value={hStreak / 10}
+                            value={hStreak / hDuration}
                             //value='0.3'
                             color="#F7BE45"
 
@@ -190,7 +185,7 @@ const HabitPage = ({route}) => {
                             }}>
 
                         </LinearProgress>
-    
+
                     </View>
                     <View style={styles.options}>
                         <View style={{flex: 1}}>

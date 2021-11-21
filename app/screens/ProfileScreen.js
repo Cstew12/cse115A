@@ -80,15 +80,13 @@ function ProfileScreen(props) {
                 </View>
             </View>
             <View style={styles.bottom}>
-                { habits.size > 0 &&
-                    <View style={{flex: 5}}>
-                        <FlatList
-                            data={habits}
-                            renderItem={renderItem}
-                            keyExtractor={() => Math.random().toString(36)}
-                        />
-                    </View>
-                }
+                <View style={{flex: 5}}>
+                    <FlatList
+                        data={habits}
+                        renderItem={renderItem}
+                        keyExtractor={() => Math.random().toString(36)}
+                    />                    
+                </View>
                 <View style={{flex: 1, justifyContent: 'center'}}>
                     <PlusButton
                         plusColor='white'

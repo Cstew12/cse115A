@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import SliderMinMax from './createHabitComponents/SliderMinMax';
 import { useNavigation } from '@react-navigation/core';
+import {LinearProgress} from 'react-native-elements';
+
 
 // passing props to habit page through navigation
 function HabitButton({title, data}) {
-    const [value, setValue] = useState((data.duration/2));
+    const [value, setValue] = useState(data.streak);
     const navigation = useNavigation();
 
     return (
@@ -13,14 +15,17 @@ function HabitButton({title, data}) {
             <TouchableOpacity  onPress={() => navigation.navigate('Habits', {habitData: data})}>
                 <Text style={styles.title}>{title}</Text>
                 <Text>{data.period === 'day' ? 'Daily' : data.frequency + 'x per week'}</Text>
-                <SliderMinMax
-                    currVal={value}
-                    setCurrVal={setValue}
-                    min={0}
-                    max={data.duration}
+                <LinearProgress 
+                    color="primary"
+                    variant="determinate"
+                    value={data.streak / data.duration}
                     color='#2e2d2d'
-                    margin={4}
-                />
+                    style={{
+                        marginBottom: 15, 
+                        marginTop: 15,
+                    }}>
+
+                </LinearProgress>
             </TouchableOpacity>
         </View>
     );

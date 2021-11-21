@@ -20,8 +20,10 @@ const HabitPage = ({route}) => {
       }
 
     function deQuote(str1){
-        const str2 = str1.substring(1, str1.length - 1);
-        return str2;
+        if(str1 !== undefined){
+            const str2 = str1.substring(1, str1.length - 1); // this was causing a bug if str is undefined
+            return str2;
+        }
     }
     
     useEffect(() => {
@@ -42,17 +44,10 @@ const HabitPage = ({route}) => {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
     }
 
-    console.log('before');
-    console.log(habits[0]);
-    console.log('after');
-
-    console.log(hName);
-    console.log(uid);
-
-
+    /*
     if(habits[0] == undefined){
         return null
-    }
+    }*/
 
         return (
             <View style={styles.container}>
@@ -110,11 +105,7 @@ const HabitPage = ({route}) => {
                             navigation.navigate('Profile');
                         }}
                     />
-
-
-
                 </View>
-
                     <Text style={styles.header}>{hName}</Text>
                 </View>
 

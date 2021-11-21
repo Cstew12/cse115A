@@ -23,6 +23,8 @@ const HabitPage = ({route}) => {
         if(str1 !== undefined){
             const str2 = str1.substring(1, str1.length - 1); // this was causing a bug if str is undefined
             return str2;
+        } else {
+            setExists(false);
         }
     }
     
@@ -32,11 +34,13 @@ const HabitPage = ({route}) => {
 
     const navigation = useNavigation();
     const [habits,setHabits]=useState([]);
+    const [exists, setExists] = useState(true);
     const hName = deQuote(JSON.stringify(habitData.habitName));
     const hMotiv = deQuote(JSON.stringify(habitData.motivation));
     const hFreq = deQuote(JSON.stringify(habitData.frequency));
-    const hStreak = deQuote(JSON.stringify(habitData.streak));
+    const hStreak = habitData.streak;
     const hPeriod = deQuote(JSON.stringify(habitData.period));
+    const hDuration = habitData.duration;
     const uid = auth.currentUser.uid;
     const increment = firebase.firestore.FieldValue.increment(1);
 
@@ -171,7 +175,7 @@ const HabitPage = ({route}) => {
                         <LinearProgress 
                             color="primary"
                             variant="determinate"
-                            value={hStreak / 10}
+                            value={hStreak / hDuration}
                             //value='0.3'
                             color="#F7BE45"
 
@@ -181,7 +185,7 @@ const HabitPage = ({route}) => {
                             }}>
 
                         </LinearProgress>
-    
+
                     </View>
                     <View style={styles.options}>
                         <View style={{flex: 1}}>

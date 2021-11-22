@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TextComponent } from 'react-native';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
@@ -16,24 +16,24 @@ import PlusButton from './profileComponents/PlusButton';
 
 function ProfileScreen(props) {
     const navigation = useNavigation();
-
     const [habits, setHabits] = useState([]);
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
 
     const handleSignOut = () => {
+        navigation.navigate("Login");
         auth
             .signOut()
             .then(() => {
-                navigation.navigate("Login")
             })
             .catch(error => alert(error.message));
+
     }
 
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
-        const temp = db
+        const unsubscribe = db
         .collection(uid)
         .onSnapshot(querySnap => {
             setHabits([]);
@@ -47,10 +47,13 @@ function ProfileScreen(props) {
                 }
             });
         });
+        return unsubscribe;
     }
 
+
     useEffect(() => {
-        realTimeData();
+        const unsub = realTimeData();
+        return unsub;
     }, []);
     
     const renderItem = ({ item }) => (

@@ -17,16 +17,26 @@ const FriendsPage = () => {
     const [notFoundModal, setNotFound] = useState(false);
 
     const fetchFriends = () => {
-        db
+        console.log('fetch friends')
+        const unsubscribe = db
         .collection(auth.currentUser.uid)
         .doc('friends list')
         .collection('friends collection')
         .onSnapshot(querySnap => {
             setFriends([]);
-            querySnap.docs.forEach(doc => {
-                setFriends(friends => friends.concat(doc.data()));
-            });
+            if(querySnap.size < 1) {
+                setFriends(friends => friends.concat({
+                    icon: 'user', 
+                    subtitle: 'Click the plus to get started', 
+                    name: "Follow your friends to see their habits"}
+                ));
+            } else {
+                querySnap.docs.forEach(doc => {
+                    setFriends(friends => friends.concat(doc.data()));
+                });
+            }
         });
+        return unsubscribe;
     }
 
 
@@ -65,6 +75,7 @@ const FriendsPage = () => {
      * 3. Add information from friends profile to current users friend list
      */
     const searchAndAddFriend = () => {
+        console.log('Search and add friend');
         const temp = db.collection('users').doc(friendUN).get()         
         .then((docsnap) => {
             if(docsnap.exists){
@@ -84,7 +95,8 @@ const FriendsPage = () => {
     }
 
     useEffect(() => {
-        fetchFriends();
+        const unsub = fetchFriends();
+        return unsub;
       }, [])
 
     if(friends[0] == undefined){
@@ -141,21 +153,21 @@ const FriendsPage = () => {
                         title='Enter a username'
                         placeholder='Username'
                         hideModalText='Add friend'
-                        inputField={true}
+                        inputField= {true}
                         setInput={setFriendUN}
                     />
-                {
-                    friends.map((item, i) => (
-                        <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}>
-                            <Icon name={item.icon} />
-                                <ListItem.Content>
-                                <ListItem.Title style={{ color: '#d15a5a'}}>{item.name}</ListItem.Title>
-                                <ListItem.Subtitle style={{ color: 'white'}}>{item.subtitle}</ListItem.Subtitle>
-                                </ListItem.Content>
-                            <ListItem.Chevron />
-                        </ListItem>
-                    ))
-                }
+                    {  
+                        friends.map((item, i) => (
+                            <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}>
+                                <Icon name={item.icon} />
+                                    <ListItem.Content>
+                                    <ListItem.Title style={{ color: '#d15a5a'}}>{item.name}</ListItem.Title>
+                                    <ListItem.Subtitle style={{ color: 'white'}}>{item.subtitle}</ListItem.Subtitle>
+                                    </ListItem.Content>
+                                <ListItem.Chevron />
+                            </ListItem>
+                        ))
+                    }
                     <Button
                         type="solid"
                         icon={

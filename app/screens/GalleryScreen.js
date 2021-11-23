@@ -17,6 +17,16 @@ const images = [
         title: 'second picture',
         uri: 'https://reactnative.dev/img/tiny_logo.png'
     },
+    {
+        title: 'third picture',
+        uri: 'https://reactnative.dev/img/tiny_logo.png'
+    },
+    {
+        title: 'fourth picture',
+        uri: 'https://reactnative.dev/img/tiny_logo.png'
+    },
+    
+    
 ]
 
 
@@ -24,8 +34,8 @@ function GalleryScreen(props) {
     const navigation = useNavigation();
 
     const renderItem = ({ item }) => (
-        <View style={{flexDirection: 'column', justifyContent:'center', marginVertical: 40, alignItems:'center'}}>
-            <Image style={{height: 350, width: 350}} source={{uri: item.uri}}/>
+        <View style={{justifyContent:'center', marginVertical: 20, alignItems:'center'}}>
+            <Image style={{height: 120, width: 120}} source={{uri: item.uri}}/>
             <Text style={{color: 'white', marginTop: 20}}>
                 {item.title}
             </Text>
@@ -56,7 +66,7 @@ function GalleryScreen(props) {
                     /> 
                </View>
                <View style={{justifyContent: 'center', flexDirection: 'row'}}>
-                    <Text style={{color: 'white', fontSize: 25, fontFamily: 'AvenirNext-Bold'}}>Home</Text>
+                    <Text style={{color: 'white', fontSize: 25, fontFamily: 'AvenirNext-Bold'}}>Gallery</Text>
                </View>
            </View>
            <View style={styles.bottom}>
@@ -64,6 +74,10 @@ function GalleryScreen(props) {
                     data={images}
                     renderItem={renderItem}
                     keyExtractor={() => Math.random().toString(36)}
+                    numColumns={3}
+                    columnWrapperStyle={{
+                        justifyContent: 'space-evenly'
+                    }}
                 />
            </View>
        </View>
@@ -79,7 +93,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bottom : {
-        flex: 8
+        flex: 7
     },
 });
 export default GalleryScreen;

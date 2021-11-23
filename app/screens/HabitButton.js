@@ -14,7 +14,7 @@ function HabitButton({title, data}) {
         <View style={styles.item}>
             <TouchableOpacity  onPress={() => navigation.navigate('Habits', {habitData: data})}>
                 <Text style={styles.title}>{title}</Text>
-                <Text>{data.period === 'day' ? 'Daily' : data.frequency + 'x per week'}</Text>
+                <Text style={styles.subtitle}>{data.period === 'day' ? 'Daily' : data.frequency + 'x per week'}</Text>
                 <LinearProgress 
                     color="primary"
                     variant="determinate"
@@ -33,14 +33,19 @@ function HabitButton({title, data}) {
 
 const styles = StyleSheet.create({
     item: {
-        backgroundColor: '#f9c2ff',
+        backgroundColor: '#82f591',
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
         borderRadius: 25,
     },
     title: {
+        fontFamily: 'AvenirNext-Medium',
         fontSize: 32,
+    },
+    subtitle: {
+        fontFamily: 'AvenirNext-Regular',
+        fontSize: 14,
     },
 });
 

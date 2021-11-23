@@ -19,7 +19,7 @@ function PeriodButton(props) {
             }}
 
             titleStyle= {{
-                color: '#E3D1FC',
+                color: '#82f591',
                 fontFamily: 'AvenirNext-Regular'
             }}
         />            

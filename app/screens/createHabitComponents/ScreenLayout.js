@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
     top: {
         flex: 1,
-        backgroundColor: '#BD9EEF',
+        backgroundColor: '#82f591',
         justifyContent: 'flex-end'
     },
     bottom: {

@@ -121,7 +121,7 @@ const FriendsPage = () => {
                             backgroundColor: '#2e2d2d',
                             height: 50,
                             width: 70,
-                            marginBottom: 60,
+                            marginBottom: 55,
                             marginHorizontal: 10,
                                 }}
 
@@ -161,8 +161,8 @@ const FriendsPage = () => {
                             <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}>
                                 <Icon name={item.icon} />
                                     <ListItem.Content>
-                                    <ListItem.Title style={{ color: '#d15a5a'}}>{item.name}</ListItem.Title>
-                                    <ListItem.Subtitle style={{ color: 'white'}}>{item.subtitle}</ListItem.Subtitle>
+                                    <ListItem.Title style={{ color: '#82f591'}}>{item.name}</ListItem.Title>
+                                    <ListItem.Subtitle style={{ color: '#2e2d2d'}}>{item.subtitle}</ListItem.Subtitle>
                                     </ListItem.Content>
                                 <ListItem.Chevron />
                             </ListItem>
@@ -174,13 +174,13 @@ const FriendsPage = () => {
                             <Icon
                                 name="plus"
                                 size={25}
-                                color="black"
+                                color='black'
                             />
                         }
                         iconRight
 
                         buttonStyle= {{
-                            backgroundColor: '#d15a5a',
+                            backgroundColor: '#82f591',
                             height: 50,
                             width: 70,
                             alignSelf: 'center',
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     },
     top: {
         flex: 1,
-        backgroundColor: '#d15a5a',
+        backgroundColor: '#82f591',
         justifyContent: 'flex-end',
     },
     bottom: {
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     },
     header: {
         fontFamily: 'AvenirNext-Bold',
-        fontSize: 30,
+        fontSize: 32,
         alignSelf: 'center',
         color: "#2e2d2d"
     },

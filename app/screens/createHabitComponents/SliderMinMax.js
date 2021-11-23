@@ -10,7 +10,7 @@ function SliderMinMax({currVal, setCurrVal, min, max, color, thumb, margin}) {
             minimumValue={min}
             maximumValue={max}
             thumbStyle = {{
-                backgroundColor: "#BD9EEF",
+                backgroundColor: '#82f591',
                 width: thumb ? 20 : 0,
                 height: thumb ? 20 : 0
             }}

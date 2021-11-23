@@ -69,7 +69,7 @@ function CreateHabitScreen(props) {
                             setDuration(1)
                             setFrequency(1)
                         }}
-                        borderColor={period == 'day' ? colors.purple : '#9c9c9c'}
+                        borderColor={period == 'day' ? '#82f591' : '#9c9c9c'}
                     />
                     <PeriodButton
                         title="Weekly"
@@ -77,7 +77,7 @@ function CreateHabitScreen(props) {
                             setPeriod('week')
                             setDuration(1)
                         }}
-                        borderColor= {period == 'week' ? colors.purple : '#9c9c9c'}
+                        borderColor= {period == 'week' ? '#82f591' : '#9c9c9c'}
                     />
                 </View>
             </View>
@@ -99,7 +99,7 @@ function CreateHabitScreen(props) {
                         min={1}
                         max={90}
                         thumb={true}
-                        color={colors.purple}
+                        color='#82f591'
                         margin={10}
                     />}
                     { period == "week" && 
@@ -109,7 +109,7 @@ function CreateHabitScreen(props) {
                         min={1}
                         max={12}
                         thumb={true}
-                        color={colors.purple}
+                        color='#82f591'
                         margin={10}
                     />}
                     <Text 
@@ -117,7 +117,7 @@ function CreateHabitScreen(props) {
                             marginHorizontal: 10, 
                             alignSelf: 'center',
                             fontFamily: 'AvenirNext-Regular',
-                            color: colors.purple
+                            color: '#82f591'
                         }}>
                         {name == '' ? 'Do habit' : name} {period == 'week' ? frequency : ''}{period == 'week' ? ' times per week for' : ''} {duration} {period}s in a row
                     </Text>
@@ -134,12 +134,13 @@ function CreateHabitScreen(props) {
                     }}
 
                     buttonStyle= {{
-                        backgroundColor: '#BD9EEF',
+                        backgroundColor: '#9c9c9c',
                     }}
 
                     titleStyle= {{
-                        color: 'white',
-                        fontFamily: 'AvenirNext-Bold'
+                        color: '#82f591',
+                        fontFamily: 'AvenirNext-Medium',
+                        fontSize: 20
                     }}
                     onPress={onClickSave}
                 />
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: 'AvenirNext-Medium',
         fontSize: 20,
-        color: "#BD9EEF"
+        color: '#82f591'
     }
 });
 

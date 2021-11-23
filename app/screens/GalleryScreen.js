@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Image } from 'react-native-elements';
 import { ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
+import { auth, store } from '../../firebase';
 
 
 
 const images = [
     {
         title: 'first picture',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
+        uri: 'https://firebasestorage.googleapis.com/v0/b/routeam-c901f.appspot.com/o/GTbPfYVVJxYBTqtAPbSaoHqhAZ33%2FDrink%2F0.fqimcp6ig6o?alt=media&token=4535cfcd-6dfa-4c62-80a9-bdaf8a7b226b'
     },
+    /*
     {
         title: 'second picture',
         uri: 'https://reactnative.dev/img/tiny_logo.png'
@@ -24,18 +26,21 @@ const images = [
     {
         title: 'fourth picture',
         uri: 'https://reactnative.dev/img/tiny_logo.png'
-    },
+    },*/
     
     
 ]
 
-
-function GalleryScreen(props) {
+function GalleryScreen({route}) {
     const navigation = useNavigation();
+    useEffect(() => {
+        const name = route.params.name;
+        const imageRef = store.ref('/' + auth.currentUser.uid + '/' + name);
+    }, [])
 
     const renderItem = ({ item }) => (
         <View style={{justifyContent:'center', marginVertical: 20, alignItems:'center'}}>
-            <Image style={{height: 120, width: 120}} source={{uri: item.uri}}/>
+            <Image style={{height: 200, width: 200}} source={item.uri}/>
             <Text style={{color: 'white', marginTop: 20}}>
                 {item.title}
             </Text>

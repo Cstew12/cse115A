@@ -29,6 +29,7 @@ function CreateHabitScreen(props) {
             habitName: name,
             motivation: motivation,
             streak: 0,
+            lastRecord: 0,
             period: period, // 'day' or 'week'
             duration: duration, // between 1-90 days or 1-12 weeks
             frequency: frequency, // frequency for day is 1, frequency for week is 1-6 days in week

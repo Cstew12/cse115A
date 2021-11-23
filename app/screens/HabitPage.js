@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import "firebase/firestore";
 import firebase from 'firebase/app';
+import { Divider } from 'react-native-elements';
 
 const HabitPage = ({route}) => {
     const {habitData} = route.params;
@@ -39,19 +40,11 @@ const HabitPage = ({route}) => {
     const hMotiv = deQuote(JSON.stringify(habitData.motivation));
     const hFreq = deQuote(JSON.stringify(habitData.frequency));
     const hStreak = habitData.streak;
+    const hLastRecord = habitData.lastRecord;
     const hPeriod = deQuote(JSON.stringify(habitData.period));
     const hDuration = habitData.duration;
     const uid = auth.currentUser.uid;
     const increment = firebase.firestore.FieldValue.increment(1);
-
-    const colors = {
-        purple: "#BD9EEF", // BD9EEF, E3D1FC
-    }
-
-    /*
-    if(habits[0] == undefined){
-        return null
-    }*/
 
         return (
             <View style={styles.container}>
@@ -170,12 +163,12 @@ const HabitPage = ({route}) => {
                                     fontSize: 20,
                                     color: '#F7BE45',
                                 }}>
-                                Current Streak: {hStreak}
+                                Current Streak: {hStreak}       Goal: {hFreq * hDuration}
                             </Text>
                         <LinearProgress 
                             color="primary"
                             variant="determinate"
-                            value={hStreak / hDuration}
+                            value={hStreak / (hDuration * hFreq)}
                             //value='0.3'
                             color="#F7BE45"
 
@@ -193,14 +186,14 @@ const HabitPage = ({route}) => {
                                 style={{
                                     marginHorizontal: 20,
                                     marginBottom: -15, 
-                                    marginTop: 50,
+                                    marginTop: 38,
                                     alignSelf: 'center',
                                     fontFamily: 'AvenirNext-Medium',
                                     fontSize: 35,
                                     color: '#F7BE45',
                                 }}>
                                 Record this Habit
-                            </Text>
+                            </Text> 
                         </View>
                     </View>
                     <View style={styles.record_buttons}>
@@ -209,21 +202,27 @@ const HabitPage = ({route}) => {
                                 title="Record with Picture"
                                 type= "solid"
                                 onPress={()=>{
-                                    db
-                                        .collection(uid)
-                                        .doc(hName)
-                                        .update({
-                                            streak: increment,
-                                            })
-                                    navigation.navigate('CameraScreen', {habitName: hName});
-                                }}
+                                    const cDate = new Date();
+                                    if(hLastRecord == cDate.getDate()){
+                                        alert("You can only record a habit once a day.");
+                                    }else{
+                                        db
+                                            .collection(uid)
+                                            .doc(hName)
+                                            .update({
+                                                streak: increment,
+                                                lastRecord: cDate.getDate(),
+                                                })
+                                        navigation.navigate('CameraScreen', {habitName: hName});
+                                        }
+                                    }}
                                 
                                 buttonStyle= {{
                                     backgroundColor: '#9c9c9c',
                                     height: 70,
-                                    width: 170,
-                                    paddingLeft: 5,
-                                    paddingRight: 5,
+                                    width: 110,
+                                    paddingLeft: 15,
+                                    paddingRight: 15,
                                     marginEnd: 14,
                                     marginTop: 60,
                                 }}
@@ -231,7 +230,7 @@ const HabitPage = ({route}) => {
                                 titleStyle= {{
                                     color: '#F7BE45',
                                     fontFamily: 'AvenirNext-Regular',
-                                    fontSize: 18,
+                                    fontSize: 15,
                                 }}
                             />
                             <Button
@@ -241,43 +240,52 @@ const HabitPage = ({route}) => {
                                 buttonStyle= {{
                                     backgroundColor: '#9c9c9c',
                                     height: 70,
-                                    width: 170,
-                                    paddingLeft: 50,
-                                    paddingRight: 50,
+                                    width: 110,
+                                    paddingLeft: 15,
+                                    paddingRight: 15,
+                                    marginEnd: 14,
                                     marginTop: 60,
                                 }}
             
                                 titleStyle= {{
                                     color: '#F7BE45',
-                                    fontFamily: 'AvenirNext-Regular'
+                                    fontFamily: 'AvenirNext-Regular',
+                                    fontSize: 15,
                                 }}
 
                                 onPress={()=>{
+                                    const cDate = new Date();
+                                    if(hLastRecord == cDate.getDate()){
+                                        alert("You can only record a habit once a day.");
+                                    }else{
                                     db
                                         .collection(uid)
                                         .doc(hName)
                                         .update({
                                             streak: increment,
+                                            lastRecord: cDate.getDate(),
                                             })
                                     navigation.navigate('Profile');
                                 }}
+                            }
                             />
                             <Button
-                                title="Gallery"
+                                title="Photo Gallery"
                                 type="solid"
                                 
                                 buttonStyle= {{
                                     backgroundColor: '#9c9c9c',
                                     height: 70,
-                                    width: 170,
-                                    paddingLeft: 50,
-                                    paddingRight: 50,
+                                    width: 110,
+                                    paddingLeft: 15,
+                                    paddingRight: 15,
                                     marginTop: 60,
                                 }}
             
                                 titleStyle= {{
                                     color: '#F7BE45',
-                                    fontFamily: 'AvenirNext-Regular'
+                                    fontFamily: 'AvenirNext-Regular',
+                                    fontSize: 15,
                                 }}
 
                                 onPress={()=>{
@@ -320,9 +328,8 @@ const styles = StyleSheet.create({
     },
     record_buttons: {
         flex: 3,
-        marginLeft: 10,
-        flexDirection: 'column',
         justifyContent: 'flex-start',
+        alignItems: 'center',
     },
 });
 

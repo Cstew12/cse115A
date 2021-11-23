@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Image } from 'react-native-elements';
@@ -6,6 +6,7 @@ import { ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
 import { auth, store } from '../../firebase';
+
 
 
 
@@ -33,14 +34,29 @@ const images = [
 
 function GalleryScreen({route}) {
     const navigation = useNavigation();
+    const [uri, setUri] = useState('https://reactnative.dev/img/tiny_logo.png');
     useEffect(() => {
         const name = route.params.name;
-        const imageRef = store.ref('/' + auth.currentUser.uid + '/' + name);
+        const listRef = store.ref(auth.currentUser.uid + '/' + name);
+
+        listRef.listAll()
+            .then((file) => {
+                file.items.forEach((ref) => {
+                    console.log(ref.name);
+                })
+            })
+        const imageRef = store.ref('/' + auth.currentUser.uid + '/Surf/0.dwwie22zqkp');
+        imageRef
+        .getDownloadURL()
+        .then((url) => {
+            console.log(url);
+            setUri(url);
+        })
     }, [])
 
     const renderItem = ({ item }) => (
         <View style={{justifyContent:'center', marginVertical: 20, alignItems:'center'}}>
-            <Image style={{height: 200, width: 200}} source={item.uri}/>
+            <Image style={{height: 200, width: 200}} source={{uri: uri}}/>
             <Text style={{color: 'white', marginTop: 20}}>
                 {item.title}
             </Text>

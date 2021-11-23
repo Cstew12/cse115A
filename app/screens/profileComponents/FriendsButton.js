@@ -13,6 +13,9 @@ function FriendsButton(props) {
         <Button
             type= "solid"
             title=' Friends'
+            titleStyle= {{
+                fontFamily: 'AvenirNext-Bold'
+              }}
             icon={
                 <Icon
                     name='address-book'

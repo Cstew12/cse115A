@@ -65,7 +65,7 @@ function ProfileScreen(props) {
             <View style={styles.top}>
                 <View style={styles.signOutButton}>
                 <Button
-                    title="Sign out"
+                    title=" Sign Out"
                     type= "solid"
                     icon={
                         <Icon
@@ -91,6 +91,7 @@ function ProfileScreen(props) {
 
                         containerStyle={{
                             backgroundColor: "lightgray",
+                            marginTop: -15
                         }}
                     />
                 </View>
@@ -117,8 +118,8 @@ function ProfileScreen(props) {
                 </View>
                 <View style={{flex: 1, justifyContent: 'center'}}>
                     <PlusButton
-                        plusColor='white'
-                        backgroundColor='gray'
+                        plusColor='#82f591'
+                        backgroundColor='#9c9c9c'
                         onPress={()=> navigation.navigate('CreateHabit')}
                     />
                 </View>
@@ -146,12 +147,16 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     name: {
-        color: 'grey',
-        fontSize: 20
+        fontFamily: 'AvenirNext-Medium',
+        color: '#9c9c9c',
+        fontSize: 20,
+        marginTop: 5,
     },
     username: {
-        color: 'grey',
+        fontFamily: 'AvenirNext-Medium',
+        color: '#9c9c9c',
         fontSize: 14,
+        marginTop: -5
     },
     bottom : {
         flex: 3

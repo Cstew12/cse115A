@@ -22,7 +22,7 @@ function Counter({currentCount, min, max, setCount}) {
             <Icon 
                 name="minus"
                 size={20}
-                color="#BD9EEF"
+                color='#82f591'
                 type="entypo" 
                 reverse
                 reverseColor="white"
@@ -39,7 +39,7 @@ function Counter({currentCount, min, max, setCount}) {
             <Icon 
                 name="plus"
                 size={20}
-                color="#BD9EEF"
+                color='#82f591'
                 type="entypo" 
                 reverse
                 reverseColor="white"

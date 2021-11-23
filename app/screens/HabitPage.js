@@ -56,7 +56,7 @@ const HabitPage = ({route}) => {
                             <Icon
                                 name="long-arrow-left"
                                 size={35}
-                                color="white"
+                                color='white'
                             />
                         }
                         iconRight
@@ -80,7 +80,7 @@ const HabitPage = ({route}) => {
                             <Icon
                                 name="trash"
                                 size={28}
-                                color="white"
+                                color='#9c9c9c'
                             />
                         }
                         iconRight
@@ -161,7 +161,7 @@ const HabitPage = ({route}) => {
                                     alignSelf: 'center',
                                     fontFamily: 'AvenirNext-Medium',
                                     fontSize: 20,
-                                    color: '#F7BE45',
+                                    color: '#82f591',
                                 }}>
                                 Current Streak: {hStreak}       Goal: {hFreq * hDuration}
                             </Text>
@@ -169,8 +169,7 @@ const HabitPage = ({route}) => {
                             color="primary"
                             variant="determinate"
                             value={hStreak / (hDuration * hFreq)}
-                            //value='0.3'
-                            color="#F7BE45"
+                            color='#82f591'
 
                             style={{
                                 marginBottom: 15, 
@@ -188,9 +187,9 @@ const HabitPage = ({route}) => {
                                     marginBottom: -15, 
                                     marginTop: 38,
                                     alignSelf: 'center',
-                                    fontFamily: 'AvenirNext-Medium',
+                                    fontFamily: 'AvenirNext-Bold',
                                     fontSize: 35,
-                                    color: '#F7BE45',
+                                    color: '#82f591',
                                 }}>
                                 Record this Habit
                             </Text> 
@@ -228,7 +227,7 @@ const HabitPage = ({route}) => {
                                 }}
             
                                 titleStyle= {{
-                                    color: '#F7BE45',
+                                    color: '#82f591',
                                     fontFamily: 'AvenirNext-Regular',
                                     fontSize: 15,
                                 }}
@@ -248,7 +247,7 @@ const HabitPage = ({route}) => {
                                 }}
             
                                 titleStyle= {{
-                                    color: '#F7BE45',
+                                    color: '#82f591',
                                     fontFamily: 'AvenirNext-Regular',
                                     fontSize: 15,
                                 }}
@@ -283,7 +282,7 @@ const HabitPage = ({route}) => {
                                 }}
             
                                 titleStyle= {{
-                                    color: '#F7BE45',
+                                    color: '#82f591',
                                     fontFamily: 'AvenirNext-Regular',
                                     fontSize: 15,
                                 }}
@@ -305,7 +304,7 @@ const styles = StyleSheet.create({
     },
     top: {
         flex: 1.3,
-        backgroundColor: '#F7BE45',
+        backgroundColor: '#82f591',
         justifyContent: 'flex-end'
     },
     bottom: {

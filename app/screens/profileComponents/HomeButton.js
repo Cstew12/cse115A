@@ -10,12 +10,15 @@ function HomeButton(props) {
             type= "solid"
             type= "solid"
             title=' Home'
+            titleStyle= {{
+                fontFamily: 'AvenirNext-Bold'
+              }}
             icon={
                 <Icon
                     name='home'
                     size={20}
                     type='font-awesome'
-                    color="white"
+                    color='white'
                 />
             }
             onPress={() => navigation.navigate('Home')}

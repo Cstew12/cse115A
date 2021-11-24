@@ -51,7 +51,7 @@ function GalleryScreen({route}) {
         .getDownloadURL()
         .then((url) => {
             console.log('Image location: ' + url);
-            // setImages(url);
+            setImages(url);
         })
         .catch((e) => console.log("Errors while downloading => ", e)); 
     }, [])

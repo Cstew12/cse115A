@@ -288,7 +288,7 @@ const HabitPage = ({route}) => {
                                 }}
 
                                 onPress={()=>{
-                                    navigation.navigate('Gallery');
+                                    navigation.navigate('Gallery', {name: hName});
                                 }}
                             />
                         </View>

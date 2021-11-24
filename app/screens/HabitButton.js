@@ -24,7 +24,6 @@ function HabitButton({title, data}) {
                         marginBottom: 15, 
                         marginTop: 15,
                     }}>
-
                 </LinearProgress>
             </TouchableOpacity>
         </View>

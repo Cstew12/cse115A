@@ -1,41 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Image } from 'react-native-elements';
 import { ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
+import { auth, store } from '../../firebase';
 
 
-
-const images = [
-    {
-        title: 'first picture',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
-    },
-    {
-        title: 'second picture',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
-    },
-    {
-        title: 'third picture',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
-    },
-    {
-        title: 'fourth picture',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
-    },
-    
-    
-]
-
-
-function GalleryScreen(props) {
+function GalleryScreen({route}) {
     const navigation = useNavigation();
+    const [images, setImages] = useState([{
+        title: 'no images yet',
+        uri: 'https://reactnative.dev/img/tiny_logo.png'
+    }]);
+
+    /**
+     *  Adds new image object to the image array
+     * @param {uri: string, title: string} newObj 
+     */
+    const addImageObjToArray = (newObj) => {
+        setImages(images => images.concat(newObj));
+    }
+
+
+    useEffect(() => {
+        const habitName = route.params.name;
+        console.log("Habit name: " + habitName);
+        const listRef = store.ref(auth.currentUser.uid + '/' + habitName);
+
+        /*
+        * Lists all image name in a specified directory
+        */
+        listRef.listAll()
+            .then((file) => {
+                file.items.forEach((ref) => {
+                    console.log(ref.name);
+                })
+            })
+        const imageRef = store.ref('/' + auth.currentUser.uid + '/Surf/0.tcqlhalqzzh');
+        imageRef
+        .getDownloadURL()
+        .then((url) => {
+            console.log('Image location: ' + url);
+        })
+    }, [])
 
     const renderItem = ({ item }) => (
         <View style={{justifyContent:'center', marginVertical: 20, alignItems:'center'}}>
-            <Image style={{height: 120, width: 120}} source={{uri: item.uri}}/>
+            <Image style={{height: 200, width: 200}} source={{uri: item.uri}}/>
             <Text style={{color: 'white', marginTop: 20}}>
                 {item.title}
             </Text>

@@ -54,7 +54,8 @@ const FriendsPage = () => {
         .set({
             subtitle: friendUsername, 
             icon: 'user', 
-            name: friendName
+            name: friendName,
+            uid: friendUID
         })
     };
 
@@ -83,7 +84,6 @@ const FriendsPage = () => {
                 getUserProfileFromUID(friendUID).then((profile) => {
                     const friendName = profile.FirstName + ' ' + profile.lastName;
                     addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
-                    navigation.navigate("FriendsProfile");
                 })
             }else{
                 // User with that username does not exist
@@ -126,9 +126,7 @@ const FriendsPage = () => {
                             marginHorizontal: 10,
                                 }}
 
-                        onPress={()=>{
-                                navigation.navigate('Profile');
-                        }}
+                        
                     />
 
                     <Text style={styles.header}>My Friends</Text>
@@ -159,7 +157,8 @@ const FriendsPage = () => {
                     />
                     {  
                         friends.map((item, i) => (
-                            <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}>
+                            <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}
+                            onPress = {() => navigation.navigate('FriendsProfile', {FriendUID: item.uid})}>
                                 <Icon name={item.icon} />
                                     <ListItem.Content>
                                     <ListItem.Title style={{ color: '#82f591'}}>{item.name}</ListItem.Title>

@@ -7,23 +7,20 @@ import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import HabitButton from './HabitButton';
 import {Icon} from 'react-native-elements';
+import FriendsButton from './profileComponents/FriendsButton';
 
 
 
-
-function FriendsProfileScreen(props) {
+function FriendsProfileScreen(route) {
     const navigation = useNavigation();
+    const id = route.params;
     const [habits, setHabits] = useState([]);
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
 
-    const handleProfilePage = () => {
-        navigation.navigate("Profile");
-    }
-
     const realTimeData = () => {
-        const uid = auth.currentUser.uid;
+        const uid = id;
         const unsubscribe = db
         .collection(uid)
         .onSnapshot(querySnap => {
@@ -54,26 +51,26 @@ function FriendsProfileScreen(props) {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
-                <View style={styles.backButton}>
-                <Button
-                    title=" Back to Profile Page"
-                    type= "solid"
-                    icon={
-                        <Icon
-                        name='profilePage'
-                        size={15}
-                        type='font-awesome'
-                        color="white"
-                        />
-                    }
-                    onPress={handleProfilePage}  
-            
-                    titleStyle= {{
-                        color: 'white',
-                        fontFamily: 'AvenirNext-Bold'
-                    }}
-                /> 
-                </View>
+            <View style={{flexDirection: 'row-reverse', marginTop: 40, marginLeft: 20}}>
+                    <Button
+                        title=" Profile"
+                        type= "solid"
+                        icon={
+                            <Icon
+                            name='user-circle'
+                            size={15}
+                            type='font-awesome'
+                            color="white"
+                            />
+                        }
+                
+                        titleStyle= {{
+                            color: 'white',
+                            fontFamily: 'AvenirNext-Bold'
+                        }}
+                        onPress={() => navigation.navigate('Profile')}
+                    /> 
+               </View>
                 <View style={styles.avatar}>
                     <Avatar 
                         rounded 
@@ -114,12 +111,6 @@ const styles = StyleSheet.create({
     },
     top: {
         flex: 2
-    },
-    backButton: {
-        flex: 1, 
-        flexDirection: 'row-reverse', 
-        marginRight: 10, 
-        marginTop: 50
     },
     avatar: {
         flex: 3, 

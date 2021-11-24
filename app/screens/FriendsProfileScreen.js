@@ -11,7 +11,7 @@ import FriendsButton from './profileComponents/FriendsButton';
 
 
 
-function FriendsProfileScreen(route) {
+function FriendsProfileScreen({route}) {
     const navigation = useNavigation();
     const id = route.params.FriendUID;
     console.log('Value of id is' + id);
@@ -21,8 +21,8 @@ function FriendsProfileScreen(route) {
     const [initials, setInitials] = useState('');
 
     const realTimeData = () => {
-        const uid = id;
-        console.log('Value of uid is' + uid);
+        const uid = route.params.FriendUID;
+        console.log('Value of uid is ' + uid);
         const unsubscribe = db
         .collection(uid)
         .onSnapshot(querySnap => {

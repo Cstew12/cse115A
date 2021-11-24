@@ -83,6 +83,7 @@ const FriendsPage = () => {
                 getUserProfileFromUID(friendUID).then((profile) => {
                     const friendName = profile.FirstName + ' ' + profile.lastName;
                     addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
+                    navigation.navigate("FriendsProfile");
                 })
             }else{
                 // User with that username does not exist

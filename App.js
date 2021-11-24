@@ -13,6 +13,7 @@ import CameraScreen from './app/screens/CameraScreen';
 import SaveScreen from './app/screens/Save'
 import HomeScreen from './app/screens/HomeScreen';
 import GalleryScreen from './app/screens/GalleryScreen';
+import FriendsProfileScreen from './app/screens/FriendsProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ export default function App() {
           <Stack.Screen name="Profile"  options={{headerShown: false}} component={ProfileScreen} />
           <Stack.Screen name="Home"  options={{headerShown: false}} component={HomeScreen} />
           <Stack.Screen name="Gallery"  options={{headerShown: false}} component={GalleryScreen} />
+          <Stack.Screen name="FriendsProfile"  options={{headerShown: false}} component={FriendsProfileScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

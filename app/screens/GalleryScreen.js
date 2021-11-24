@@ -10,10 +10,7 @@ import { auth, store } from '../../firebase';
 
 function GalleryScreen({route}) {
     const navigation = useNavigation();
-    const [images, setImages] = useState([{
-        title: 'no images yet',
-        uri: images
-    }]);
+    const [images, setImages] = useState([]);
 
     /**
      *  Adds new image object to the image array
@@ -51,7 +48,8 @@ function GalleryScreen({route}) {
         .getDownloadURL()
         .then((url) => {
             console.log('Image location: ' + url);
-            setImages(url);
+            addImageObjToArray({uri: url, title: 'placeholder'})
+            //setImages(url);
         })
         .catch((e) => console.log("Errors while downloading => ", e)); 
     }, [])

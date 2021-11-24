@@ -8,36 +8,25 @@ import { useNavigation } from '@react-navigation/core';
 import { auth, store } from '../../firebase';
 
 
-
-
-const images = [
-    {
-        title: 'first picture',
-        uri: 'https://firebasestorage.googleapis.com/v0/b/routeam-c901f.appspot.com/o/GTbPfYVVJxYBTqtAPbSaoHqhAZ33%2FDrink%2F0.fqimcp6ig6o?alt=media&token=4535cfcd-6dfa-4c62-80a9-bdaf8a7b226b'
-    },
-    /*
-    {
-        title: 'second picture',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
-    },
-    {
-        title: 'third picture',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
-    },
-    {
-        title: 'fourth picture',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
-    },*/
-    
-    
-]
-
 function GalleryScreen({route}) {
     const navigation = useNavigation();
-    const [uri, setUri] = useState('https://reactnative.dev/img/tiny_logo.png');
+    const [images, setImages] = useState([{
+        title: 'no images yet',
+        uri: 'https://reactnative.dev/img/tiny_logo.png'
+    }]);
+
+    /**
+     *  Adds new image object to the image array
+     * @param {uri: string, title: string} newObj 
+     */
+    const addImageObjToArray = (newObj) => {
+        setImages(images => images.concat(newObj));
+    }
+
+
     useEffect(() => {
         const habitName = route.params.name;
-        console.log("Habit name: " + name);
+        console.log("Habit name: " + habitName);
         const listRef = store.ref(auth.currentUser.uid + '/' + habitName);
 
         /*
@@ -53,14 +42,13 @@ function GalleryScreen({route}) {
         imageRef
         .getDownloadURL()
         .then((url) => {
-            console.log(url);
-            setUri(url);
+            console.log('Image location: ' + url);
         })
     }, [])
 
     const renderItem = ({ item }) => (
         <View style={{justifyContent:'center', marginVertical: 20, alignItems:'center'}}>
-            <Image style={{height: 200, width: 200}} source={{uri: uri}}/>
+            <Image style={{height: 200, width: 200}} source={{uri: item.uri}}/>
             <Text style={{color: 'white', marginTop: 20}}>
                 {item.title}
             </Text>

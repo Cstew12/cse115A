@@ -36,16 +36,20 @@ function GalleryScreen({route}) {
     const navigation = useNavigation();
     const [uri, setUri] = useState('https://reactnative.dev/img/tiny_logo.png');
     useEffect(() => {
-        const name = route.params.name;
-        const listRef = store.ref(auth.currentUser.uid + '/' + name);
+        const habitName = route.params.name;
+        console.log("Habit name: " + name);
+        const listRef = store.ref(auth.currentUser.uid + '/' + habitName);
 
+        /*
+        * Lists all image name in a specified directory
+        */
         listRef.listAll()
             .then((file) => {
                 file.items.forEach((ref) => {
                     console.log(ref.name);
                 })
             })
-        const imageRef = store.ref('/' + auth.currentUser.uid + '/Surf/0.dwwie22zqkp');
+        const imageRef = store.ref('/' + auth.currentUser.uid + '/Surf/0.tcqlhalqzzh');
         imageRef
         .getDownloadURL()
         .then((url) => {

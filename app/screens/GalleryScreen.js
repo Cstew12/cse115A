@@ -12,7 +12,7 @@ function GalleryScreen({route}) {
     const navigation = useNavigation();
     const [images, setImages] = useState([{
         title: 'no images yet',
-        uri: 'https://reactnative.dev/img/tiny_logo.png'
+        uri: images
     }]);
 
     /**
@@ -37,13 +37,23 @@ function GalleryScreen({route}) {
                 file.items.forEach((ref) => {
                     console.log(ref.name);
                 })
+
+                // Move the creating of the image reference into this for each loop
+                // the image path will be ('/' + current_uid + '/' + habitname + '/' ref.name)
+
+                // setimage url with useState?
+
+                // use add created image into the the image array 
+                
             })
-        const imageRef = store.ref('/' + auth.currentUser.uid + '/Surf/0.tcqlhalqzzh');
+        const imageRef = store.ref('/' + auth.currentUser.uid + '/Surf/0.ufwr218stl');
         imageRef
         .getDownloadURL()
         .then((url) => {
             console.log('Image location: ' + url);
+            // setImages(url);
         })
+        .catch((e) => console.log("Errors while downloading => ", e)); 
     }, [])
 
     const renderItem = ({ item }) => (

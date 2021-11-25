@@ -1,77 +1,57 @@
+//Imports including React, React native elements, firebase, and self-made components
 import React, {useState, useEffect} from 'react';
 import { auth} from "../../firebase";
 import {db} from "../../firebase";
-import {StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { Button, Input, LinearProgress} from 'react-native-elements';
-import { useNavigation } from '@react-navigation/core';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import "firebase/firestore";
 import firebase from 'firebase/app';
-import { Divider } from 'react-native-elements';
+import {StyleSheet, Text, View } from 'react-native';
+import {Button, Input, LinearProgress} from 'react-native-elements';
+import { useNavigation } from '@react-navigation/core';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import BackButton from './habitPageComponents/BackButton';
+import RecordButton from './habitPageComponents/RecordButton';
 
 const HabitPage = ({route}) => {
+    //Obtains the data routed from the profile page
     const {habitData} = route.params;
 
-    const fetchHabits=async()=>{
-        const response=db.collection('test_collection');
-        const data=await response.get();
-        data.docs.forEach(item=>{
-         setHabits([...habits,item.data()])
-        })
-      }
-
+    //Removes the quotations from the retrieved data
     function deQuote(str1){
         if(str1 !== undefined){
-            const str2 = str1.substring(1, str1.length - 1); // this was causing a bug if str is undefined
+            const str2 = str1.substring(1, str1.length - 1);
             return str2;
         } else {
             setExists(false);
         }
     }
-    
-    useEffect(() => {
-        fetchHabits();
-      }, [])
 
+    //Initializes use states
     const navigation = useNavigation();
-    const [habits,setHabits]=useState([]);
     const [exists, setExists] = useState(true);
+    const increment = firebase.firestore.FieldValue.increment(1);
+
+    //Properly formats all database data
     const hName = deQuote(JSON.stringify(habitData.habitName));
     const hMotiv = deQuote(JSON.stringify(habitData.motivation));
     const hFreq = deQuote(JSON.stringify(habitData.frequency));
+    const hPeriod = deQuote(JSON.stringify(habitData.period));
     const hStreak = habitData.streak;
     const hLastRecord = habitData.lastRecord;
-    const hPeriod = deQuote(JSON.stringify(habitData.period));
     const hDuration = habitData.duration;
     const uid = auth.currentUser.uid;
-    const increment = firebase.firestore.FieldValue.increment(1);
 
-        return (
-            <View style={styles.container}>
-                <View style={styles.top}>
+    //UI: Split up into two main flexes: Top (styles.top) and Bottom (styles.bottom) 
+    return (
+        <View style={styles.container}>
+
+            <View style={styles.top}>
                 <View style={{flexDirection: 'row'}}>
-                    <Button
-                        type="solid"
-                        icon={
-                            <Icon
-                                name="long-arrow-left"
-                                size={35}
-                                color='white'
-                            />
-                        }
-                        iconRight
-
-                        buttonStyle= {{
-                            backgroundColor: '#2e2d2d',
-                            height: 50,
-                            width: 70,
-                            marginBottom: 90,
-                            marginHorizontal: 10,
-                                }}
-
-                        onPress={()=>{
-                            navigation.navigate('Profile');
-                        }}
+                    <BackButton
+                        destination='Profile'
+                        iconColor='white'
+                        backgroundColor='#2e2d2d'
+                        marginBottom={90}
+                        marginHorizontal={10}
                     />
 
                     <Button
@@ -94,6 +74,7 @@ const HabitPage = ({route}) => {
                             alignSelf: 'flex-end',
                                 }}
 
+                        //Deletes current habit and navigates back to profile page onPress
                         onPress={()=>{
                             db
                                 .collection(uid)
@@ -103,160 +84,95 @@ const HabitPage = ({route}) => {
                         }}
                     />
                 </View>
-                    <Text style={styles.header}>{hName}</Text>
-                </View>
+                <Text style={styles.header}>{hName}</Text>
+            </View>
 
-                <View style={styles.bottom}>
-                    <View style={styles.options}>
-                        <Input
-                            label= 'Frequency'
-                            placeholder= {hFreq + ' times a ' + hPeriod}
-                            placeholderTextColor='#ffffff'
-                            disabled= 'true'
 
-                            inputStyle= {{
-                                fontFamily: 'AvenirNext-Regular'
-                            }}
-                            />
-                </View>
-                    <View style={styles.options}>
-                        <Input
-                            
-                            label= 'Motivation'
-                            placeholder= {hMotiv + ' (click to edit)'}
-                            placeholderTextColor='#999999'
+            <View style={styles.bottom}>
+                <View style={styles.options}>
+                    <Input
+                        label= 'Frequency'
+                        placeholder= {hFreq + ' times a ' + hPeriod}
+                        placeholderTextColor='#ffffff'
+                        disabled= 'true'
 
-                            inputStyle= {{
-                                color: '#fff',
-                                fontFamily: 'AvenirNext-Regular'
-                            }}
-
-                            onChangeText={text =>
-                                {   if(text.length == 0){
-                                            db
-                                            .collection(uid)
-                                            .doc(hName)
-                                            .update({
-                                                motivation: hMotiv,
-                                                })
-                                    }else{
-                                            db
-                                            .collection(uid)
-                                            .doc(hName)
-                                            .update({
-                                                motivation: text,
-                                            })
-                                    }
-                                    
-                                }
-                            }   
+                        inputStyle= {{
+                            fontFamily: 'AvenirNext-Regular'
+                        }}
                         />
-                    </View>
-                    <View style={styles.options}>
-                            <Text 
-                                style={{
-                                    marginHorizontal: 20,
-                                    marginBottom: -25, 
-                                    marginTop: 18,
-                                    alignSelf: 'center',
-                                    fontFamily: 'AvenirNext-Medium',
-                                    fontSize: 20,
-                                    color: '#82f591',
-                                }}>
-                                Current Streak: {hStreak}       Goal: {hFreq * hDuration}
-                            </Text>
-                        <LinearProgress 
-                            color="primary"
-                            variant="determinate"
-                            value={hStreak / (hDuration * hFreq)}
-                            color='#82f591'
+                </View>
 
-                            style={{
-                                marginBottom: 15, 
-                                marginTop: 45,
-                            }}>
+                <View style={styles.options}>
+                    <Input
+                        
+                        label= 'Motivation'
+                        placeholder= {hMotiv + ' (click to edit)'}
+                        placeholderTextColor='#999999'
 
-                        </LinearProgress>
-
-                    </View>
-                    <View style={styles.options}>
-                        <View style={{flex: 1}}>
-                            <Text 
-                                style={{
-                                    marginHorizontal: 20,
-                                    marginBottom: -15, 
-                                    marginTop: 38,
-                                    alignSelf: 'center',
-                                    fontFamily: 'AvenirNext-Bold',
-                                    fontSize: 35,
-                                    color: '#82f591',
-                                }}>
-                                Record this Habit
-                            </Text> 
-                        </View>
-                    </View>
-                    <View style={styles.record_buttons}>
-                    <View style={{flexDirection: 'row'}}>
-                            <Button
-                                title="Record with Picture"
-                                type= "solid"
-                                onPress={()=>{
-                                    const cDate = new Date();
-                                    if(hLastRecord == cDate.getDate()){
-                                        alert("You can only record a habit once a day.");
-                                    }else{
+                        inputStyle= {{
+                            color: '#fff',
+                            fontFamily: 'AvenirNext-Regular'
+                        }}
+                        
+                        //Updates the motivation of the habit onChangeText and keeps current text of input is empty
+                        onChangeText={text =>
+                            {   if(text.length == 0){
                                         db
-                                            .collection(uid)
-                                            .doc(hName)
-                                            .update({
-                                                streak: increment,
-                                                lastRecord: cDate.getDate(),
-                                                })
-                                        navigation.navigate('CameraScreen', {habitName: hName});
-                                        }
-                                    }}
+                                        .collection(uid)
+                                        .doc(hName)
+                                        .update({
+                                            motivation: hMotiv,
+                                            })
+                                }else{
+                                        db
+                                        .collection(uid)
+                                        .doc(hName)
+                                        .update({
+                                            motivation: text,
+                                        })
+                                }
                                 
-                                buttonStyle= {{
-                                    backgroundColor: '#9c9c9c',
-                                    height: 70,
-                                    width: 110,
-                                    paddingLeft: 15,
-                                    paddingRight: 15,
-                                    marginEnd: 14,
-                                    marginTop: 60,
-                                }}
-            
-                                titleStyle= {{
-                                    color: '#82f591',
-                                    fontFamily: 'AvenirNext-Regular',
-                                    fontSize: 15,
-                                }}
-                            />
-                            <Button
-                                title="Record"
-                                type="solid"
-                                
-                                buttonStyle= {{
-                                    backgroundColor: '#9c9c9c',
-                                    height: 70,
-                                    width: 110,
-                                    paddingLeft: 15,
-                                    paddingRight: 15,
-                                    marginEnd: 14,
-                                    marginTop: 60,
-                                }}
-            
-                                titleStyle= {{
-                                    color: '#82f591',
-                                    fontFamily: 'AvenirNext-Regular',
-                                    fontSize: 15,
-                                }}
+                            }
+                        }   
+                    />
+                </View>
 
-                                onPress={()=>{
-                                    const cDate = new Date();
-                                    if(hLastRecord == cDate.getDate()){
-                                        alert("You can only record a habit once a day.");
-                                    }else{
+                <View style={styles.options}>
+                        <Text 
+                            style={styles.streak_title}>
+                            Current Streak: {hStreak}       Goal: {hFreq * hDuration}
+                        </Text>
+                    <LinearProgress 
+                        color="primary"
+                        variant="determinate"
+                        value={hStreak / (hDuration * hFreq)}
+                        color='#82f591'
+
+                        style={{
+                            marginBottom: 15, 
+                            marginTop: 45,
+                        }}>
+                    </LinearProgress>
+                </View>
+
+                <View style={styles.options}>
+                    <View style={{flex: 1}}>
+                        <Text style={styles.record_title}>
+                            Record this Habit
+                        </Text> 
+                    </View>
+                </View>
+
+                <View style={styles.record_buttons}>
+                    <View style={{flexDirection: 'row'}}>
+                        <RecordButton
+                            title="Record with Picture"
+                            marginEnd={14}
+                            onPress={()=>{
+                                const cDate = new Date();
+                                if(hLastRecord == cDate.getDate()){
+                                    alert("You can only record a habit once a day.");
+                                }else{
                                     db
                                         .collection(uid)
                                         .doc(hName)
@@ -264,40 +180,44 @@ const HabitPage = ({route}) => {
                                             streak: increment,
                                             lastRecord: cDate.getDate(),
                                             })
-                                    navigation.navigate('Profile');
+                                    navigation.navigate('CameraScreen', {habitName: hName});
+                                    }
                                 }}
-                            }
-                            />
-                            <Button
-                                title="Photo Gallery"
-                                type="solid"
-                                
-                                buttonStyle= {{
-                                    backgroundColor: '#9c9c9c',
-                                    height: 70,
-                                    width: 110,
-                                    paddingLeft: 15,
-                                    paddingRight: 15,
-                                    marginTop: 60,
-                                }}
-            
-                                titleStyle= {{
-                                    color: '#82f591',
-                                    fontFamily: 'AvenirNext-Regular',
-                                    fontSize: 15,
-                                }}
-
-                                onPress={()=>{
-                                    navigation.navigate('Gallery', {name: hName});
-                                }}
-                            />
-                        </View>
+                        />
+                        <RecordButton
+                            title="Record"
+                            marginEnd={14}
+                            onPress={()=>{
+                                const cDate = new Date();
+                                if(hLastRecord == cDate.getDate()){
+                                    alert("You can only record a habit once a day.");
+                                }else{
+                                db
+                                    .collection(uid)
+                                    .doc(hName)
+                                    .update({
+                                        streak: increment,
+                                        lastRecord: cDate.getDate(),
+                                        })
+                                navigation.navigate('Profile');
+                            }}
+                        }
+                        />
+                        <RecordButton
+                            title="Photo Gallery"
+                            marginEnd={0}
+                            onPress={()=>{
+                                navigation.navigate('Gallery', {name: hName});
+                            }}
+                        />
                     </View>
                 </View>
             </View>
-        );
+        </View>
+    );
 }
 
+//Component styles
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -329,6 +249,24 @@ const styles = StyleSheet.create({
         flex: 3,
         justifyContent: 'flex-start',
         alignItems: 'center',
+    },
+    record_title: {
+        marginHorizontal: 20,
+        marginBottom: -15, 
+        marginTop: 38,
+        alignSelf: 'center',
+        fontFamily: 'AvenirNext-Bold',
+        fontSize: 35,
+        color: '#82f591',
+    },
+    streak_title: {
+        marginHorizontal: 20,
+        marginBottom: -25, 
+        marginTop: 18,
+        alignSelf: 'center',
+        fontFamily: 'AvenirNext-Medium',
+        fontSize: 20,
+        color: '#82f591',
     },
 });
 

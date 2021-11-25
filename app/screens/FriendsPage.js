@@ -1,12 +1,14 @@
+//Imports including React, React native elements, firebase, and self-made components
 import React, {useState, useEffect} from 'react';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
-import {StyleSheet, Text, View, Modal, Pressable} from 'react-native';
-import { Button, Input, LinearProgress} from 'react-native-elements';
-import { useNavigation } from '@react-navigation/core';
+import {StyleSheet, Text, View} from 'react-native';
+import {Button} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ListItem, Avatar } from 'react-native-elements';
+import { ListItem, Avatar} from 'react-native-elements';
 import CustomModal from './friendComponents/CustomModal';
+import BackButton from './habitPageComponents/BackButton';
 
 const FriendsPage = () => {
     
@@ -100,97 +102,82 @@ const FriendsPage = () => {
         return unsub;
       }, [])
 
-    if(friends[0] == undefined){
-        return null
-    }
+    return (
+        <View style={styles.container}>
+            <View style={styles.top}>
 
-        return (
-            <View style={styles.container}>
-                <View style={styles.top}>
-                    <Button
-                        type="solid"
-                        icon={
-                            <Icon
-                                name="long-arrow-left"
-                                size={35}
-                                color="white"
-                            />
-                        }
-                        iconRight
+                <BackButton
+                        destination='Profile'
+                        iconColor='white'
+                        backgroundColor='#2e2d2d'
+                        marginBottom={55}
+                        marginHorizontal={10}
+                />
+                    
+                <Text style={styles.header}>My Friends</Text>
 
-                        buttonStyle= {{
-                            backgroundColor: '#2e2d2d',
-                            height: 50,
-                            width: 70,
-                            marginBottom: 55,
-                            marginHorizontal: 10,
-                                }}
-
-                        
-                    />
-
-                    <Text style={styles.header}>My Friends</Text>
-                </View>
-                <View style={styles.bottom}>
-                    <CustomModal
-                        modalVisible={notFoundModal}
-                        setVisible={setNotFound}
-                        onHideModal={() => {
-                            setNotFound(!notFoundModal);
-                        }}
-                        title={'User with username ' + friendUN+ ' not found'}
-                        hideModalText='Close'
-                        inputField={false}
-                    />
-                    <CustomModal
-                        modalVisible={modalVisible}
-                        setVisible={setVisible}
-                        onHideModal={() => {
-                            setVisible(!modalVisible);
-                            searchAndAddFriend();
-                        }}
-                        title='Enter a username'
-                        placeholder='Username'
-                        hideModalText='Add friend'
-                        inputField= {true}
-                        setInput={setFriendUN}
-                    />
-                    {  
-                        friends.map((item, i) => (
-                            <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}
-                            onPress = {() => navigation.navigate('FriendsProfile', {FriendUID: item.uid})}>
-                                <Icon name={item.icon} />
-                                    <ListItem.Content>
-                                    <ListItem.Title style={{ color: '#82f591'}}>{item.name}</ListItem.Title>
-                                    <ListItem.Subtitle style={{ color: '#2e2d2d'}}>{item.subtitle}</ListItem.Subtitle>
-                                    </ListItem.Content>
-                                <ListItem.Chevron />
-                            </ListItem>
-                        ))
-                    }
-                    <Button
-                        type="solid"
-                        icon={
-                            <Icon
-                                name="plus"
-                                size={25}
-                                color='black'
-                            />
-                        }
-                        iconRight
-
-                        buttonStyle= {{
-                            backgroundColor: '#82f591',
-                            height: 50,
-                            width: 70,
-                            alignSelf: 'center',
-                            marginTop: 20,
-                        }}
-
-                        onPress={() => setVisible(!modalVisible)}
-                    />     
-                </View>
             </View>
+
+            <View style={styles.bottom}>
+                <CustomModal
+                    modalVisible={notFoundModal}
+                    setVisible={setNotFound}
+                    onHideModal={() => {
+                        setNotFound(!notFoundModal);
+                    }}
+                    title={'User with username ' + friendUN+ ' not found'}
+                    hideModalText='Close'
+                    inputField={false}
+                />
+                <CustomModal
+                    modalVisible={modalVisible}
+                    setVisible={setVisible}
+                    onHideModal={() => {
+                        setVisible(!modalVisible);
+                        searchAndAddFriend();
+                    }}
+                    title='Enter a username'
+                    placeholder='Username'
+                    hideModalText='Add friend'
+                    inputField= {true}
+                    setInput={setFriendUN}
+                />
+                {  
+                    friends.map((item, i) => (
+                        <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}
+                        onPress = {() => navigation.navigate('FriendsProfile', {FriendUID: item.uid})}>
+                            <Icon name={item.icon} />
+                                <ListItem.Content>
+                                <ListItem.Title style={{ color: '#82f591'}}>{item.name}</ListItem.Title>
+                                <ListItem.Subtitle style={{ color: '#2e2d2d'}}>{item.subtitle}</ListItem.Subtitle>
+                                </ListItem.Content>
+                            <ListItem.Chevron />
+                        </ListItem>
+                    ))
+                }
+                <Button
+                    type="solid"
+                    icon={
+                        <Icon
+                            name="plus"
+                            size={25}
+                            color='black'
+                        />
+                    }
+                    iconRight
+
+                    buttonStyle= {{
+                        backgroundColor: '#82f591',
+                        height: 50,
+                        width: 70,
+                        alignSelf: 'center',
+                        marginTop: 20,
+                    }}
+
+                    onPress={() => setVisible(!modalVisible)}
+                />     
+            </View>
+        </View>
         );
 }
 

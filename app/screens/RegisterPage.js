@@ -1,21 +1,23 @@
+//Imports including React, React native elements, firebase, and self-made components
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Pressable, Image, TextInput } from 'react-native';
-import { Button, Input} from 'react-native-elements';
+import {StyleSheet, Text, View, Image} from 'react-native';
+import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { StatusBar } from 'expo-status-bar';
-import { color } from 'react-native-elements/dist/helpers';
-import { auth, db} from "../../firebase";
-import { useNavigation } from '@react-navigation/core';
+import {auth, db} from "../../firebase";
+import {useNavigation } from '@react-navigation/core';
+import BackButton from './habitPageComponents/BackButton';
+import RegisterInput from './registerPageComponents/RegisterInput';
 
-const LoginScreen = () => {
+const RegisterPage = () => {
 
    // Firebase user properties
    const [email, setEmail] = useState('')
    const [firstName, setFirstName] = useState('')
-   const [lastName, setLasttName] = useState('') 
+   const [lastName, setLastName] = useState('') 
    const [username, setUserName] = useState('')
    const [password, setPassword] = useState('')
-  //  const [confirmpassword, setConfirmPassword] = useState('')
+  
+   // Initializes navigation
    const navigation = useNavigation()  
     
    const handleSignUp = () => {
@@ -52,187 +54,92 @@ const LoginScreen = () => {
         <View style={styles.container}>
 
             <View style={styles.headerFlex}>
-            <Button
-                        type="solid"
-                        icon={
-                            <Icon
-                                name="long-arrow-left"
-                                size={35}
-                                color="#2e2d2d"
-                            />
-                        }
-                        iconRight
+              <BackButton
+                destination='Login'
+                iconColor='#82f591'
+                backgroundColor='#9c9c9c'
+                marginBottom={20}
+                marginHorizontal={10}
+              />
 
-                        buttonStyle= {{
-                            backgroundColor: '#82f591',
-                            height: 50,
-                            width: 70,
-                            marginVertical: 15,
-                            marginHorizontal: 15,
-                                }}
+              <Image source={require('./../../assets/routeam-logo5.png')} style={styles.image1}/>
 
-                        onPress={()=>{
-                            navigation.navigate('Login');
-                        }}
-                    />
-                <Image source={require('./../../assets/routeam-logo5.png')} style={styles.image1}/>
+              <Text style={styles.header}>Register Today!</Text>
 
-                <Text style={styles.header}>Register Today!</Text>
             </View>
 
             <View style={styles.registerFlex}>
-              <Input
+
+            <RegisterInput
                   placeholder='First Name'
                   value={firstName}
-                  onChangeText={text => setFirstName(text)} 
-                  placeholderTextColor='#9c9c9c'
-                  placeholderColo
-                  leftIcon={
+                  onChangeText={text => setFirstName(text)}
+                  marginTop={45}
+                  icon={
                     <Icon
                       name='user'
                       size={16}
                       color='#82f591'
                     />
                   }
+            />
 
-                  inputStyle= {{
-                    color: '#9c9c9c'
-                  }}
-
-                  inputContainerStyle= {{
-                    alignSelf: 'center',
-                    width: 215,
-                    marginTop: 45
-                  }}
-                />
-
-              <Input
+            <RegisterInput
                   placeholder='Last Name'
-                  value = {lastName}
-                  onChangeText={text => setLasttName(text)}
-                  placeholderTextColor='#9c9c9c'
-                  placeholderColo
-                  leftIcon={
+                  value={lastName}
+                  onChangeText={text => setLastName(text)}
+                  marginTop={-20}
+                  icon={
                     <Icon
                       name='user'
                       size={16}
                       color='#82f591'
                     />
                   }
+            />
 
-                  inputStyle= {{
-                    color: '#9c9c9c'
-                  }}
-
-                  inputContainerStyle= {{
-                    width: 215,
-                    alignSelf: 'center',
-                    marginTop: -20
-                  }}
-                />
-
-                <Input
+            <RegisterInput
                   placeholder='Email'
                   value={email}
-                  onChangeText={text => setEmail(text)} 
-                  placeholderTextColor='#9c9c9c'
-                  placeholderColo
-                  leftIcon={
+                  onChangeText={text => setEmail(text)}
+                  marginTop={-20}
+                  icon={
                     <Icon
                       name='envelope'
                       size={14}
                       color='#82f591'
                     />
                   }
+            />
 
-                  inputStyle= {{
-                    color: '#9c9c9c'
-                  }}
-
-                  inputContainerStyle= {{
-                    width: 215,
-                    alignSelf: 'center',
-                    marginTop: -20
-                  }}
-                />
-
-                <Input
+            <RegisterInput
                   placeholder='Username'
                   value={username}
-                  onChangeText={text => setUserName(text)} 
-                  placeholderTextColor='#9c9c9c'
-                  placeholderColo
-                  leftIcon={
+                  onChangeText={text => setUserName(text)}
+                  marginTop={-20}
+                  icon={
                     <Icon
                       name='user'
                       size={16}
                       color='#82f591'
                     />
                   }
+            />
 
-                  inputStyle= {{
-                    color: '#9c9c9c'
-                  }}
-
-                  inputContainerStyle= {{
-                    width: 215,
-                    alignSelf: 'center',
-                    marginTop: -20
-                  }}
-                />
-
-                <Input
+            <RegisterInput
                   placeholder='Password'
                   value={password}
-                  onChangeText={text => setPassword(text)} 
-                  secureTextEntry
-                  placeholderTextColor='#9c9c9c'
-                  placeholderColo
-                  leftIcon={
+                  onChangeText={text => setPassword(text)}
+                  marginTop={-20}
+                  icon={
                     <Icon
                       name='lock'
                       size={18}
                       color='#82f591'
-                    />
+                  />
                   }
+            />
 
-
-                  inputStyle= {{
-                    color: '#9c9c9c'
-                  }}
-
-                  inputContainerStyle= {{
-                    width: 215,
-                    alignSelf: 'center',
-                    marginTop: -20
-                  }}
-                />
-
-                {/* <Input
-                  placeholder='Confirm Password'
-                  value={confirmpassword}
-                  onChangeText={text => setConfirmPassword(text)} 
-                  placeholderTextColor='#9c9c9c'
-                  placeholderColo
-                  leftIcon={
-                    <Icon
-                      name='lock'
-                      size={18}
-                      color='#82f591'
-                    />
-                  }
-
-                  inputStyle= {{
-                    color: '#9c9c9c'
-                  }}
-
-                  inputContainerStyle= {{
-                    width: 215,
-                    alignSelf: 'center',
-                    marginTop: -20
-                  }}
-                /> */}
-            
             <Button
                   title="Register"
                   type= "solid"
@@ -251,7 +158,6 @@ const LoginScreen = () => {
                   }}
                 />
             </View>
-            <StatusBar style="auto" />
         </View>
     );
 }
@@ -260,7 +166,6 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#ffffff',
-      //alignItems: 'center',
       justifyContent: 'center',
     },
 
@@ -298,4 +203,4 @@ const styles = StyleSheet.create({
   });
   
 
-export default LoginScreen;
+export default RegisterPage;

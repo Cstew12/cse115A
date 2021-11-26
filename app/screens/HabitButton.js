@@ -18,7 +18,7 @@ function HabitButton({title, data}) {
                 <LinearProgress 
                     color="primary"
                     variant="determinate"
-                    value={data.streak / data.duration}
+                    value={data.streak / (data.duration * data.frequency)}
                     color='#2e2d2d'
                     style={{
                         marginBottom: 15, 

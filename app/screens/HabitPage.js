@@ -37,8 +37,45 @@ const HabitPage = ({route}) => {
     const hPeriod = deQuote(JSON.stringify(habitData.period));
     const hStreak = habitData.streak;
     const hLastRecord = habitData.lastRecord;
+    const hRecordsThisWeek = habitData.recordsThisWeek;
     const hDuration = habitData.duration;
     const uid = auth.currentUser.uid;
+
+    //Checking if the streak needs to be reset (user didn't reach goal)
+    const cDate = new Date();
+    //If user has daily streak
+    if(hPeriod == "day"){
+        //Check if the time since last record exceeds 1 day, and if it does then reset streak 
+        if(cDate.getDate() - hLastRecord > 1){
+            db
+                .collection(uid)
+                .doc(hName)
+                .update({
+                    streak: 0,
+                })
+        }
+        //Streak is hFreq times per week. Week starts on Sunday (6)
+    }else{
+        if(cDate.getDay() == 6){
+            //If the number of records for the week is less than desired frequency then reset streak
+            if(hRecordsThisWeek < hFreq){
+                db
+                    .collection(uid)
+                    .doc(hName)
+                    .update({
+                        streak: 0,
+                })
+            }
+            //Reset the number of records per week every Sunday
+            db
+                .collection(uid)
+                .doc(hName)
+                .update({
+                    recordsThisWeek: 0,
+                })
+        }
+    }
+    
 
     //UI: Split up into two main flexes: Top (styles.top) and Bottom (styles.bottom) 
     return (
@@ -178,6 +215,7 @@ const HabitPage = ({route}) => {
                                         .doc(hName)
                                         .update({
                                             streak: increment,
+                                            recordsThisWeek: increment,
                                             lastRecord: cDate.getDate(),
                                             })
                                     navigation.navigate('CameraScreen', {habitName: hName});
@@ -197,6 +235,7 @@ const HabitPage = ({route}) => {
                                     .doc(hName)
                                     .update({
                                         streak: increment,
+                                        recordsThisWeek: increment,
                                         lastRecord: cDate.getDate(),
                                         })
                                 navigation.navigate('Profile');

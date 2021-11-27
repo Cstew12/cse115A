@@ -106,6 +106,10 @@ function ProfileScreen(props) {
                         onHideModal={() => {
                             setModal(!modal);
                         }}
+                        navigate={() => {
+                            navigation.navigate(('CameraScreen'), {habitName: 'profile_picture'});
+                            setModal(!modal);
+                        }}
                         title='Would you like to change your profile picture? '
                         hideModalText='Yes'
                     />

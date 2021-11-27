@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, Modal, Pressable} from 'react-native';
 import {Input} from 'react-native-elements';
+import { useNavigation } from '@react-navigation/core';
 
 
 
@@ -15,6 +16,7 @@ function YesNoModal({
     setInput,
     navigate,
     }) {
+    const navigation = useNavigation();
     return (
         <Modal
             animationType="slide"
@@ -30,7 +32,7 @@ function YesNoModal({
                 <View style={{justifyContent: 'space-evenly', flexDirection: 'row'}}>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() => navigation.navigate('CameraScreen'), {habitName: 'profile_picture'}}
+                        onPress={navigate}
                     >
                         <Text style={styles.textStyle}>Yes</Text>
                     </Pressable>

@@ -118,7 +118,7 @@ function GalleryScreen({ route }) {
           data={images}
           renderItem={renderItem}
           keyExtractor={() => Math.random().toString(36)}
-          numColumns={3}
+          numColumns={2}
           columnWrapperStyle={{
             justifyContent: "space-evenly",
           }}

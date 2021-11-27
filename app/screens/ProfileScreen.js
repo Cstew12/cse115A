@@ -12,6 +12,8 @@ import FriendsButton from './profileComponents/FriendsButton';
 import HomeButton from './profileComponents/HomeButton';
 import SignOutButton from './profileComponents/SignOutButton';
 import PlusButton from './profileComponents/PlusButton';
+import CustomModal from './friendComponents/CustomModal';
+import YesNoModal from './YesNoModal';
 
 
 
@@ -21,6 +23,7 @@ function ProfileScreen(props) {
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
+    const [modal, setModal] = useState(false);
 
     const handleSignOut = () => {
         navigation.navigate("Login");
@@ -93,15 +96,31 @@ function ProfileScreen(props) {
                         containerStyle={{
                             backgroundColor: "#9c9c9c",
                             marginTop: -15
-                        }} 
+                        }}
                         >
                         <Avatar.Accessory
                             color="#82f591"
                             containerStyle={{ borderRadius: 50 }}
                             size={35}
                             iconProps={{name: 'add', size: 29}}
+                            onPress={() => setModal(true)}
                         />
                     </Avatar>
+                </View>
+                <View>
+                    <YesNoModal
+                        modalVisible={modal}
+                        setVisible={setModal}
+                        onHideModal={() => {
+                            setModal(!modal);
+                        }}
+                        navigate={() => {
+                            navigation.navigate(('CameraScreen'), {habitName: 'profile_picture'});
+                            setModal(!modal);
+                        }}
+                        title='Would you like to change your profile picture? '
+                        hideModalText='Yes'
+                    />
                 </View>
                 <View style={{flex: 1, alignItems: 'center', flexDirection: 'column',}}>
                     <Text style={styles.name}>

@@ -1,12 +1,13 @@
 import React , {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, FlatList, TextComponent } from 'react-native';
-import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
+import { Avatar } from 'react-native-elements';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import HabitButton from './HabitButton';
 import {Icon} from 'react-native-elements';
+//import Icon from 'react-native-vector-icons/FontAwesome';
 import FriendsButton from './profileComponents/FriendsButton';
 import HomeButton from './profileComponents/HomeButton';
 import SignOutButton from './profileComponents/SignOutButton';
@@ -87,17 +88,24 @@ function ProfileScreen(props) {
                 /> 
                 </View>
                 <View style={styles.avatar}>
-                    <Avatar 
+                    <Avatar
                         rounded 
                         size="xlarge" 
                         title={initials}
 
                         containerStyle={{
-                            backgroundColor: "lightgray",
+                            backgroundColor: "#9c9c9c",
                             marginTop: -15
                         }}
-                        onPress={() => setModal(true)}
-                    />
+                        >
+                        <Avatar.Accessory
+                            color="#82f591"
+                            containerStyle={{ borderRadius: 50 }}
+                            size={35}
+                            iconProps={{name: 'add', size: 29}}
+                            onPress={() => setModal(true)}
+                        />
+                    </Avatar>
                 </View>
                 <View>
                     <YesNoModal

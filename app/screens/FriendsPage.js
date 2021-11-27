@@ -138,7 +138,7 @@ const FriendsPage = () => {
                     }}
                     title='Enter a username'
                     placeholder='Username'
-                    hideModalText='Add friend'
+                    hideModalText='Follow Friend'
                     inputField= {true}
                     setInput={setFriendUN}
                 />

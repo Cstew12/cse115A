@@ -103,7 +103,7 @@ function ProfileScreen(props) {
                     </Text>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row', alignContent: 'space-between'}}>
-                    <FriendsButton/>
+                    <FriendsButton username={userName}/>
                 </View>
             </View>
             <View style={styles.bottom}>

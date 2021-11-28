@@ -10,13 +10,15 @@ import { ListItem, Avatar} from 'react-native-elements';
 import CustomModal from './friendComponents/CustomModal';
 import BackButton from './habitPageComponents/BackButton';
 
-const FriendsPage = () => {
+const FriendsPage = ({route}) => {
     
     const [friends,setFriends]= useState([]);
     const [modalVisible, setVisible] = useState(false)
     const navigation = useNavigation();
     const [friendUN, setFriendUN] = useState('');
     const [notFoundModal, setNotFound] = useState(false);
+    const [selfAddModal, setSelfAdd] = useState(false);
+    const username = route.params.username;
 
     const fetchFriends = () => {
         console.log('fetch friends')
@@ -79,22 +81,27 @@ const FriendsPage = () => {
      */
     const searchAndAddFriend = () => {
         console.log('Search and add friend');
-        const temp = db.collection('users').doc(friendUN).get()         
-        .then((docsnap) => {
-            if(docsnap.exists){
-                const friendUID = docsnap.data().uid;
-                getUserProfileFromUID(friendUID).then((profile) => {
-                    const friendName = profile.FirstName + ' ' + profile.lastName;
-                    addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
-                })
-            }else{
-                // User with that username does not exist
-                console.log('User with that username does not exist');
-                setNotFound(true);
-            }
-        })
-        .catch(error => 
-            alert(error.message)) ;
+        if(friendUN === username) {
+            setSelfAdd(true);
+        } else {
+            const temp = db.collection('users').doc(friendUN).get()         
+            .then((docsnap) => {
+                if(docsnap.exists){
+                    const friendUID = docsnap.data().uid;
+                    getUserProfileFromUID(friendUID).then((profile) => {
+                        const friendName = profile.FirstName + ' ' + profile.lastName;
+                        addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
+                    })
+                }else{
+                    // User with that username does not exist
+                    console.log('User with that username does not exist');
+                    setNotFound(true);
+                }
+            })
+            .catch(error => 
+                alert(error.message));
+        }
+        
     }
 
     const onFriendPress = (item) => {
@@ -148,6 +155,16 @@ const FriendsPage = () => {
                     hideModalText='Follow Friend'
                     inputField= {true}
                     setInput={setFriendUN}
+                />
+                <CustomModal
+                    modalVisible={selfAddModal}
+                    setVisible={setSelfAdd}
+                    onHideModal={() => {
+                        setSelfAdd(!selfAddModal);
+                    }}
+                    title='You cannot add yourself as a friend'
+                    hideModalText='Close'
+                    inputField= {false}
                 />
                 {  
                     friends.map((item, i) => (

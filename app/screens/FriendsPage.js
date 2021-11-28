@@ -10,13 +10,15 @@ import { ListItem, Avatar} from 'react-native-elements';
 import CustomModal from './friendComponents/CustomModal';
 import BackButton from './habitPageComponents/BackButton';
 
-const FriendsPage = () => {
+const FriendsPage = ({route}) => {
     
     const [friends,setFriends]= useState([]);
     const [modalVisible, setVisible] = useState(false)
     const navigation = useNavigation();
     const [friendUN, setFriendUN] = useState('');
     const [notFoundModal, setNotFound] = useState(false);
+    const [selfAddModal, setSelfAdd] = useState(false);
+    const username = route.params.username;
 
     const fetchFriends = () => {
         console.log('fetch friends')
@@ -79,23 +81,36 @@ const FriendsPage = () => {
      */
     const searchAndAddFriend = () => {
         console.log('Search and add friend');
-        const temp = db.collection('users').doc(friendUN).get()         
-        .then((docsnap) => {
-            if(docsnap.exists){
-                const friendUID = docsnap.data().uid;
-                getUserProfileFromUID(friendUID).then((profile) => {
-                    const friendName = profile.FirstName + ' ' + profile.lastName;
-                    addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
-                })
-            }else{
-                // User with that username does not exist
-                console.log('User with that username does not exist');
-                setNotFound(true);
-            }
-        })
-        .catch(error => 
-            alert(error.message)) ;
+        if(friendUN === username) {
+            setSelfAdd(true);
+        } else {
+            const temp = db.collection('users').doc(friendUN).get()         
+            .then((docsnap) => {
+                if(docsnap.exists){
+                    const friendUID = docsnap.data().uid;
+                    getUserProfileFromUID(friendUID).then((profile) => {
+                        const friendName = profile.FirstName + ' ' + profile.lastName;
+                        addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
+                    })
+                }else{
+                    // User with that username does not exist
+                    console.log('User with that username does not exist');
+                    setNotFound(true);
+                }
+            })
+            .catch(error => 
+                alert(error.message));
+        }
+        
     }
+
+    const onFriendPress = (item) => {
+        if(item.subtitle === 'Click the plus to get started'){
+            console.log('No friends');
+        } else {
+            navigation.navigate('FriendsProfile', {FriendUID: item.uid});
+        }
+    };
 
     useEffect(() => {
         const unsub = fetchFriends();
@@ -105,13 +120,12 @@ const FriendsPage = () => {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
-
                 <BackButton
-                        destination='Profile'
-                        iconColor='white'
-                        backgroundColor='#2e2d2d'
-                        marginBottom={55}
-                        marginHorizontal={10}
+                    destination='Profile'
+                    iconColor='white'
+                    backgroundColor='#2e2d2d'
+                    marginBottom={55}
+                    marginHorizontal={10}
                 />
                     
                 <Text style={styles.header}>My Friends</Text>
@@ -142,10 +156,20 @@ const FriendsPage = () => {
                     inputField= {true}
                     setInput={setFriendUN}
                 />
+                <CustomModal
+                    modalVisible={selfAddModal}
+                    setVisible={setSelfAdd}
+                    onHideModal={() => {
+                        setSelfAdd(!selfAddModal);
+                    }}
+                    title='You cannot add yourself as a friend'
+                    hideModalText='Close'
+                    inputField= {false}
+                />
                 {  
                     friends.map((item, i) => (
                         <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}
-                        onPress = {() => navigation.navigate('FriendsProfile', {FriendUID: item.uid})}>
+                        onPress={() => onFriendPress(item)}>
                             <Icon name={item.icon} />
                                 <ListItem.Content>
                                 <ListItem.Title style={{ color: '#82f591'}}>{item.name}</ListItem.Title>

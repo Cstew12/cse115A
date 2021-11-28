@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 /*
 * Displays button with address book icon and navigates to friends list
 */
-function FriendsButton(props) {
+function FriendsButton({username}) {
     const navigation = useNavigation();
 
     return (
@@ -24,7 +24,7 @@ function FriendsButton(props) {
                     color="white"
                 />
             }
-            onPress={() => navigation.navigate('Friends')}
+            onPress={() => navigation.navigate('Friends', {username: username})}
         />
     );
 }

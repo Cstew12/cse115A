@@ -97,6 +97,14 @@ const FriendsPage = () => {
             alert(error.message)) ;
     }
 
+    const onFriendPress = (item) => {
+        if(item.subtitle === 'Click the plus to get started'){
+            console.log('No friends');
+        } else {
+            navigation.navigate('FriendsProfile', {FriendUID: item.uid});
+        }
+    };
+
     useEffect(() => {
         const unsub = fetchFriends();
         return unsub;
@@ -105,13 +113,12 @@ const FriendsPage = () => {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
-
                 <BackButton
-                        destination='Profile'
-                        iconColor='white'
-                        backgroundColor='#2e2d2d'
-                        marginBottom={55}
-                        marginHorizontal={10}
+                    destination='Profile'
+                    iconColor='white'
+                    backgroundColor='#2e2d2d'
+                    marginBottom={55}
+                    marginHorizontal={10}
                 />
                     
                 <Text style={styles.header}>My Friends</Text>
@@ -145,7 +152,7 @@ const FriendsPage = () => {
                 {  
                     friends.map((item, i) => (
                         <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}
-                        onPress = {() => navigation.navigate('FriendsProfile', {FriendUID: item.uid})}>
+                        onPress={() => onFriendPress(item)}>
                             <Icon name={item.icon} />
                                 <ListItem.Content>
                                 <ListItem.Title style={{ color: '#82f591'}}>{item.name}</ListItem.Title>

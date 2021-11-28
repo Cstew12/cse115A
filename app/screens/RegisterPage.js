@@ -7,6 +7,7 @@ import {auth, db} from "../../firebase";
 import {useNavigation } from '@react-navigation/core';
 import BackButton from './habitPageComponents/BackButton';
 import RegisterInput from './registerPageComponents/RegisterInput';
+import CustomModal from './friendComponents/CustomModal';
 
 const RegisterPage = () => {
 
@@ -16,11 +17,17 @@ const RegisterPage = () => {
    const [lastName, setLastName] = useState('') 
    const [username, setUserName] = useState('')
    const [password, setPassword] = useState('')
+   const [modalVisible, setVisible] = useState(false)
   
    // Initializes navigation
    const navigation = useNavigation()  
-    
+   
    const handleSignUp = () => {
+    if(firstName.length==0 ||lastName.length==0||username.length==0){
+      setVisible(true);
+      
+  
+    }else{
     const userProfile = {
       FirstName: firstName,
       lastName: lastName,
@@ -49,6 +56,7 @@ const RegisterPage = () => {
         })
         .catch(error => alert(error.message)) // error handling upon failure
     }
+  }
    
     return (
         <View style={styles.container}>
@@ -66,6 +74,18 @@ const RegisterPage = () => {
 
               <Text style={styles.header}>Register Today!</Text>
 
+            </View>
+            <View style={styles.bottom}>
+                <CustomModal
+                    modalVisible={modalVisible}
+                    setVisible={setVisible}
+                    onHideModal={() => {
+                        setVisible(!modalVisible);
+                    }}
+                    title={'Please fill out all inputs'}
+                    hideModalText='Okay'
+                    inputField={false}
+                />   
             </View>
 
             <View style={styles.registerFlex}>

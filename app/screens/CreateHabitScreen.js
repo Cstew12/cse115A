@@ -9,6 +9,8 @@ import Counter from './createHabitComponents/Counter';
 import SliderMinMax from './createHabitComponents/SliderMinMax';
 import ScreenLayout from './createHabitComponents/ScreenLayout';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CustomModal from './friendComponents/CustomModal';
+
 
 
 function CreateHabitScreen(props) {
@@ -18,6 +20,7 @@ function CreateHabitScreen(props) {
     const [name, setName] = useState('');
     const [frequency, setFrequency] = useState(1);
     const [motivation, setMotivation] = useState('');
+    const [modalVisible, setVisible] = useState(false)
 
     const colors = {
         purple: "#BD9EEF", // BD9EEF, E3D1FC
@@ -25,25 +28,34 @@ function CreateHabitScreen(props) {
 
     const onClickSave = () => {
         const currentUID = auth.currentUser.uid;
-        const habitData = {
-            habitName: name,
-            motivation: motivation,
-            streak: 0,
-            lastRecord: 0,
-            recordsThisWeek: 0,
-            period: period, // 'day' or 'week'
-            duration: duration, // between 1-90 days or 1-12 weeks
-            frequency: frequency, // frequency for day is 1, frequency for week is 1-6 days in week
+        if(name.length==0){
+            setVisible(true);
+            
+
+        }else{
+            if(motivation.length==0){
+                setMotivation("No Motivation");
+            }
+            const habitData = {
+                habitName: name,
+                motivation: motivation,
+                streak: 0,
+                lastRecord: 0,
+                recordsThisWeek: 0,
+                period: period, // 'day' or 'week'
+                duration: duration, // between 1-90 days or 1-12 weeks
+                frequency: frequency, // frequency for day is 1, frequency for week is 1-6 days in week
+            }
+            console.log(habitData);
+            db
+                .collection(currentUID)
+                .doc(name)
+                .set(habitData)
+                .then(() => {
+                    console.log('collection added!');
+                    navigation.navigate('Profile');
+                });
         }
-        console.log(habitData);
-        db
-            .collection(currentUID)
-            .doc(name)
-            .set(habitData)
-            .then(() => {
-                console.log('collection added!');
-                navigation.navigate('Profile');
-            });
     }
 
     return (
@@ -51,6 +63,7 @@ function CreateHabitScreen(props) {
             <HabitInput
                 placeholder='Name your habit'
                 setInput={setName}
+                
             />
             <HabitInput
                 placeholder='State your motivation'
@@ -82,6 +95,18 @@ function CreateHabitScreen(props) {
                     />
                 </View>
             </View>
+            <View style={styles.bottom}>
+                <CustomModal
+                    modalVisible={modalVisible}
+                    setVisible={setVisible}
+                    onHideModal={() => {
+                        setVisible(!modalVisible);
+                    }}
+                    title={'input a name for your habit!'}
+                    hideModalText='Okay'
+                    inputField={false}
+                />   
+        </View>
             {period == "week" &&
             <View style={styles.options}>
                 <Counter

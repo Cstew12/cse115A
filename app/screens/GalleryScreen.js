@@ -18,7 +18,8 @@ import { auth, store } from "../../firebase";
  * Also, would be easier to debug if we removed the 1 record limit per day.
  */
 
-function GalleryScreen({ route }) {
+function GalleryScreen({ route, id}) {
+  const uid = id;
   const navigation = useNavigation();
   const [images, setImages] = useState([]);
 
@@ -33,7 +34,7 @@ function GalleryScreen({ route }) {
   useEffect(() => {
     const habitName = route.params.name;
     // console.log("Habit name: " + habitName); // debug
-    const listRef = store.ref(auth.currentUser.uid + "/" + habitName);
+    const listRef = store.ref(uid + "/" + habitName);
     var count = 1;
 
     /*
@@ -46,7 +47,7 @@ function GalleryScreen({ route }) {
         // for each image reference in the habit folder, create a url and store it in gallery
         // the image path will be ('/' + current_uid + '/' + habitname + '/' ref.name)
         const imageRef = store.ref(
-          "/" + auth.currentUser.uid + "/" + habitName + "/" + ref.name
+          "/" + uid + "/" + habitName + "/" + ref.name
         );
         imageRef
           .getDownloadURL()

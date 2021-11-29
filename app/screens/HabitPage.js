@@ -246,7 +246,7 @@ const HabitPage = ({route}) => {
                             title="Photo Gallery"
                             marginEnd={0}
                             onPress={()=>{
-                                navigation.navigate('Gallery', {name: hName});
+                                navigation.navigate('Gallery', {name: hName},{uid: auth.currentUser.uid});
                             }}
                         />
                     </View>

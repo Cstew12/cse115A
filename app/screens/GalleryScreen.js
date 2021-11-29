@@ -40,6 +40,24 @@ function GalleryScreen({ route }) {
      * Lists all image name in a specified directory
      */
     listRef.listAll().then((file) => {
+
+      // sort the items in the file
+      file.items.sort(function(a,b){
+
+        // turn the items from string representations into milliseconds
+        // const aTimeZero = Date.parse(a);
+        // const bTimeZero = Date.parse(b);
+
+        return new Date(b.date) - new Date(a.date);
+
+
+
+
+
+      })
+
+
+
       file.items.forEach((ref) => {
         console.log(ref.name);
 
@@ -118,7 +136,7 @@ function GalleryScreen({ route }) {
           data={images}
           renderItem={renderItem}
           keyExtractor={() => Math.random().toString(36)}
-          numColumns={3}
+          numColumns={2}
           columnWrapperStyle={{
             justifyContent: "space-evenly",
           }}

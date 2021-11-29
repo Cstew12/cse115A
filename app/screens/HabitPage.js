@@ -201,8 +201,25 @@ const HabitPage = ({route}) => {
                                 title="Record with Picture"
                                 type= "solid"
                                 onPress={()=>{
+
+
+
+                                    // // debugging photo gallery, allow unlimited records
+                                    // db
+                                    //  .collection(uid)
+                                    //  .doc(hName)
+                                    //  .update({
+                                    //      streak: increment,
+                                    //      lastRecord: cDate.getDate(),
+                                    //      })
+                                    // navigation.navigate('CameraScreen', {habitName: hName});
+
                                     const cDate = new Date();
-                                    if(hLastRecord == cDate.getDate()){
+
+                                    // previous condition
+                                    // hLastRecord == cDate.getDate()
+
+                                    if(false){
                                         alert("You can only record a habit once a day.");
                                     }else{
                                         db
@@ -214,7 +231,8 @@ const HabitPage = ({route}) => {
                                                 })
                                         navigation.navigate('CameraScreen', {habitName: hName});
                                         }
-                                    }}
+                                    }
+                                    }
                                 
                                 buttonStyle= {{
                                     backgroundColor: '#9c9c9c',
@@ -254,7 +272,14 @@ const HabitPage = ({route}) => {
 
                                 onPress={()=>{
                                     const cDate = new Date();
-                                    if(hLastRecord == cDate.getDate()){
+
+                                    // for debugging
+                                    const no_limit = false;
+
+                                    // previous condition
+                                    // hLastRecord == cDate.getDate()
+
+                                    if(no_limit){
                                         alert("You can only record a habit once a day.");
                                     }else{
                                     db
@@ -265,7 +290,8 @@ const HabitPage = ({route}) => {
                                             lastRecord: cDate.getDate(),
                                             })
                                     navigation.navigate('Profile');
-                                }}
+                                }
+                                }
                             }
                             />
                             <Button

@@ -1,5 +1,5 @@
 //Imports including React, React native elements, firebase, and self-made components
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { auth} from "../../firebase";
 import {db} from "../../firebase";
 import "firebase/firestore";
@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BackButton from './habitPageComponents/BackButton';
 import RecordButton from './habitPageComponents/RecordButton';
+import YesNoModal from './profileComponents/YesNoModal';
 
 const HabitPage = ({route}) => {
     //Obtains the data routed from the profile page
@@ -28,6 +29,7 @@ const HabitPage = ({route}) => {
     //Initializes use states
     const navigation = useNavigation();
     const [exists, setExists] = useState(true);
+    const [modal, setModal] = useState(false);
     const increment = firebase.firestore.FieldValue.increment(1);
 
     //Properly formats all database data
@@ -40,6 +42,9 @@ const HabitPage = ({route}) => {
     const hRecordsThisWeek = habitData.recordsThisWeek;
     const hDuration = habitData.duration;
     const uid = auth.currentUser.uid;
+
+    //Pluralize 'time' depending on number of times a day/week
+    const [plural, setPlural] = useState((hFreq == 1) ? 'time' : 'times');
 
     //Checking if the streak needs to be reset (user didn't reach goal)
     const cDate = new Date();
@@ -100,7 +105,6 @@ const HabitPage = ({route}) => {
                                 color='#9c9c9c'
                             />
                         }
-                        iconRight
 
                         buttonStyle= {{
                             backgroundColor: '#2e2d2d',
@@ -108,16 +112,11 @@ const HabitPage = ({route}) => {
                             width: 70,
                             marginBottom: 90,
                             marginHorizontal: 204,
-                            alignSelf: 'flex-end',
                                 }}
 
                         //Deletes current habit and navigates back to profile page onPress
                         onPress={()=>{
-                            db
-                                .collection(uid)
-                                .doc(hName)
-                                .delete()
-                            navigation.navigate('Profile');
+                            setModal(true)
                         }}
                     />
                 </View>
@@ -126,17 +125,29 @@ const HabitPage = ({route}) => {
 
 
             <View style={styles.bottom}>
-                <View style={styles.options}>
-                    <Input
-                        label= 'Frequency'
-                        placeholder= {hFreq + ' times a ' + hPeriod}
-                        placeholderTextColor='#ffffff'
-                        disabled= 'true'
-
-                        inputStyle= {{
-                            fontFamily: 'AvenirNext-Regular'
+                    <YesNoModal
+                        modalVisible={modal}
+                        setVisible={setModal}
+                        onHideModal={() => {
+                            setModal(!modal);
                         }}
-                        />
+                        navigate={() => {
+                             db
+                                .collection(uid)
+                                .doc(hName)
+                                .delete()
+                            navigation.navigate('Profile');
+                            setModal(!modal);
+                        }}
+                        title='Are you sure you want to delete this habit? '
+                        hideModalText='Yes'
+                    />
+                <View style={styles.options}>
+                        <Text 
+                            style={styles.freq_title}>
+                            Frequency: {hFreq} {plural} a {hPeriod}
+                        </Text>
+                    
                 </View>
 
                 <View style={styles.options}>
@@ -144,7 +155,15 @@ const HabitPage = ({route}) => {
                         
                         label= 'Motivation'
                         placeholder= {hMotiv + ' (click to edit)'}
-                        placeholderTextColor='#999999'
+                        placeholderTextColor='#82f591'
+
+                        labelStyle= {{
+                            color: '#9c9c9c'
+                        }}
+
+                        inputContainerStyle= {{
+                            borderColor: '#9c9c9c'
+                        }}
 
                         inputStyle= {{
                             color: '#fff',
@@ -246,7 +265,7 @@ const HabitPage = ({route}) => {
                             title="Photo Gallery"
                             marginEnd={0}
                             onPress={()=>{
-                                navigation.navigate('Gallery', {name: hName});
+                                navigation.navigate('Gallery', {name: hName, uid: auth.currentUser.uid});
                             }}
                         />
                     </View>
@@ -305,6 +324,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: 'AvenirNext-Medium',
         fontSize: 20,
+        color: '#82f591',
+    },
+    freq_title: {
+        marginHorizontal: 20,
+        marginTop: 15,
+        alignSelf: 'center',
+        fontFamily: 'AvenirNext-Medium',
+        fontSize: 25,
         color: '#82f591',
     },
 });

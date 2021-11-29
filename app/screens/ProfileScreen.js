@@ -1,18 +1,14 @@
 import React , {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, FlatList, TextComponent } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
-import HabitButton from './HabitButton';
-import {Icon} from 'react-native-elements';
-//import Icon from 'react-native-vector-icons/FontAwesome';
+import HabitButton from './profileComponents/HabitButton';
 import FriendsButton from './profileComponents/FriendsButton';
 import SignOutButton from './profileComponents/SignOutButton';
 import PlusButton from './profileComponents/PlusButton';
-import CustomModal from './friendComponents/CustomModal';
-import YesNoModal from './YesNoModal';
+import YesNoModal from './profileComponents/YesNoModal';
 
 
 
@@ -23,6 +19,7 @@ function ProfileScreen(props) {
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
     const [modal, setModal] = useState(false);
+    const [profilePicture, setProfilePicture] = useState('');
 
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
@@ -37,6 +34,7 @@ function ProfileScreen(props) {
                     setName(doc.data().FirstName + " " + doc.data().lastName);
                     setUserName(doc.data().username);
                     setInitials(doc.data().FirstName.charAt(0)+doc.data().lastName.charAt(0));
+                    setProfilePicture(doc.data().profilepic);
                 }
             });
         });
@@ -64,7 +62,7 @@ function ProfileScreen(props) {
                         rounded 
                         size="xlarge" 
                         title={initials}
-
+                        source={profilePicture ? {uri: profilePicture} : null}
                         containerStyle={{
                             backgroundColor: "#9c9c9c",
                             marginTop: -15
@@ -77,7 +75,7 @@ function ProfileScreen(props) {
                             iconProps={{name: 'add', size: 29}}
                             onPress={() => setModal(true)}
                         />
-                    </Avatar>
+                    </Avatar>                    
                 </View>
                 <View>
                     <YesNoModal

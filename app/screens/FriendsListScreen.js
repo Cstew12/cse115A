@@ -10,7 +10,7 @@ import { ListItem, Avatar} from 'react-native-elements';
 import CustomModal from './friendComponents/CustomModal';
 import BackButton from './habitPageComponents/BackButton';
 
-const FriendsPage = ({route}) => {
+const FriendsList = ({route}) => {
     
     const [friends,setFriends]= useState([]);
     const [modalVisible, setVisible] = useState(false)
@@ -32,7 +32,7 @@ const FriendsPage = ({route}) => {
                 setFriends(friends => friends.concat({
                     icon: 'user', 
                     subtitle: 'Click the plus to get started', 
-                    name: "Follow your friends to see their habits"}
+                    name: "Follow people to see their habits"}
                 ));
             } else {
                 querySnap.docs.forEach(doc => {
@@ -130,7 +130,7 @@ const FriendsPage = ({route}) => {
                     marginHorizontal={10}
                 />
                     
-                <Text style={styles.header}>My Friends</Text>
+                <Text style={styles.header}>People Who I Follow</Text>
 
             </View>
 
@@ -154,7 +154,7 @@ const FriendsPage = ({route}) => {
                     }}
                     title='Enter a username'
                     placeholder='Username'
-                    hideModalText='Follow Friend'
+                    hideModalText='Follow'
                     inputField= {true}
                     setInput={setFriendUN}
                 />
@@ -245,4 +245,4 @@ const styles = StyleSheet.create({
     
 });
 
-export default FriendsPage;
+export default FriendsList;

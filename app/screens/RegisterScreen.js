@@ -47,7 +47,7 @@ const RegisterPage = () => {
             .set(userProfile)
             .then(() => {
                 console.log('collection added!');
-                navigation.navigate('Login');
+                navigation.navigate('Profile');
             db
               .collection('users')
               .doc(username)
@@ -94,6 +94,7 @@ const RegisterPage = () => {
                   placeholder='First Name'
                   value={firstName}
                   onChangeText={text => setFirstName(text)}
+                  secureTextEntry={false}
                   marginTop={45}
                   icon={
                     <Icon
@@ -108,6 +109,7 @@ const RegisterPage = () => {
                   placeholder='Last Name'
                   value={lastName}
                   onChangeText={text => setLastName(text)}
+                  secureTextEntry={false}
                   marginTop={-20}
                   icon={
                     <Icon
@@ -122,6 +124,7 @@ const RegisterPage = () => {
                   placeholder='Email'
                   value={email}
                   onChangeText={text => setEmail(text)}
+                  secureTextEntry={false}
                   marginTop={-20}
                   icon={
                     <Icon
@@ -136,6 +139,7 @@ const RegisterPage = () => {
                   placeholder='Username'
                   value={username}
                   onChangeText={text => setUserName(text)}
+                  secureTextEntry={false}
                   marginTop={-20}
                   icon={
                     <Icon
@@ -149,6 +153,7 @@ const RegisterPage = () => {
             <RegisterInput
                   placeholder='Password'
                   value={password}
+                  secureTextEntry={true}
                   onChangeText={text => setPassword(text)}
                   marginTop={-20}
                   icon={

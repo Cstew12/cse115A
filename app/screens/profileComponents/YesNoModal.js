@@ -1,20 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View, Modal, Pressable} from 'react-native';
-import {Input} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 
-
-
+/**
+ * Displays a modal with 2 buttons, 'yes' and 'no', as well as some text.
+ */
 function YesNoModal({
-    modalVisible, 
-    setVisible, 
-    onHideModal, 
-    hideModalText, 
-    title,
-    inputField,
-    placeholder,
-    setInput,
-    navigate,
+    modalVisible, // boolean: determines if the modal should show
+    setVisible, // state function: sets boolean to true/false when the modal should show
+    onHideModal, // function: any actions to occur when modal is closed (when 'No' is pressed)
+    title, // string: main text that the modal displays
+    navigate // function: secondary function to occur when 'Yes' option is clicked
     }) {
     const navigation = useNavigation();
     return (
@@ -60,7 +56,7 @@ const styles = StyleSheet.create({
         margin: 5,
         height: 200, 
         width: 300, 
-        backgroundColor: "white",
+        backgroundColor: '#9c9c9c',
         borderRadius: 20,
         padding: 25,
         alignItems: "center",
@@ -78,18 +74,21 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 2,
         marginHorizontal: 20,
+        marginTop:20
     },
     buttonOpen: {
         backgroundColor: '#82f591',
     },
     buttonClose: {
-        backgroundColor: "#2196F3",
+        backgroundColor: "#82f591",
     },
     modalText: {
+        fontFamily: 'AvenirNext-Medium',
         marginBottom: 15,
         textAlign: "center"
     },
     textStyle: {
+        fontFamily: 'AvenirNext-Regular',
         color: "black",
         fontWeight: "bold",
         textAlign: "center"

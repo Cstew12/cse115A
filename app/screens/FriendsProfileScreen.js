@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
-import HabitButton from './HabitButton';
+import GalleryButton from './GalleryButton';
 import {Icon} from 'react-native-elements';
 import FriendsButton from './profileComponents/FriendsButton';
 
@@ -47,7 +47,7 @@ function FriendsProfileScreen({route}) {
     }, []);
     
     const renderItem = ({ item }) => (
-        <HabitButton title={item.habitName} data={item}/>
+        <GalleryButton title={item.habitName} userid={id}/>
     );
 
     return (

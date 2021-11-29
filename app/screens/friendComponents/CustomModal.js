@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, Modal, Pressable} from 'react-native';
 import {Input} from 'react-native-elements';
+import { Button } from 'react-native-elements/dist/buttons/Button';
+import { Icon } from 'react-native-elements';
 
 
 
@@ -45,8 +47,44 @@ function CustomModal({
                 >
                     <Text style={styles.textStyle}>{hideModalText}</Text>
                 </Pressable>
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <View style={{flexDirection: 'row', alignSelf: 'flex-start'}}>
+                        <Button
+                            type= "solid"
+                            icon={
+                                <Icon
+                                    name='times'
+                                    size={20}
+                                    type='font-awesome'
+                                    color="black"
+                                />
+                            }
+                            onPress={() => setVisible(!modalVisible)}
+                        />
+                    </View>
+                    <Text style={styles.modalText}>{title}</Text>
+                    { inputField &&
+                        <Input
+                            inputContainerStyle={{
+                              borderColor: 'black'
+                             }}
+                            inputStyle={{
+                              color: 'white'
+                             }}
+                            placeholder={placeholder}
+                            placeholderTextColor='black'
+                            onChangeText={value => setInput(value)}
+                        />
+                    }
+                    <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={onHideModal}
+                    >
+                        <Text style={styles.textStyle}>{hideModalText}</Text>
+                    </Pressable>
+                </View>
             </View>
-        </View>
     </Modal>
     );
 }
@@ -64,7 +102,7 @@ const styles = StyleSheet.create({
         width: 300, 
         backgroundColor: "#9c9c9c",
         borderRadius: 20,
-        padding: 25,
+        padding: 10,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -89,7 +127,7 @@ const styles = StyleSheet.create({
     modalText: {
         fontFamily: 'AvenirNext-Medium',
         marginBottom: 15,
-        textAlign: "center"
+        textAlign: "left"
     },
     textStyle: {
         fontFamily: 'AvenirNext-Regular',

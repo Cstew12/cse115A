@@ -8,7 +8,6 @@ import {db} from "../../firebase";
 import HabitButton from './HabitButton';
 import {Icon} from 'react-native-elements';
 import FriendsButton from './profileComponents/FriendsButton';
-import HomeButton from './profileComponents/HomeButton';
 import SignOutButton from './profileComponents/SignOutButton';
 import PlusButton from './profileComponents/PlusButton';
 import CustomModal from './friendComponents/CustomModal';
@@ -23,16 +22,6 @@ function ProfileScreen(props) {
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
     const [modal, setModal] = useState(false);
-
-    const handleSignOut = () => {
-        navigation.navigate("Login");
-        auth
-            .signOut()
-            .then(() => {
-            })
-            .catch(error => alert(error.message));
-
-    }
 
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
@@ -67,24 +56,7 @@ function ProfileScreen(props) {
         <View style={styles.container}>
             <View style={styles.top}>
                 <View style={styles.signOutButton}>
-                <Button
-                    title=" Sign Out"
-                    type= "solid"
-                    icon={
-                        <Icon
-                        name='sign-out'
-                        size={15}
-                        type='font-awesome'
-                        color="white"
-                        />
-                    }
-                    onPress={handleSignOut}  
-            
-                    titleStyle= {{
-                        color: 'white',
-                        fontFamily: 'AvenirNext-Bold'
-                    }}
-                /> 
+                    <SignOutButton/>
                 </View>
                 <View style={styles.avatar}>
                     <Avatar
@@ -130,8 +102,7 @@ function ProfileScreen(props) {
                     </Text>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row', alignContent: 'space-between'}}>
-                    <FriendsButton/>
-                    <HomeButton/>
+                    <FriendsButton username={userName}/>
                 </View>
             </View>
             <View style={styles.bottom}>

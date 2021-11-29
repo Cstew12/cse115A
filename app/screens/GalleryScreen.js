@@ -20,7 +20,6 @@ import { auth, store } from "../../firebase";
 
 function GalleryScreen({ route }) {
   const uid = route.params.uid;
-  console.log("UID: " + uid);
   const navigation = useNavigation();
   const [images, setImages] = useState([]);
 

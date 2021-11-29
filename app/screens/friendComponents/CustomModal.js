@@ -25,29 +25,8 @@ function CustomModal({
                 setVisible(!modalVisible);
             }}
         >
+        
         <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-                <Text style={styles.modalText}>{title}</Text>
-                { inputField &&
-                    <Input
-                        inputContainerStyle={{
-                            borderColor: 'black'
-                        }}
-                        inputStyle={{
-                            color: 'white'
-                        }}
-                        placeholder={placeholder}
-                        placeholderTextColor='black'
-                        onChangeText={value => setInput(value)}
-                    />
-                }
-                <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={onHideModal}
-                >
-                    <Text style={styles.textStyle}>{hideModalText}</Text>
-                </Pressable>
-            <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <View style={{flexDirection: 'row', alignSelf: 'flex-start'}}>
                         <Button

@@ -83,7 +83,9 @@ const FriendsPage = ({route}) => {
         console.log('Search and add friend');
         if(friendUN === username) {
             setSelfAdd(true);
-        } else {
+        } else if(friendUN.length==0){
+            setVisible(!modalVisible);
+        } else{
             const temp = db.collection('users').doc(friendUN).get()         
             .then((docsnap) => {
                 if(docsnap.exists){

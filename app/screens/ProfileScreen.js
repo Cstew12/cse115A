@@ -19,6 +19,7 @@ function ProfileScreen(props) {
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
     const [modal, setModal] = useState(false);
+    const [profilePicture, setProfilePicture] = useState('');
 
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
@@ -33,6 +34,7 @@ function ProfileScreen(props) {
                     setName(doc.data().FirstName + " " + doc.data().lastName);
                     setUserName(doc.data().username);
                     setInitials(doc.data().FirstName.charAt(0)+doc.data().lastName.charAt(0));
+                    setProfilePicture(doc.data().profilepic);
                 }
             });
         });
@@ -60,7 +62,7 @@ function ProfileScreen(props) {
                         rounded 
                         size="xlarge" 
                         title={initials}
-        
+                        source={{uri: profilePicture}}
                         containerStyle={{
                             backgroundColor: "#9c9c9c",
                             marginTop: -15
@@ -73,7 +75,7 @@ function ProfileScreen(props) {
                             iconProps={{name: 'add', size: 29}}
                             onPress={() => setModal(true)}
                         />
-                    </Avatar>
+                    </Avatar>                    
                 </View>
                 <View>
                     <YesNoModal

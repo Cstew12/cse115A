@@ -30,7 +30,7 @@ const FriendsList = ({route}) => {
             setFriends([]);
             if(querySnap.size < 1) {
                 setFriends(friends => friends.concat({
-                    icon: 'user', 
+                    initials: 'FF', 
                     subtitle: 'Click the plus to get started', 
                     name: "Follow people to see their habits"}
                 ));
@@ -48,16 +48,17 @@ const FriendsList = ({route}) => {
      * @param {string} userUID  - ID of whos friend list the friend will be added to
      * @param {string} friendUID 
      * @param {string} friendName 
-     * @param {string} friendUsername 
+     * @param {string} friendUsername
+     * @param {string} friendInitials 
      * Adds friends information to a users friend list. 
      */
-    const addFriendToUser = (userUID, friendUID, friendName, friendUsername) => {
+    const addFriendToUser = (userUID, friendUID, friendName, friendUsername, friendInitials) => {
         db.collection(userUID).doc('friends list')
         .collection('friends collection')
         .doc(friendUID)
         .set({
             subtitle: friendUsername, 
-            icon: 'user', 
+            initials: friendInitials, 
             name: friendName,
             uid: friendUID
         })
@@ -91,8 +92,10 @@ const FriendsList = ({route}) => {
                 if(docsnap.exists){
                     const friendUID = docsnap.data().uid;
                     getUserProfileFromUID(friendUID).then((profile) => {
+                        // Sets the name and the initials of the user for display in the list
                         const friendName = profile.FirstName + ' ' + profile.lastName;
-                        addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN);
+                        const friendInitials = profile.FirstName.charAt(0)+profile.lastName.charAt(0)
+                        addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN, friendInitials);
                     })
                 }else{
                     // User with that username does not exist
@@ -130,7 +133,7 @@ const FriendsList = ({route}) => {
                     marginHorizontal={10}
                 />
                     
-                <Text style={styles.header}>People Who I Follow</Text>
+                <Text style={styles.header}>Following</Text>
 
             </View>
 
@@ -172,7 +175,19 @@ const FriendsList = ({route}) => {
                     friends.map((item, i) => (
                         <ListItem key={i} bottomDivider containerStyle={{backgroundColor: '#9c9c9c'}}
                         onPress={() => onFriendPress(item)}>
-                            <Icon name={item.icon} />
+                            
+                            <Avatar 
+                                rounded
+                                size='medium'
+                                //currently just shows the initials of the user
+                                title={item.initials}
+                                containerStyle={{
+                                    backgroundColor: "#82f591",
+                                }}
+                                titleStyle={{
+                                    color: 'black'
+                                }}
+                             />
                                 <ListItem.Content>
                                 <ListItem.Title style={{ color: '#82f591'}}>{item.name}</ListItem.Title>
                                 <ListItem.Subtitle style={{ color: '#2e2d2d'}}>{item.subtitle}</ListItem.Subtitle>

@@ -12,10 +12,13 @@ function FriendsButton({username}) {
     return (
         <Button
             type= "solid"
-            title=' Friends'
+            title=' Following'
             titleStyle= {{
                 fontFamily: 'AvenirNext-Bold'
               }}
+            style={{
+                marginTop:5
+            }}
             icon={
                 <Icon
                     name='address-book'

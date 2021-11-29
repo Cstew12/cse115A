@@ -144,14 +144,14 @@ const styles = StyleSheet.create({
     },
     name: {
         fontFamily: 'AvenirNext-Medium',
-        color: '#9c9c9c',
-        fontSize: 20,
-        marginTop: 5,
+        color: '#82f591',
+        fontSize: 24,
+        marginTop: 4,
     },
     username: {
         fontFamily: 'AvenirNext-Medium',
-        color: '#9c9c9c',
-        fontSize: 14,
+        color: '#82f591',
+        fontSize: 15,
         marginTop: -5
     },
     bottom : {

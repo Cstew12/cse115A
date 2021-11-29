@@ -62,7 +62,7 @@ function ProfileScreen(props) {
                         rounded 
                         size="xlarge" 
                         title={initials}
-                        source={{uri: profilePicture}}
+                        source={profilePicture ? {uri: profilePicture} : null}
                         containerStyle={{
                             backgroundColor: "#9c9c9c",
                             marginTop: -15

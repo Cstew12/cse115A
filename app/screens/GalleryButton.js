@@ -5,9 +5,9 @@ import {LinearProgress} from 'react-native-elements';
 
 
 // passing props to habit page through navigation
-function GalleryButton({title, id}) {
-    console.log('The habit in the gallery button is' + title);
-    console.log('The id in the gallery button is' + id);
+function GalleryButton({title, friendUID}) {
+    // console.log('The habit in the gallery button is' + title);
+    // console.log('The id in the gallery button is' + friendUID);
     const navigation = useNavigation();
     return (
         <View style={styles.item}>

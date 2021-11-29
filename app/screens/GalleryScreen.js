@@ -18,10 +18,10 @@ import { auth, store } from "../../firebase";
  * Also, would be easier to debug if we removed the 1 record limit per day.
  */
 
-function GalleryScreen({ route, id}) {
+function GalleryScreen({ route}) {
   // console.log('The id in the gallery screen is' + id);
 
-  const uid = id;
+  const uid = route.params.uid;
   const navigation = useNavigation();
   const [images, setImages] = useState([]);
 

@@ -10,7 +10,7 @@ import { ListItem, Avatar} from 'react-native-elements';
 import CustomModal from './friendComponents/CustomModal';
 import BackButton from './habitPageComponents/BackButton';
 
-const FriendsPage = ({route}) => {
+const FriendsList = ({route}) => {
     
     const [friends,setFriends]= useState([]);
     const [modalVisible, setVisible] = useState(false)
@@ -243,4 +243,4 @@ const styles = StyleSheet.create({
     
 });
 
-export default FriendsPage;
+export default FriendsList;

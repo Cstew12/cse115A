@@ -8,7 +8,6 @@ import PeriodButton from './createHabitComponents/PeriodButton';
 import Counter from './createHabitComponents/Counter';
 import SliderMinMax from './createHabitComponents/SliderMinMax';
 import ScreenLayout from './createHabitComponents/ScreenLayout';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomModal from './friendComponents/CustomModal';
 
 
@@ -46,7 +45,6 @@ function CreateHabitScreen(props) {
                 duration: duration, // between 1-90 days or 1-12 weeks
                 frequency: frequency, // frequency for day is 1, frequency for week is 1-6 days in week
             }
-            console.log(habitData);
             db
                 .collection(currentUID)
                 .doc(name)

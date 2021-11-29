@@ -1,20 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View, Modal, Pressable} from 'react-native';
-import {Input} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 
-
-
+/**
+ * Displays a modal with 2 buttons, 'yes' and 'no', as well as some text.
+ */
 function YesNoModal({
-    modalVisible, 
-    setVisible, 
-    onHideModal, 
-    hideModalText, 
-    title,
-    inputField,
-    placeholder,
-    setInput,
-    navigate,
+    modalVisible, // boolean: determines if the modal should show
+    setVisible, // state function: sets boolean to true/false when the modal should show
+    onHideModal, // function: any actions to occur when modal is closed (when 'No' is pressed)
+    title, // string: main text that the modal displays
+    navigate // function: secondary function to occur when 'Yes' option is clicked
     }) {
     const navigation = useNavigation();
     return (

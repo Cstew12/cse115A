@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import SliderMinMax from './createHabitComponents/SliderMinMax';
 import { useNavigation } from '@react-navigation/core';
 import {LinearProgress} from 'react-native-elements';
-import { auth } from '../../firebase';
-
 
 // passing props to habit page through navigation
 function HabitButton({title, data}) {

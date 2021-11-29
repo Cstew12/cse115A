@@ -3,13 +3,9 @@ import { StyleSheet, Text, View, FlatList, TextComponent } from 'react-native';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
-import {auth} from "../../firebase";
 import {db} from "../../firebase";
-import GalleryButton from './GalleryButton';
+import GalleryButton from './friendProfileComponents/GalleryButton';
 import {Icon} from 'react-native-elements';
-
-
-
 
 function FriendsProfileScreen({route}) {
     const navigation = useNavigation();

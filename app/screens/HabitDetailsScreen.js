@@ -1,5 +1,5 @@
 //Imports including React, React native elements, firebase, and self-made components
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { auth} from "../../firebase";
 import {db} from "../../firebase";
 import "firebase/firestore";
@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BackButton from './habitPageComponents/BackButton';
 import RecordButton from './habitPageComponents/RecordButton';
-import YesNoModal from './YesNoModal';
+import YesNoModal from './profileComponents/YesNoModal';
 
 const HabitPage = ({route}) => {
     //Obtains the data routed from the profile page

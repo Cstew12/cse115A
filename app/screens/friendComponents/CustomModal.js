@@ -28,7 +28,14 @@ function CustomModal({
                 <Text style={styles.modalText}>{title}</Text>
                 { inputField &&
                     <Input
+                        inputContainerStyle={{
+                            borderColor: 'black'
+                        }}
+                        inputStyle={{
+                            color: 'white'
+                        }}
                         placeholder={placeholder}
+                        placeholderTextColor='black'
                         onChangeText={value => setInput(value)}
                     />
                 }
@@ -55,7 +62,7 @@ const styles = StyleSheet.create({
         margin: 5,
         height: 200, 
         width: 300, 
-        backgroundColor: "white",
+        backgroundColor: "#9c9c9c",
         borderRadius: 20,
         padding: 25,
         alignItems: "center",
@@ -77,13 +84,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#82f591',
     },
     buttonClose: {
-        backgroundColor: "#2196F3",
+        backgroundColor: "#82f591",
     },
     modalText: {
+        fontFamily: 'AvenirNext-Medium',
         marginBottom: 15,
         textAlign: "center"
     },
     textStyle: {
+        fontFamily: 'AvenirNext-Regular',
         color: "black",
         fontWeight: "bold",
         textAlign: "center"

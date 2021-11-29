@@ -5,12 +5,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RegisterPage from './app/screens/RegisterScreen';
 import ProfileScreen from './app/screens/ProfileScreen';
-import HabitPage from './app/screens/HabitPage';
+import HabitPage from './app/screens/HabitDetailsScreen';
 import FriendsList from './app/screens/FriendsListScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import CameraScreen from './app/screens/CameraScreen';
 import SaveScreen from './app/screens/SaveScreen'
-import HomeScreen from './app/screens/HomeScreen';
 import GalleryScreen from './app/screens/GalleryScreen';
 import FriendsProfileScreen from './app/screens/FriendsProfileScreen';
 
@@ -30,7 +29,6 @@ export default function App() {
           <Stack.Screen name="CameraScreen" options={{headerShown: false}} component={CameraScreen} />
           <Stack.Screen name="Save" options={{headerShown: false}}  component={SaveScreen} />
           <Stack.Screen name="Profile"  options={{headerShown: false}} component={ProfileScreen} />
-          <Stack.Screen name="Home"  options={{headerShown: false}} component={HomeScreen} />
           <Stack.Screen name="Gallery"  options={{headerShown: false}} component={GalleryScreen} />
           <Stack.Screen name="FriendsProfile"  options={{headerShown: false}} component={FriendsProfileScreen} />
         </Stack.Navigator>

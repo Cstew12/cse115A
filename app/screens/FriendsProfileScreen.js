@@ -22,10 +22,7 @@ function FriendsProfileScreen({route}) {
 
     const realTimeData = () => {
         const uid = route.params.FriendUID;
-<<<<<<< HEAD
-=======
         // console.log('Value of uid is ' + uid);
->>>>>>> sid
         const unsubscribe = db
         .collection(uid)
         .onSnapshot(querySnap => {

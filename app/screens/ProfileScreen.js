@@ -1,17 +1,14 @@
 import React , {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, FlatList, TextComponent } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
-import HabitButton from './HabitButton';
-import {Icon} from 'react-native-elements';
+import HabitButton from './profileComponents/HabitButton';
 import FriendsButton from './profileComponents/FriendsButton';
 import SignOutButton from './profileComponents/SignOutButton';
 import PlusButton from './profileComponents/PlusButton';
-import CustomModal from './friendComponents/CustomModal';
-import YesNoModal from './YesNoModal';
+import YesNoModal from './profileComponents/YesNoModal';
 
 
 

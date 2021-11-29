@@ -7,14 +7,14 @@ import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import GalleryButton from './GalleryButton';
 import {Icon} from 'react-native-elements';
-import FriendsButton from './profileComponents/FriendsButton';
+
 
 
 
 function FriendsProfileScreen({route}) {
     const navigation = useNavigation();
     const id = route.params.FriendUID;
-    console.log('Value of id is' + id);
+    // console.log('Value of id is' + id);
     const [habits, setHabits] = useState([]);
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
@@ -22,7 +22,7 @@ function FriendsProfileScreen({route}) {
 
     const realTimeData = () => {
         const uid = route.params.FriendUID;
-        console.log('Value of uid is ' + uid);
+        // console.log('Value of uid is ' + uid);
         const unsubscribe = db
         .collection(uid)
         .onSnapshot(querySnap => {

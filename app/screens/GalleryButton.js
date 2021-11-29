@@ -5,11 +5,12 @@ import {LinearProgress} from 'react-native-elements';
 
 
 // passing props to habit page through navigation
-function GalleryButton({title, id}) {
+function GalleryButton({title, friendUID}) {
     const navigation = useNavigation();
+    console.log("UID from gallery button: " + friendUID);
     return (
         <View style={styles.item}>
-            <TouchableOpacity  onPress={() => navigation.navigate('Gallery', {name: title},{uid: id})}>
+            <TouchableOpacity  onPress={() => navigation.navigate('Gallery', {name: title, uid: friendUID})}>
                 <Text style={styles.title}>{title}</Text>
             </TouchableOpacity>
         </View>

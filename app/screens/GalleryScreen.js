@@ -18,7 +18,9 @@ import { auth, store } from "../../firebase";
  * Also, would be easier to debug if we removed the 1 record limit per day.
  */
 
-function GalleryScreen({ route }) {
+function GalleryScreen({ route}) {
+  // console.log('The id in the gallery screen is' + id);
+
   const uid = route.params.uid;
   const navigation = useNavigation();
   const [images, setImages] = useState([]);
@@ -33,6 +35,8 @@ function GalleryScreen({ route }) {
 
   useEffect(() => {
     const habitName = route.params.name;
+    // console.log('The habitname in the gallery screen is' + habitName);
+    // console.log("Habit name: " + habitName); // debug
     const listRef = store.ref(uid + "/" + habitName);
     var count = 1;
 

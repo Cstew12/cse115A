@@ -32,7 +32,7 @@ const FriendsList = ({route}) => {
                 setFriends(friends => friends.concat({
                     icon: 'user', 
                     subtitle: 'Click the plus to get started', 
-                    name: "Follow your friends to see their habits"}
+                    name: "Follow people to see their habits"}
                 ));
             } else {
                 querySnap.docs.forEach(doc => {
@@ -128,7 +128,7 @@ const FriendsList = ({route}) => {
                     marginHorizontal={10}
                 />
                     
-                <Text style={styles.header}>My Friends</Text>
+                <Text style={styles.header}>People Who I Follow</Text>
 
             </View>
 
@@ -152,7 +152,7 @@ const FriendsList = ({route}) => {
                     }}
                     title='Enter a username'
                     placeholder='Username'
-                    hideModalText='Follow Friend'
+                    hideModalText='Follow'
                     inputField= {true}
                     setInput={setFriendUN}
                 />

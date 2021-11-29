@@ -7,7 +7,6 @@ import {auth} from "../../firebase";
 import {db} from "../../firebase";
 import HabitButton from './HabitButton';
 import {Icon} from 'react-native-elements';
-//import Icon from 'react-native-vector-icons/FontAwesome';
 import FriendsButton from './profileComponents/FriendsButton';
 import SignOutButton from './profileComponents/SignOutButton';
 import PlusButton from './profileComponents/PlusButton';
@@ -64,7 +63,7 @@ function ProfileScreen(props) {
                         rounded 
                         size="xlarge" 
                         title={initials}
-
+        
                         containerStyle={{
                             backgroundColor: "#9c9c9c",
                             marginTop: -15

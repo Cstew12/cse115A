@@ -27,7 +27,7 @@ function GalleryScreen({ route }) {
    * @param {uri: string, title: string} newObj
    */
   const addImageObjToArray = (newObj) => {
-    setImages((images) => images.concat(newObj));
+    setImages((images) => images.concat(newObj)); 
   };
 
   useEffect(() => {
@@ -49,15 +49,8 @@ function GalleryScreen({ route }) {
         // const bTimeZero = Date.parse(b);
 
         return new Date(b.date) - new Date(a.date);
-
-
-
-
-
       })
-
-
-
+    
       file.items.forEach((ref) => {
         console.log(ref.name);
 
@@ -71,7 +64,11 @@ function GalleryScreen({ route }) {
           .then((url) => {
             // use add image url to the image array
             // console.log('Image location: ' + url); // debug
-            addImageObjToArray({ uri: url, title: count });
+            const picDate = new Date(ref.name)
+            const dateStr = 
+              picDate.getMonth() + '/' + picDate.getDate() + ', ' + picDate.getHours() + ':' + picDate.getMinutes();
+            addImageObjToArray({ uri: url, title: dateStr, date: ref.name });
+            console.log(images);
             count++;
           })
           .catch((error) => alert(error.message)); // error while downloading the image
@@ -133,7 +130,9 @@ function GalleryScreen({ route }) {
       </View>
       <View style={styles.bottom}>
         <FlatList
-          data={images}
+          data={images.sort((a,b) => {
+            return new Date(a.date) - new Date(b.date);
+          })}
           renderItem={renderItem}
           keyExtractor={() => Math.random().toString(36)}
           numColumns={2}

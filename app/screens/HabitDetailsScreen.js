@@ -190,7 +190,7 @@ const HabitPage = ({route}) => {
                             setCompleteCameraModal(!completeCameraModal);  
                         }}
                         title={'Congrats! You have completed your goal for this habit! Feel free to keep going past your goal, or delete this habit and create new ones. Also make sure to check out the gallery for a recap of your journey!'}
-                        hideModalText='Return to Profile'
+                        hideModalText='Continue to Picture'
                         inputField={false}
                     />  
                 <View style={styles.options}>

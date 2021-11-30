@@ -1,16 +1,14 @@
 import React , {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, FlatList, TextComponent } from 'react-native';
-import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
-import { Button } from 'react-native-elements/dist/buttons/Button';
+import { Avatar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import {auth} from "../../firebase";
 import {db} from "../../firebase";
-import HabitButton from './HabitButton';
-import {Icon} from 'react-native-elements';
+import HabitButton from './profileComponents/HabitButton';
 import FriendsButton from './profileComponents/FriendsButton';
-import HomeButton from './profileComponents/HomeButton';
 import SignOutButton from './profileComponents/SignOutButton';
 import PlusButton from './profileComponents/PlusButton';
+import YesNoModal from './profileComponents/YesNoModal';
 
 
 
@@ -20,16 +18,8 @@ function ProfileScreen(props) {
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
-
-    const handleSignOut = () => {
-        navigation.navigate("Login");
-        auth
-            .signOut()
-            .then(() => {
-            })
-            .catch(error => alert(error.message));
-
-    }
+    const [modal, setModal] = useState(false);
+    const [profilePicture, setProfilePicture] = useState('');
 
     const realTimeData = () => {
         const uid = auth.currentUser.uid;
@@ -44,6 +34,7 @@ function ProfileScreen(props) {
                     setName(doc.data().FirstName + " " + doc.data().lastName);
                     setUserName(doc.data().username);
                     setInitials(doc.data().FirstName.charAt(0)+doc.data().lastName.charAt(0));
+                    setProfilePicture(doc.data().profilepic);
                 }
             });
         });
@@ -64,35 +55,41 @@ function ProfileScreen(props) {
         <View style={styles.container}>
             <View style={styles.top}>
                 <View style={styles.signOutButton}>
-                <Button
-                    title=" Sign Out"
-                    type= "solid"
-                    icon={
-                        <Icon
-                        name='sign-out'
-                        size={15}
-                        type='font-awesome'
-                        color="white"
-                        />
-                    }
-                    onPress={handleSignOut}  
-            
-                    titleStyle= {{
-                        color: 'white',
-                        fontFamily: 'AvenirNext-Bold'
-                    }}
-                /> 
+                    <SignOutButton/>
                 </View>
                 <View style={styles.avatar}>
-                    <Avatar 
+                    <Avatar
                         rounded 
                         size="xlarge" 
                         title={initials}
-
+                        source={profilePicture ? {uri: profilePicture} : null}
                         containerStyle={{
-                            backgroundColor: "lightgray",
+                            backgroundColor: "#9c9c9c",
                             marginTop: -15
                         }}
+                        >
+                        <Avatar.Accessory
+                            color="#82f591"
+                            containerStyle={{ borderRadius: 50 }}
+                            size={35}
+                            iconProps={{name: 'add', size: 29}}
+                            onPress={() => setModal(true)}
+                        />
+                    </Avatar>                    
+                </View>
+                <View>
+                    <YesNoModal
+                        modalVisible={modal}
+                        setVisible={setModal}
+                        onHideModal={() => {
+                            setModal(!modal);
+                        }}
+                        navigate={() => {
+                            navigation.navigate(('CameraScreen'), {habitName: 'profile_picture'});
+                            setModal(!modal);
+                        }}
+                        title='Would you like to change your profile picture? '
+                        hideModalText='Yes'
                     />
                 </View>
                 <View style={{flex: 1, alignItems: 'center', flexDirection: 'column',}}>
@@ -104,8 +101,7 @@ function ProfileScreen(props) {
                     </Text>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row', alignContent: 'space-between'}}>
-                    <FriendsButton/>
-                    <HomeButton/>
+                    <FriendsButton username={userName}/>
                 </View>
             </View>
             <View style={styles.bottom}>
@@ -148,14 +144,14 @@ const styles = StyleSheet.create({
     },
     name: {
         fontFamily: 'AvenirNext-Medium',
-        color: '#9c9c9c',
-        fontSize: 20,
-        marginTop: 5,
+        color: '#82f591',
+        fontSize: 24,
+        marginTop: 4,
     },
     username: {
         fontFamily: 'AvenirNext-Medium',
-        color: '#9c9c9c',
-        fontSize: 14,
+        color: '#82f591',
+        fontSize: 15,
         marginTop: -5
     },
     bottom : {

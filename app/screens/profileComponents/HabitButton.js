@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import SliderMinMax from './createHabitComponents/SliderMinMax';
 import { useNavigation } from '@react-navigation/core';
 import {LinearProgress} from 'react-native-elements';
-
 
 // passing props to habit page through navigation
 function HabitButton({title, data}) {
@@ -18,7 +16,7 @@ function HabitButton({title, data}) {
                 <LinearProgress 
                     color="primary"
                     variant="determinate"
-                    value={data.streak / data.duration}
+                    value={data.streak / (data.duration * data.frequency)}
                     color='#2e2d2d'
                     style={{
                         marginBottom: 15, 

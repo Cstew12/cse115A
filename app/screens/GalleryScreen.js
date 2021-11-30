@@ -24,13 +24,14 @@ function GalleryScreen({ route}) {
   const uid = route.params.uid;
   const navigation = useNavigation();
   const [images, setImages] = useState([]);
+  const [noImages, setNoImages] = useState(true);
 
   /**
    *  Adds new image object to the image array
    * @param {uri: string, title: string} newObj
    */
   const addImageObjToArray = (newObj) => {
-    setImages((images) => images.concat(newObj));
+    setImages((images) => images.concat(newObj)); 
   };
 
   useEffect(() => {
@@ -44,6 +45,17 @@ function GalleryScreen({ route}) {
      * Lists all image name in a specified directory
      */
     listRef.listAll().then((file) => {
+
+      // sort the items in the file
+      file.items.sort(function(a,b){
+
+        // turn the items from string representations into milliseconds
+        // const aTimeZero = Date.parse(a);
+        // const bTimeZero = Date.parse(b);
+
+        return new Date(b.date) - new Date(a.date);
+      })
+    
       file.items.forEach((ref) => {
         console.log(ref.name);
 
@@ -57,25 +69,35 @@ function GalleryScreen({ route}) {
           .then((url) => {
             // use add image url to the image array
             // console.log('Image location: ' + url); // debug
-            addImageObjToArray({ uri: url, title: count });
+            const picDate = new Date(ref.name)
+            const dateStr = 
+              picDate.getMonth() + '/' + picDate.getDate() + ', ' + picDate.getHours() + ':' + picDate.getMinutes();
+            addImageObjToArray({ uri: url, title: dateStr, date: ref.name });
+            console.log(images);
             count++;
           })
           .catch((error) => alert(error.message)); // error while downloading the image
       });
     });
+    
+    console.log(images.size);
   }, []);
 
   const renderItem = ({ item }) => (
-    <View
+      <View
       style={{
         justifyContent: "center",
         marginVertical: 20,
         alignItems: "center",
       }}
-    >
-      <Image style={{ height: 200, width: 200 }} source={{ uri: item.uri }} />
-      <Text style={{ color: "white", marginTop: 20 }}>{item.title}</Text>
-    </View>
+      >
+        <Image 
+          style={{ height: 200, width: 200 }}
+          source={{ uri: item.uri }} 
+          PlaceholderContent={<ActivityIndicator />}
+        />
+        <Text style={{ color: "white", marginTop: 20 }}>{item.title}</Text>
+      </View>
   );
   return (
     <View style={styles.container}>
@@ -118,15 +140,17 @@ function GalleryScreen({ route}) {
         </View>
       </View>
       <View style={styles.bottom}>
-        <FlatList
-          data={images}
-          renderItem={renderItem}
-          keyExtractor={() => Math.random().toString(36)}
-          numColumns={2}
-          columnWrapperStyle={{
-            justifyContent: "space-evenly",
-          }}
-        />
+          <FlatList
+            data={images.sort((a,b) => {
+              return new Date(a.date) - new Date(b.date);
+            })}
+            renderItem={renderItem}
+            keyExtractor={() => Math.random().toString(36)}
+            numColumns={2}
+            columnWrapperStyle={{
+              justifyContent: "space-evenly",
+            }}
+          />
       </View>
     </View>
   );

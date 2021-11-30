@@ -52,15 +52,21 @@ const FriendsList = ({route}) => {
      * @param {string} friendInitials 
      * Adds friends information to a users friend list. 
      */
-    const addFriendToUser = (userUID, friendUID, friendName, friendUsername, friendInitials) => {
+    const addFriendToUser = (userUID, friendUID, profile) => {
+        const friendName = profile.FirstName + ' ' + profile.lastName;
+        const friendInitials = profile.FirstName.charAt(0)+profile.lastName.charAt(0);
+        const friendProfilePic = profile.profilepic;
+        console.log(friendProfilePic);
+
         db.collection(userUID).doc('friends list')
         .collection('friends collection')
         .doc(friendUID)
         .set({
-            subtitle: friendUsername, 
+            subtitle: friendUN, 
             initials: friendInitials, 
             name: friendName,
-            uid: friendUID
+            uid: friendUID,
+            uri: friendProfilePic
         })
     };
 
@@ -92,10 +98,7 @@ const FriendsList = ({route}) => {
                 if(docsnap.exists){
                     const friendUID = docsnap.data().uid;
                     getUserProfileFromUID(friendUID).then((profile) => {
-                        // Sets the name and the initials of the user for display in the list
-                        const friendName = profile.FirstName + ' ' + profile.lastName;
-                        const friendInitials = profile.FirstName.charAt(0)+profile.lastName.charAt(0)
-                        addFriendToUser(auth.currentUser.uid, friendUID, friendName, friendUN, friendInitials);
+                        addFriendToUser(auth.currentUser.uid, friendUID, profile);
                     })
                 }else{
                     // User with that username does not exist
@@ -181,6 +184,7 @@ const FriendsList = ({route}) => {
                                 size='medium'
                                 //currently just shows the initials of the user
                                 title={item.initials}
+                                source={{uri: item.uri}}
                                 containerStyle={{
                                     backgroundColor: "#82f591",
                                 }}

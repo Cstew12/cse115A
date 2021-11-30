@@ -100,7 +100,7 @@ function CreateHabitScreen(props) {
                     onHideModal={() => {
                         setVisible(!modalVisible);
                     }}
-                    title={'input a name for your habit!'}
+                    title={'Input a name for your habit!'}
                     hideModalText='Okay'
                     inputField={false}
                 />   

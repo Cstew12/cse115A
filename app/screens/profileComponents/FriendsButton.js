@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 /*
 * Displays button with address book icon and navigates to friends list
 */
-function FriendsButton({username}) {
+function FriendsButton({username, marginHorizontal}) {
     const navigation = useNavigation();
 
     return (
@@ -17,7 +17,8 @@ function FriendsButton({username}) {
                 fontFamily: 'AvenirNext-Bold'
               }}
             style={{
-                marginTop:5
+                marginTop:5,
+                marginHorizontal: marginHorizontal 
             }}
             icon={
                 <Icon

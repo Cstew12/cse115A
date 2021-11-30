@@ -4,13 +4,14 @@ import { auth} from "../../firebase";
 import {db} from "../../firebase";
 import "firebase/firestore";
 import firebase from 'firebase/app';
-import {StyleSheet, Text, View } from 'react-native';
+import {SliderComponent, StyleSheet, Text, View } from 'react-native';
 import {Button, Input, LinearProgress} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BackButton from './habitPageComponents/BackButton';
 import RecordButton from './habitPageComponents/RecordButton';
 import YesNoModal from './profileComponents/YesNoModal';
+import CustomModal from './friendComponents/CustomModal';
 
 const HabitPage = ({route}) => {
     //Obtains the data routed from the profile page
@@ -26,10 +27,21 @@ const HabitPage = ({route}) => {
         }
     }
 
+    function incrementStreak(){
+        db
+            .collection(uid)
+            .doc(hName)
+            .update({
+                streak: increment,
+        })
+    }
+
     //Initializes use states
     const navigation = useNavigation();
     const [exists, setExists] = useState(true);
-    const [modal, setModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [completeModal, setCompleteModal] = useState(false);
+    const [completeCameraModal, setCompleteCameraModal] = useState(false);
     const increment = firebase.firestore.FieldValue.increment(1);
 
     //Properly formats all database data
@@ -80,7 +92,6 @@ const HabitPage = ({route}) => {
                 })
         }
     }
-    
 
     //UI: Split up into two main flexes: Top (styles.top) and Bottom (styles.bottom) 
     return (
@@ -116,7 +127,7 @@ const HabitPage = ({route}) => {
 
                         //Deletes current habit and navigates back to profile page onPress
                         onPress={()=>{
-                            setModal(true)
+                            setDeleteModal(true)
                         }}
                     />
                 </View>
@@ -126,10 +137,10 @@ const HabitPage = ({route}) => {
 
             <View style={styles.bottom}>
                     <YesNoModal
-                        modalVisible={modal}
-                        setVisible={setModal}
+                        modalVisible={deleteModal}
+                        setVisible={setDeleteModal}
                         onHideModal={() => {
-                            setModal(!modal);
+                            setDeleteModal(!deleteModal);
                         }}
                         navigate={() => {
                              db
@@ -137,11 +148,51 @@ const HabitPage = ({route}) => {
                                 .doc(hName)
                                 .delete()
                             navigation.navigate('Profile');
-                            setModal(!modal);
+                            setDeleteModal(!deleteModal);
                         }}
                         title='Are you sure you want to delete this habit? '
                         hideModalText='Yes'
                     />
+                    <CustomModal
+                        modalVisible={completeModal}
+                        setVisible={setCompleteModal}
+                        onHideModal={() => {
+                            if(hStreak == 0){
+                                db
+                                        .collection(uid)
+                                        .doc(hName)
+                                        .update({
+                                            streak: increment,
+                                            })
+                                        
+                            }
+                            navigation.navigate('Profile');
+                            setCompleteModal(!completeModal);
+                        }}
+                        title={'Congrats! You have completed your goal for this habit! Feel free to keep going past your goal, or delete this habit and create new ones. Also make sure to check out the gallery for a recap of your journey!'}
+                        hideModalText='Return to Profile'
+                        inputField={false}
+                    />
+                    <CustomModal
+                        modalVisible={completeCameraModal}
+                        setVisible={setCompleteCameraModal}
+                        onHideModal={() => {
+                            if(hStreak == 0){
+                                db
+                                        .collection(uid)
+                                        .doc(hName)
+                                        .update({
+                                            streak: increment,
+                                            })
+                                        
+                            }
+                            navigation.navigate('CameraScreen', {habitName: hName});
+                            setCompleteCameraModal(!completeCameraModal);  
+                        }}
+                        title={'Congrats! You have completed your goal for this habit! Feel free to keep going past your goal, or delete this habit and create new ones. Also make sure to check out the gallery for a recap of your journey!'}
+                        hideModalText='Return to Profile'
+                        inputField={false}
+                    />  
                 <View style={styles.options}>
                         <Text 
                             style={styles.freq_title}>
@@ -237,7 +288,13 @@ const HabitPage = ({route}) => {
                                             recordsThisWeek: increment,
                                             lastRecord: cDate.getDate(),
                                             })
-                                    navigation.navigate('CameraScreen', {habitName: hName});
+                                            .then(() => {
+                                                if(hStreak + 1 == (hFreq * hDuration)){
+                                                    setCompleteCameraModal(true)
+                                                }else{
+                                                    navigation.navigate('CameraScreen', {habitName: hName}); 
+                                                } 
+                                            });  
                                     }
                                 }}
                         />
@@ -257,7 +314,13 @@ const HabitPage = ({route}) => {
                                         recordsThisWeek: increment,
                                         lastRecord: cDate.getDate(),
                                         })
-                                navigation.navigate('Profile');
+                                    .then(() => {
+                                            if(hStreak + 1 == (hFreq * hDuration)){
+                                                setCompleteModal(true)
+                                            }else{
+                                                navigation.navigate('Profile'); 
+                                            } 
+                                        });                     
                             }}
                         }
                         />

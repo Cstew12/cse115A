@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/core';
 import {db} from "../../firebase";
 import GalleryButton from './friendProfileComponents/GalleryButton';
 import {Icon} from 'react-native-elements';
+import FriendsButton from './profileComponents/FriendsButton';
 
 function FriendsProfileScreen({route}) {
     const navigation = useNavigation();
@@ -50,24 +51,7 @@ function FriendsProfileScreen({route}) {
         <View style={styles.container}>
             <View style={styles.top}>
             <View style={{flexDirection: 'row-reverse', marginTop: 40, marginLeft: 20}}>
-                    <Button
-                        title=" Profile"
-                        type= "solid"
-                        icon={
-                            <Icon
-                            name='user-circle'
-                            size={15}
-                            type='font-awesome'
-                            color="white"
-                            />
-                        }
-                
-                        titleStyle= {{
-                            color: 'white',
-                            fontFamily: 'AvenirNext-Bold'
-                        }}
-                        onPress={() => navigation.navigate('Profile')}
-                    /> 
+                    <FriendsButton username={userName} marginHorizontal={-8}/>
                </View>
                 <View style={styles.avatar}>
                     <Avatar 

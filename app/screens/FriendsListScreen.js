@@ -30,7 +30,7 @@ const FriendsList = ({route}) => {
             setFriends([]);
             if(querySnap.size < 1) {
                 setFriends(friends => friends.concat({
-                    initials: 'FF', 
+                    initials: 'GO', 
                     subtitle: 'Click the plus to get started', 
                     name: "Follow people to see their habits"}
                 ));

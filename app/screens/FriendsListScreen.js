@@ -66,7 +66,7 @@ const FriendsList = ({route}) => {
             initials: friendInitials, 
             name: friendName,
             uid: friendUID,
-            uri: friendProfilePic
+            uri: friendProfilePic !== undefined ? friendProfilePic : null
         })
     };
 

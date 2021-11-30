@@ -15,6 +15,7 @@ function FriendsProfileScreen({route}) {
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [initials, setInitials] = useState('');
+    const [uri, setURI] = useState('');
 
     const realTimeData = () => {
         const uid = route.params.FriendUID;
@@ -30,6 +31,7 @@ function FriendsProfileScreen({route}) {
                     setName(doc.data().FirstName + " " + doc.data().lastName);
                     setUserName(doc.data().username);
                     setInitials(doc.data().FirstName.charAt(0)+doc.data().lastName.charAt(0));
+                    setURI(doc.data().profilepic);
                 }
             });
         });
@@ -74,7 +76,7 @@ function FriendsProfileScreen({route}) {
                         rounded 
                         size="xlarge" 
                         title={initials}
-
+                        source={{uri: uri !== undefined ? uri : null}}
                         containerStyle={{
                             backgroundColor: "lightgray",
                             marginTop: -15

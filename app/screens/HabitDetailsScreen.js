@@ -226,7 +226,7 @@ const HabitPage = ({route}) => {
                             marginEnd={14}
                             onPress={()=>{
                                 const cDate = new Date();
-                                if(hLastRecord == cDate.getDate()){
+                                if(false){
                                     alert("You can only record a habit once a day.");
                                 }else{
                                     db
@@ -246,7 +246,7 @@ const HabitPage = ({route}) => {
                             marginEnd={14}
                             onPress={()=>{
                                 const cDate = new Date();
-                                if(hLastRecord == cDate.getDate()){
+                                if(false){
                                     alert("You can only record a habit once a day.");
                                 }else{
                                 db

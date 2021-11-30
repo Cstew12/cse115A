@@ -34,7 +34,7 @@ export default function Save(props) {
             // everytime they take a new picture, the file will overwrite with the new image
             childPath = `${currUID}/${habitName}/profile`;
         } else {
-            childPath = `${currUID}/${habitName}/${Math.random().toString(36)}`;
+            childPath = `${auth.currentUser.uid}/${props.route.params.habitName}/${Date()}`;
         }
         const response = await fetch(props.route.params.uri);
         const blob = await response.blob();

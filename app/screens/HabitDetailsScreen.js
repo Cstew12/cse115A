@@ -27,15 +27,6 @@ const HabitPage = ({route}) => {
         }
     }
 
-    function incrementStreak(){
-        db
-            .collection(uid)
-            .doc(hName)
-            .update({
-                streak: increment,
-        })
-    }
-
     //Initializes use states
     const navigation = useNavigation();
     const [exists, setExists] = useState(true);
@@ -134,9 +125,9 @@ const HabitPage = ({route}) => {
                 <Text style={styles.header}>{hName}</Text>
             </View>
 
-
             <View style={styles.bottom}>
                     <YesNoModal
+                    //Modal that pops up when the delete button is pressed making sure the user would like to do so
                         modalVisible={deleteModal}
                         setVisible={setDeleteModal}
                         onHideModal={() => {
@@ -154,6 +145,7 @@ const HabitPage = ({route}) => {
                         hideModalText='Yes'
                     />
                     <CustomModal
+                    //Modal for when a user completes a streak while taking a photo
                         modalVisible={completeModal}
                         setVisible={setCompleteModal}
                         onHideModal={() => {
@@ -174,6 +166,7 @@ const HabitPage = ({route}) => {
                         inputField={false}
                     />
                     <CustomModal
+                    //Modal for when the user completes a streak by just recording
                         modalVisible={completeCameraModal}
                         setVisible={setCompleteCameraModal}
                         onHideModal={() => {

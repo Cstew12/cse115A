@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   top: {
-    flex: 1,
+    flex: 1.2,
   },
   bottom: {
     flex: 7,

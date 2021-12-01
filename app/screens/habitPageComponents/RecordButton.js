@@ -1,10 +1,12 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/core';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 
-function RecordButton({title, onPress, marginEnd}) {
-    const navigation = useNavigation();
-
+function RecordButton({
+    title, // Title of the button
+    onPress, // What happens when the button is pressed (function)
+    marginEnd // Margin from the bottom or end of the flex
+}) {
+    
     return (
         <Button
             title={title}

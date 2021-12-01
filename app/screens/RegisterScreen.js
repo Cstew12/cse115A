@@ -33,6 +33,7 @@ const RegisterPage = () => {
       lastName: lastName,
       username: username,
       password: password, 
+      profilepic: '',
     };
      auth  
         .createUserWithEmailAndPassword(email, password)

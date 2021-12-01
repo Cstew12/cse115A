@@ -60,7 +60,7 @@ function FriendsProfileScreen({route}) {
                         rounded 
                         size="xlarge" 
                         title={initials}
-                        source={{uri: uri !== undefined ? uri : null}}
+                        source={{uri: uri !== '' ? uri : null}}
                         containerStyle={{
                             backgroundColor: "lightgray",
                             marginTop: -15

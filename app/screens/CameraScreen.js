@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button,Image } from 'react-native';
 import { Camera } from 'expo-camera';
+import {store, auth, db} from "../../firebase";
 import { useNavigation } from '@react-navigation/core';
 
 
@@ -11,6 +12,54 @@ function CameraScreen({route}) {
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [disable, setDisable] = useState(false);
+  const currUID = auth.currentUser.uid; 
+
+  const saveURIToUserProfile = () => {
+    const imageRef = store.ref(
+        "/" + currUID + "/" + habitName + "/profile"
+    );
+    imageRef
+        .getDownloadURL()
+        .then((url) => {
+            db
+            .collection(currUID)
+            .doc('user profile')
+            .update({profilepic: url})
+            .then(() => {
+                console.log('saved');
+            })
+        })
+        .catch((error) => alert(error.message)); // error while downloading the image
+}
+
+const uploadImage = async () => {
+    console.log("save: " + habitName)
+    setDisable(true);
+    let childPath;
+    if(habitName === 'profile_picture') {
+        // if we are storing the user's profile image, save it under the filename 'profile'
+        // everytime they take a new picture, the file will overwrite with the new image
+        childPath = `${currUID}/${habitName}/profile`;
+    } else {
+        childPath = `${auth.currentUser.uid}/${habitName}/${Date()}`;
+    }
+    const response = await fetch(image);
+    const blob = await response.blob();
+
+    /* Save the image into Storage and navigate to the profile page on success */
+    store
+        .ref()
+        .child(childPath)
+        .put(blob)
+        .then( () => {
+            navigation.navigate("Profile"); 
+            if(habitName === 'profile_picture') {
+                saveURIToUserProfile();
+            }              
+        }).catch((e) => console.log("uploading image error =>", e));
+}
+
 
   useEffect(() => {
     (async () => {
@@ -59,7 +108,10 @@ function CameraScreen({route}) {
       </Camera>
      
       <Button title="Take Picture" onPress={() => takePicture()} />
-      <Button title="Save" onPress={() => navigation.navigate('Save', { uri:image, habitName: habitName})} />
+      <Button title="Save" disabled={disable} 
+        onPress={() => {
+          uploadImage()}} 
+      />
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
      
       

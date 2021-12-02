@@ -1,17 +1,9 @@
-import firebase from 'firebase/app'; // works for ios and web
-// import * as firebase from "./node_modules/firebase/firebase";
-// import  "./node_modules/firebase/firestore";
-import "firebase/firestore"; // works for ios and web
-import "firebase/auth"; // works for ios and web
-
-// import * as firebase from "firebase";
-
-//import * as firebase from "./node_modules/firebase/firebase";
-
+import firebase from 'firebase/app'; 
+import "firebase/firestore"; 
+import "firebase/auth"; 
 import "firebase/storage";
 
-
-
+// Project API configurations - do not touch!
 const firebaseConfig = {
   apiKey: "AIzaSyBawtSOjHF2loaPq4nXXu8FLU43qzCtJ2s",
   authDomain: "routeam-c901f.firebaseapp.com",
@@ -22,8 +14,7 @@ const firebaseConfig = {
   measurementId: "G-0Z0K3NXW4Z"
 };
 
-/* Initialize Firebase applications */
-
+// Initialize Firebase applications 
 let app;
 if (firebase.apps.length === 0) {
     app = firebase.initializeApp(firebaseConfig);

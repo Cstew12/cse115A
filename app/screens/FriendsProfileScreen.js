@@ -67,12 +67,15 @@ function FriendsProfileScreen({route}) {
                         }}
                     />
                 </View>
-                <View style={{flex: 1, alignItems: 'center', flexDirection: 'column',}}>
+                <View style={{flex: 1.3, alignItems: 'center', flexDirection: 'column'}}>
                     <Text style={styles.name}>
                         {name}
                     </Text>
                     <Text style={styles.username}>
                         {userName}
+                    </Text>
+                    <Text style={styles.habitTitle}>
+                        Habits
                     </Text>
                 </View>
             </View>
@@ -103,18 +106,24 @@ const styles = StyleSheet.create({
     },
     name: {
         fontFamily: 'AvenirNext-Medium',
-        color: '#9c9c9c',
+        color: '#82f591',
         fontSize: 20,
-        marginTop: 5,
+        marginTop: -45,
     },
     username: {
         fontFamily: 'AvenirNext-Medium',
-        color: '#9c9c9c',
+        color: '#82f591',
         fontSize: 14,
         marginTop: -5
     },
+    habitTitle: {
+        fontFamily: 'AvenirNext-Medium',
+        color: '#82f591',
+        fontSize: 35,
+        marginTop: 38,
+    },
     bottom : {
-        flex: 3
+        flex: 2.5
     },
     habitContainer: {
         flex: 1,

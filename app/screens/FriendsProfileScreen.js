@@ -5,7 +5,6 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 import { useNavigation } from '@react-navigation/core';
 import {db} from "../../firebase";
 import GalleryButton from './friendProfileComponents/GalleryButton';
-import {Icon} from 'react-native-elements';
 import FriendsButton from './profileComponents/FriendsButton';
 
 function FriendsProfileScreen({route}) {
@@ -46,7 +45,7 @@ function FriendsProfileScreen({route}) {
     }, []);
     
     const renderItem = ({ item }) => (
-        <GalleryButton title={item.habitName} friendUID={route.params.FriendUID}/>
+        <GalleryButton title={item.habitName} data={item} friendUID={route.params.FriendUID}/>
     );
 
     return (

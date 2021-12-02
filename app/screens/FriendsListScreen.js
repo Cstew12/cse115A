@@ -184,7 +184,7 @@ const FriendsList = ({route}) => {
                                 size='medium'
                                 //currently just shows the initials of the user
                                 title={item.initials}
-                                source={{uri: item.uri}}
+                                source={{uri: item.uri !== '' ? item.uri : null}}
                                 containerStyle={{
                                     backgroundColor: "#82f591",
                                 }}

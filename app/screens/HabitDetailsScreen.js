@@ -98,7 +98,7 @@ const HabitPage = ({route}) => {
         <View style={styles.container}>
 
             <View style={styles.top}>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                     <BackButton
                         destination='Profile'
                         iconColor='white'
@@ -113,7 +113,7 @@ const HabitPage = ({route}) => {
                             <Icon
                                 name="trash"
                                 size={28}
-                                color='#9c9c9c'
+                                color='white'
                             />
                         }
 
@@ -122,7 +122,7 @@ const HabitPage = ({route}) => {
                             height: 50,
                             width: 70,
                             marginBottom: 90,
-                            marginHorizontal: 204,
+                            marginRight: 10,
                                 }}
 
                         //Deletes current habit and navigates back to profile page onPress

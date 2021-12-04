@@ -4,7 +4,7 @@ import { auth} from "../../firebase";
 import {db} from "../../firebase";
 import "firebase/firestore";
 import firebase from 'firebase/app';
-import {SliderComponent, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import {Button, Input, LinearProgress} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/FontAwesome';

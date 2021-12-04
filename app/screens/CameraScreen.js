@@ -35,7 +35,6 @@ function CameraScreen({route}) {
 
 const uploadImage = async () => {
     console.log("save: " + habitName)
-    //setDisable(true);
     let childPath;
     if(habitName === 'profile_picture') {
         // if we are storing the user's profile image, save it under the filename 'profile'
@@ -79,7 +78,6 @@ const uploadImage = async () => {
     if (camera) {
       const data = await camera.takePictureAsync(null);
       setImage(data.uri);
-      //console.log(data.uri);
     }
   }
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 
+// Button to update the frequency of times habit is performed. 
 function PeriodButton(props) {
     return (
         <Button

@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 
+// A commonly used screen layout
 function ScreenLayout(props) {
     const navigation = useNavigation();
     return (

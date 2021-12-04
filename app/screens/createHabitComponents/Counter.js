@@ -1,7 +1,14 @@
 import React from 'react';
-import {Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+/*
+* Component where user can click plus or minus to increase or decrease count. 
+* Used for frequency. 
+* Min: The starting point of the counter and minimum it can decrease to. 
+* Max: The max point the counter can inscrease to. 
+* currentCount, setCount: stateful variable.
+*/
 function Counter({currentCount, min, max, setCount}) {
     const decreaseLength = () => {
         if(currentCount === min) {

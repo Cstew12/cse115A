@@ -1,8 +1,8 @@
-import { useLinkProps } from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, View } from 'react-native';
 import {Input} from 'react-native-elements';
 
+// Input field for the habit name
 function HabitInput(props) {
     return (
         <View style={styles.options}>

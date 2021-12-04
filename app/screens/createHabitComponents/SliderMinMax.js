@@ -1,6 +1,8 @@
 import React from 'react';
 import { Slider } from 'react-native-elements';
 
+// Slider with min and max values. Value is stored in currVal param.
+// Thumb is a boolean to choose whether or not thumb should exist
 function SliderMinMax({currVal, setCurrVal, min, max, color, thumb, margin}) {
 
     return (

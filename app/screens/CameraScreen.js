@@ -12,7 +12,6 @@ function CameraScreen({route}) {
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [disable, setDisable] = useState(false);
   const currUID = auth.currentUser.uid; 
 
   const saveURIToUserProfile = () => {
